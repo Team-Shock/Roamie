@@ -9,19 +9,21 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import Axios from 'axios';
 import { styles } from '../Styles/styles'
 import { Trip } from './Trip'
+// import { PostgresWrapper } from '../postgres/postgres'
+import Axios from 'axios';
 
 export class Trips extends Component {
     constructor(){
         super()
         this.state = {
-            trips: [{name:'hi'}]
+            trips: [{id: 1, name:'hi'}]
         }
     }
     async componentDidMount(){
-        const {data} = await Axios.get('/api/trips')
+        const instance = await Axios.create({baseURL: 'http://localhost:8080'})
+        const {data} = await instance.get('/api/trips')
         this.setState({trips: data})
     }
     render() {

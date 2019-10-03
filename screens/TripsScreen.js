@@ -19,5 +19,5 @@ export default function TripsScreen() {
 }
 
 TripsScreen.navigationOptions = {
-  title: 'app.json',
+  title: 'My Trips',
 };

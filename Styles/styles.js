@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     },
     listcontainer: {
       ...StyleSheet.absoluteFill,
-      height: 500,
+      height: 700,
       width: 400,
     },
     neweventcontainer : {

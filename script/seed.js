@@ -6,15 +6,15 @@ const {Trip, User} = require('../server/db/models')
 // feel free to edit these or add your own!
 const trips = [
   {
-    name: 'Trip 1',
+    name: 'Barcelona Trip with Friends',
     imageUrl:
-      'https://www.blippo.com/media/catalog/product/cache/4/thumbnail/65x/040ec09b1e35df139433887a97daa66f/2/0/20190829_050.jpg',
+      'https://cdn.cnn.com/cnnnext/dam/assets/170706113411-spain.jpg',
     sharingUrl: ''
   },
   {
-    name: 'Trip 2',
+    name: 'Costa Rica with Family',
     imageUrl:
-      'https://www.blippo.com/media/catalog/product/cache/4/thumbnail/65x/040ec09b1e35df139433887a97daa66f/2/0/20190717_021.jpg',
+    'http://amp.entercostarica.com/images/auto-sized/new_ecr/680x340/pages/18-costa-rica-volcanoes.jpg',
     sharingUrl: ''
   }
 ]

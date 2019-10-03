@@ -1,20 +1,17 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet, Button } from 'react-native';
+import { Text, View, Image, StyleSheet, Button, ImageBackground} from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { tsMethodSignature } from '@babel/types';
 
 export function Trip(props) {
   return (
     <View style={styles.postContainer}>
-      <View style={styles.container}>
-        <Image
-          style={{ width: 50, height: 50, borderRadius: 25 }}
-          source={{ uri: props.tripInfo.imageUrl}} />
-
-        <View style={styles.dateUserContainer}>
+      <ImageBackground source={{uri: props.tripInfo.imageUrl}} style={{width: '100%', height: '100%'}}>
+          <View >
             <Text style={styles.eventTitle}>{props.tripInfo.name}</Text>
-        </View>
-      </View>
-      </View>
+          </View>	              
+      </ImageBackground>
+    </View>
   );
 }
 
@@ -24,12 +21,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomColor: '#dadada',
     borderBottomWidth: 1,
+    height: 400
   }, 
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
   username: {
     fontSize: 18,
     fontWeight: 'bold',
