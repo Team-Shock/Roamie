@@ -1,6 +1,6 @@
-const { green, red } = require("chalk");
-const db = require("../server/db");
-const { Trip, User } = require("../server/db/models");
+const {green, red} = require('chalk')
+const db = require('../server/db')
+const {Trip, User, Place} = require('../server/db/models')
 
 // here's some sample candies to get you started
 // feel free to edit these or add your own!
@@ -18,9 +18,14 @@ const trips = [
   },
   {
     name: "Naoshima Solo Trip",
-    imageUrl:
-      "https://photos.smugmug.com/Kyoto/Naoshima/i-pqm9V63/0/a0e01e81/L/shutterstock_568757074-L.jpg",
-    sharingUrl: ""
+    imageUrl: 'https://photos.smugmug.com/Kyoto/Naoshima/i-pqm9V63/0/a0e01e81/L/shutterstock_568757074-L.jpg',
+    sharingUrl: "",
+    startDate: '2019-09-15 04:05:02',
+    endDate: '2019-09-20 14:15:00',
+    startLocation: 'Carrer de Mallorca, 401, 08013 Barcelona, Spain',
+    endLocation: 'Parc de la Ciutadella, 08003 Barcelona, Spain',
+    sharingUrl: '',
+    status: 'complete'
   },
   {
     name: "Dumbo Date Night",
@@ -32,7 +37,39 @@ const trips = [
     name: "Red Rocks Climbing Trip",
     imageUrl:
       "https://www.mountainphotography.com/images/xl/20180317-Red-Rock-Canyon-Sunrise.jpg",
-    sharingUrl: ""
+    sharingUrl: "",
+    'http://amp.entercostarica.com/images/auto-sized/new_ecr/680x340/pages/18-costa-rica-volcanoes.jpg',
+    startDate: '2019-07-15 04:05:02',
+    endDate: '2019-07-20 14:15:00',
+    startLocation: 'Calle Central Alfredo Volio, Merced, San José Province, San José, Costa Rica',
+    endLocation: 'Guanacaste Province, Playa Hermosa, Costa Rica',
+    sharingUrl: '',
+    status: 'complete'
+  }
+]
+
+const places = [
+  {
+    name: 'Restaurante Silvestre',
+    imageUrl: '',
+    description: '',
+    date: '2019-07-16 12:00:00',
+    locationAddress:
+    'Ave. 11 Calle 3A - 955, Barrio Amón, Amón, San José Province, San José, 10101, Costa Rica',
+    locationLat: '9.938935',
+    locationLong: '-84.076361',
+    visibility: 'true'
+  },
+  {
+    name: 'Onna Cafe',
+    imageUrl: '',
+    description: '',
+    date: '2019-09-16 12:00:00',
+    locationAddress:
+    'Carrer de Santa Teresa, 1, 08012 Barcelona, Spain',
+    locationLat: '41.400135',
+    locationLong: '2.159935',
+    visibility: 'true'
   }
 ];
 
@@ -41,15 +78,21 @@ async function seed() {
   console.log("db synced!");
 
   const users = await Promise.all([
-    User.create({ email: "cody@email.com", password: "123" }),
-    User.create({ email: "murphy@email.com", password: "123" })
-  ]);
+    User.create({name: 'Shiba Doo', email: 'shiba@email.com', password: '123'}),
+    User.create({name: 'Cody', email: 'cody@email.com', password: '123'})
+  ])
 
   await Promise.all(
     trips.map(trip => {
       return Trip.create(trip);
     })
-  );
+  )
+
+  await Promise.all(
+    places.map(place => {
+      return Place.create(place)
+    })
+  )
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${trips.length} trips`);

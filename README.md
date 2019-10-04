@@ -49,7 +49,7 @@ _Tier 1: Choose Your Own Adventure_
     
 # How to run
 Start local server
-npm run start-dev
+npm run start-server
 
 Start React Native Application
 npm run start
