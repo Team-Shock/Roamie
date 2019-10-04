@@ -15,10 +15,11 @@ const Place = db.define('place', {
       'https://staceylarsen.typepad.com/.a/6a015390d3bc08970b016768711edf970b-pi'
   },
   description: {
-    type: Sequelize.DATE
+    type: Sequelize.TEXT,
   },
   date: {
-    type: Sequelize.DATE
+    type: Sequelize.DATE,
+    defaultValue:new Date()
   },
   locationAddress: {
     type: Sequelize.STRING

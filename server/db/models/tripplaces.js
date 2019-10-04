@@ -13,7 +13,8 @@ const TripPlaces = db.define('tripplaces', {
         type: Sequelize.TEXT
     },
     date: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: new Date()
     },
     //to be expanded
     photos: {

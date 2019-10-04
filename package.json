@@ -10,7 +10,7 @@
     "start-server": "node server/index.js",
     "test": "jest --watchAll",
     "seed": "node script/seed.js",
-    "both": "npm run start-server && expo start"
+    "both": "npm run start-server && npm run start"
   },
   "jest": {
     "preset": "jest-expo"
@@ -42,8 +42,7 @@
     "react-native-web": "^0.11.7",
     "react-navigation": "^3.12.0",
     "sequelize": "^5.19.2",
-    "socket.io": "^2.2.0",
-    "yelp-fusion": "^3.0.0"
+    "socket.io": "^2.2.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^7.0.0",
