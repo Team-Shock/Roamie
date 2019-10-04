@@ -42,3 +42,16 @@ _Tier 1: Choose Your Own Adventure_
     _Tier 3: Socializing_
     * Multi-user trips
     * Lambdas for saving daily weather data
+    
+    
+    
+    
+    
+# How to run
+Start local server
+npm run start-dev
+
+Start React Native Application
+npm run start
+
+Press 'i' to run on XCode IOS simulator or scan QR barcode to launch on phone
