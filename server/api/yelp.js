@@ -6,11 +6,11 @@ const axios = require('axios');
 
 // module.export = client;
 
-// router.get('/', async (req, res, next) => {
-//     try(
-//         axios.get()
-//     )
-// });
+router.get('/', async (req, res, next) => {
+    try(
+        axios.get()
+    )
+});
 
 export default axios.create({
   baseURL: 'https://api.yelp.com/v3/businesses',

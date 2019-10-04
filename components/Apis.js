@@ -50,23 +50,42 @@
 // }
 
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import axios from 'axios';
-import { yelpKey } from '../secrets';
+// import { yelpKey } from '../secrets';
 
 const config = {
-  headers: { Authorization: yelpKey },
+  headers: {
+    Authorization:
+      'wqK7j8NkZ3YCzw85lbV9ZgWS5OMEqxSdI12nVPUjFFGiTKBy_QQYYmw_xgDXGaKvP4dA7mCk0QEEaQrJlaTBlCLLscrkDtX2iFjwb0eAxuw59S9PEUqL4J_E_c2UXXYx',
+  },
   params: {
     term: 'tacos',
     location: 'san francisco, ca',
   },
 };
 
-export default class App extends Component {
-  componentWillMount() {
-    axios
-      .get('https://api.yelp.com/v3/businesses/search', config)
-      .then(response => console.log(response));
+export class Apis extends Component {
+  constructor() {
+    super();
+  }
+  async componentDidMount() {
+    const request = await axios
+      .get('https://api.yelp.com/v3/businesses/search', {
+        headers: {
+          Authorization:
+            'Bearer wqK7j8NkZ3YCzw85lbV9ZgWS5OMEqxSdI12nVPUjFFGiTKBy_QQYYmw_xgDXGaKvP4dA7mCk0QEEaQrJlaTBlCLLscrkDtX2iFjwb0eAxuw59S9PEUqL4J_E_c2UXXYx',
+        },
+        params: {
+          term: 'tacos',
+          location: 'san francisco, ca',
+        },
+      })
+      .then(response => {
+        console.log(response);
+        return response;
+      })
+      .catch(error => console.log(error));
   }
 
   render() {
