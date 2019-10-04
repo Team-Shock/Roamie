@@ -17,7 +17,7 @@ const TripPlaces = db.define('tripplaces', {
     },
     //to be expanded
     photos: {
-        type: Sequelize.STRING
+        type: Sequelize.ARRAY(Sequelize.STRING)
     }
 })
 

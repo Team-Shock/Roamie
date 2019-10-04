@@ -30,7 +30,7 @@ Place.belongsToMany(Trip, {through: TripPlaces})
 module.exports = {
   User,
   Trip,
-  Places,
+  Place,
   Preferences,
   TripPlaces
 
