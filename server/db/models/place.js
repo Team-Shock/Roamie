@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Trip = db.define('trip', {
+const Place = db.define('place', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -12,30 +12,26 @@ const Trip = db.define('trip', {
   imageUrl: {
     type: Sequelize.STRING,
     defaultValue:
-      'https://i.pinimg.com/originals/25/37/1c/25371c9b92aabb4ba74ea434a30b78fa.jpg'
+      'https://staceylarsen.typepad.com/.a/6a015390d3bc08970b016768711edf970b-pi'
   },
-  startDate: {
+  description: {
     type: Sequelize.DATE
   },
-  endDate: {
+  date: {
     type: Sequelize.DATE
   },
-  startLocation: {
+  locationAddress: {
     type: Sequelize.STRING
   },
-  endLocation: {
+  locationLat: {
     type: Sequelize.STRING
   },
-  sharingUrl: {
+  locationLong: {
     type: Sequelize.STRING
   },
-  status : {
-    type : Sequelize.STRING,
-    defaultValue: 'in progress',
-    validate : {
-      isIn: [['in progress', 'complete']]
-    }
+  visibility: {
+    type: Sequelize.BOOLEAN
   }
 })
 
-module.exports = Trip
+module.exports = Place
