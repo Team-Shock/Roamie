@@ -1,21 +1,14 @@
-import React from "react";
-import { ExpoConfigView } from "@expo/samples";
-import { Trips } from "../components/Trips";
-import { View } from "react-native";
+import React, { Component } from "react";
+import { StyleSheet, Text, View, Image, Button } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "../Styles/styles";
 
-export default function SettingsScreen() {
-  /**
-   * Go ahead and delete ExpoConfigView and replace it with your content;
-   * we just wanted to give you a quick view of your config.
-   */
-  return (
-    <View style={styles.screenContainer}>
-      <Trips />
-    </View>
-  );
+export default class SettingsScreen extends Component {
+  render() {
+    return (
+      <View style={styles.loginContainer}>
+        <Text style={styles.loginText}>Settings will go here</Text>
+      </View>
+    );
+  }
 }
-
-SettingsScreen.navigationOptions = {
-  title: "app.json"
-};

@@ -123,7 +123,7 @@ SettingsStack.path = "";
 const tabNavigator = createBottomTabNavigator({
   LoginStack,
   CurrentTripStack,
-  HomeStack,
+  // HomeStack,
   TripsStack,
   SettingsStack
 });

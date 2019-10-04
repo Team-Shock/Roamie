@@ -145,8 +145,7 @@ export const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject
   },
   mapcontainer: {
-    ...StyleSheet.absoluteFillObject,
-    height: 650,
+    height: 550,
     width: 400,
     justifyContent: "flex-end",
     alignItems: "center",
