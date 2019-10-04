@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AppNavigator from './navigation/AppNavigator';
-
+import { PostgressWrapper } from './postgres/postgres'
 export default function App(props) {
 
   const [isLoadingComplete, setLoadingComplete] = useState(false);

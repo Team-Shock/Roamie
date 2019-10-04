@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { styles } from '../Styles/styles'
 import { Trip } from './Trip'
-// import { PostgresWrapper } from '../postgres/postgres'
+import { PostgresWrapper } from '../postgres/postgres'
 import Axios from 'axios';
 
 export class Trips extends Component {
@@ -22,8 +22,8 @@ export class Trips extends Component {
         }
     }
     async componentDidMount(){
-        const instance = await Axios.create({baseURL: 'http://localhost:8080'})
-        const {data} = await instance.get('/api/trips')
+        const instance = await PostgresWrapper.getInstance();
+        const { data } = await instance.get('/api/trips')
         this.setState({trips: data})
     }
     render() {
