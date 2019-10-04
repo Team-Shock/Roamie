@@ -3,8 +3,8 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": "https://gb-p42.anonymous.roamie.exp.direct",
-  "packagerNgrokUrl": "https://packager.gb-p42.anonymous.roamie.exp.direct",
-  "ngrokPid": 5583,
+  "expoServerNgrokUrl": "https://t4-ndq.anonymous.roamie.exp.direct",
+  "packagerNgrokUrl": "https://packager.t4-ndq.anonymous.roamie.exp.direct",
+  "ngrokPid": 2399,
   "webpackServerPort": null
 }
