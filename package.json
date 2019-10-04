@@ -9,7 +9,8 @@
     "eject": "expo eject",
     "start-server": "node server/index.js",
     "test": "jest --watchAll",
-    "seed": "node script/seed.js"
+    "seed": "node script/seed.js",
+    "both": "npm run start-server && expo start"
   },
   "jest": {
     "preset": "jest-expo"
