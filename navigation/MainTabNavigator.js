@@ -10,6 +10,7 @@ import HomeScreen from "../screens/HomeScreen";
 import TripsScreen from "../screens/TripsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import LoginScreen from "../screens/LoginScreen";
+import CurrentTripScreen from "../screens/CurrentTripScreen";
 
 const config = Platform.select({
   web: { headerMode: "screen" },
@@ -39,6 +40,25 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = "";
 
+const CurrentTripStack = createStackNavigator(
+  {
+    CurrentTrip: CurrentTripScreen
+  },
+  config
+);
+
+CurrentTripStack.navigationOptions = {
+  tabBarLabel: "Current Trip",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? `ios-globe` : "md-globe"}
+    />
+  )
+};
+
+CurrentTripStack.path = "";
+
 const TripsStack = createStackNavigator(
   {
     Trips: TripsScreen
@@ -51,7 +71,7 @@ TripsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
+      name={Platform.OS === "ios" ? "ios-filing" : "ios-link"}
     />
   )
 };
@@ -70,7 +90,11 @@ LoginStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
+      name={
+        Platform.OS === "ios"
+          ? `ios-information-circle${focused ? "" : "-outline"}`
+          : "md-information-circle"
+      }
     />
   )
 };
@@ -97,9 +121,10 @@ SettingsStack.navigationOptions = {
 SettingsStack.path = "";
 
 const tabNavigator = createBottomTabNavigator({
+  LoginStack,
+  CurrentTripStack,
   HomeStack,
   TripsStack,
-  LoginStack,
   SettingsStack
 });
 
