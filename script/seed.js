@@ -6,9 +6,20 @@ const {Trip, User, Place} = require('../server/db/models')
 // feel free to edit these or add your own!
 const trips = [
   {
-    name: 'Barcelona Trip with Friends',
+    name: "Barcelona Trip with Friends",
+    imageUrl: "https://cdn.cnn.com/cnnnext/dam/assets/170706113411-spain.jpg",
+    sharingUrl: ""
+  },
+  {
+    name: "Costa Rica with Family",
     imageUrl:
-      'https://cdn.cnn.com/cnnnext/dam/assets/170706113411-spain.jpg',
+      "http://amp.entercostarica.com/images/auto-sized/new_ecr/680x340/pages/18-costa-rica-volcanoes.jpg",
+    sharingUrl: ""
+  },
+  {
+    name: "Naoshima Solo Trip",
+    imageUrl: 'https://photos.smugmug.com/Kyoto/Naoshima/i-pqm9V63/0/a0e01e81/L/shutterstock_568757074-L.jpg',
+    sharingUrl: "",
     startDate: '2019-09-15 04:05:02',
     endDate: '2019-09-20 14:15:00',
     startLocation: 'Carrer de Mallorca, 401, 08013 Barcelona, Spain',
@@ -17,8 +28,16 @@ const trips = [
     status: 'complete'
   },
   {
-    name: 'Costa Rica with Family',
+    name: "Dumbo Date Night",
     imageUrl:
+      "http://blog.newyorkpass.com/wp-content/uploads/2017/03/Brooklyn_-_The_Dumbo_View-wikipedia.jpg",
+    sharingUrl: ""
+  },
+  {
+    name: "Red Rocks Climbing Trip",
+    imageUrl:
+      "https://www.mountainphotography.com/images/xl/20180317-Red-Rock-Canyon-Sunrise.jpg",
+    sharingUrl: "",
     'http://amp.entercostarica.com/images/auto-sized/new_ecr/680x340/pages/18-costa-rica-volcanoes.jpg',
     startDate: '2019-07-15 04:05:02',
     endDate: '2019-07-20 14:15:00',
@@ -52,11 +71,11 @@ const places = [
     locationLong: '2.159935',
     visibility: 'true'
   }
-]
+];
 
 async function seed() {
-  await db.sync({force: true})
-  console.log('db synced!')
+  await db.sync({ force: true });
+  console.log("db synced!");
 
   const users = await Promise.all([
     User.create({name: 'Shiba Doo', email: 'shiba@email.com', password: '123'}),
@@ -65,7 +84,7 @@ async function seed() {
 
   await Promise.all(
     trips.map(trip => {
-      return Trip.create(trip)
+      return Trip.create(trip);
     })
   )
 
@@ -75,29 +94,26 @@ async function seed() {
     })
   )
 
-  // TripPlace.create
+  console.log(`seeded ${users.length} users`);
+  console.log(`seeded ${trips.length} trips`);
 
-
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded ${trips.length} trips`)
-
-  console.log(`seeded successfully`)
+  console.log(`seeded successfully`);
 }
 
 // We've separated the `seed` function from the `runSeed` function.
 // This way we can isolate the error handling and exit trapping.
 // The `seed` function is concerned only with modifying the database.
 async function runSeed() {
-  console.log('seeding...')
+  console.log("seeding...");
   try {
-    await seed()
+    await seed();
   } catch (err) {
-    console.error(err)
-    process.exitCode = 1
+    console.error(err);
+    process.exitCode = 1;
   } finally {
-    console.log('closing db connection')
-    await db.close()
-    console.log('db connection closed')
+    console.log("closing db connection");
+    await db.close();
+    console.log("db connection closed");
   }
 }
 
@@ -105,8 +121,8 @@ async function runSeed() {
 // `Async` functions always return a promise, so we can use `catch` to handle
 // any errors that might occur inside of `seed`.
 if (module === require.main) {
-  runSeed()
+  runSeed();
 }
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed
+module.exports = seed;
