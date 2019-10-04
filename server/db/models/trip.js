@@ -12,13 +12,29 @@ const Trip = db.define('trip', {
   imageUrl: {
     type: Sequelize.STRING,
     defaultValue:
-      'https://tfkru2exl1c11xfih48h8lmg6y-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/image-coming-soon.jpg'
+      'https://i.pinimg.com/originals/25/37/1c/25371c9b92aabb4ba74ea434a30b78fa.jpg'
   },
-//   date: {
-//     type: Sequelize.DATE
-//   },
+  startDate: {
+    type: Sequelize.DATE
+  },
+  endDate: {
+    type: Sequelize.DATE
+  },
+  startLocation: {
+    type: Sequelize.STRING
+  },
+  endLocation: {
+    type: Sequelize.STRING
+  },
   sharingUrl: {
     type: Sequelize.STRING
+  },
+  status : {
+    type : Sequelize.STRING,
+    defaultValue: 'in progress',
+    validate : {
+      isIn: [['in progress', 'complete']]
+    }
   }
 })
 
