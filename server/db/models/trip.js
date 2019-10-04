@@ -15,10 +15,12 @@ const Trip = db.define('trip', {
       'https://i.pinimg.com/originals/25/37/1c/25371c9b92aabb4ba74ea434a30b78fa.jpg'
   },
   startDate: {
-    type: Sequelize.DATE
+    type: Sequelize.DATE,
+    defaultValue: new Date()
   },
   endDate: {
-    type: Sequelize.DATE
+    type: Sequelize.DATE,
+    defaultValue: new Date()
   },
   startLocation: {
     type: Sequelize.STRING
