@@ -53,29 +53,15 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import axios from 'axios';
 // import { yelpKey } from '../secrets';
-
-const config = {
-  headers: {
-    Authorization:
-      'wqK7j8NkZ3YCzw85lbV9ZgWS5OMEqxSdI12nVPUjFFGiTKBy_QQYYmw_xgDXGaKvP4dA7mCk0QEEaQrJlaTBlCLLscrkDtX2iFjwb0eAxuw59S9PEUqL4J_E_c2UXXYx',
-  },
-  params: {
-    term: 'tacos',
-    location: 'san francisco, ca',
-  },
-};
+import yelp from '../server/api/yelp';
 
 export class Apis extends Component {
   constructor() {
     super();
   }
   async componentDidMount() {
-    const request = await axios
-      .get('https://api.yelp.com/v3/businesses/search', {
-        headers: {
-          Authorization:
-            'Bearer wqK7j8NkZ3YCzw85lbV9ZgWS5OMEqxSdI12nVPUjFFGiTKBy_QQYYmw_xgDXGaKvP4dA7mCk0QEEaQrJlaTBlCLLscrkDtX2iFjwb0eAxuw59S9PEUqL4J_E_c2UXXYx',
-        },
+    const request = await yelp
+      .get('/search', {
         params: {
           term: 'tacos',
           location: 'san francisco, ca',
