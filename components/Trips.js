@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import {
   Image,
   Platform,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -28,8 +29,8 @@ export class Trips extends Component {
   render() {
     const trips = this.state.trips;
     return (
-      <View>
-        <ScrollView style={styles.listContainer}>
+      <View style={{ flex: 1 }}>
+        <ScrollView>
           {trips && trips.map(trip => <Trip tripInfo={trip} key={trip.id} />)}
         </ScrollView>
       </View>
