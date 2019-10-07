@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, Image, Button } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "../Styles/styles";
+import LoginForm from "./LoginForm";
 
 export default class Login extends Component {
   render() {
@@ -13,13 +14,18 @@ export default class Login extends Component {
       <View style={styles.loginContainer}>
         <Text style={styles.loginText}>Welcome to Roamie</Text>
         <Image source={logo} style={styles.logo} />
+        <LoginForm />
         <View style={styles.loginButtonContainer}>
-          <Icon.Button name="google" backgroundColor="#ffffff" color="pink">
+          <Icon.Button name="google" backgroundColor="#ffffff" color="#F277C6">
             Login with Google
           </Icon.Button>
         </View>
         <View style={styles.loginButtonContainer}>
-          <Icon.Button name="instagram" backgroundColor="#ffffff" color="pink">
+          <Icon.Button
+            name="instagram"
+            backgroundColor="#ffffff"
+            color="#F277C6"
+          >
             Login with Instagram
           </Icon.Button>
         </View>
