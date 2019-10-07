@@ -145,11 +145,12 @@ export const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   mapcontainer: {
+    // ...StyleSheet.absoluteFillObject,
     height: 550,
     width: 400,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginTop: 60,
+    // marginTop: 60,
   },
 
   navigationFilename: {

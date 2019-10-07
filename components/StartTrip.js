@@ -3,6 +3,7 @@ import axios from 'axios';
 import yelp from '../server/api/yelp';
 import { StyleSheet, Text, View, Image, FlatList, Button } from 'react-native';
 import { styles } from '../Styles/styles';
+import Map from './mapView';
 
 export default class StartTrip extends Component {
   constructor() {
@@ -37,7 +38,7 @@ export default class StartTrip extends Component {
     };
     return (
       <View>
-        <Image source={placeholderMap} style={styles.mapcontainer} />
+        <Map />
         <View style={styles.buttonContainer}>
           <Button style={styles.button} title="Start a Trip" />
         </View>
