@@ -50,9 +50,6 @@ export default class StartTrip extends Component {
               )}
               keyExtractor={item => item.id}
             />
-            {/* {this.state.businesses.map(business => {
-              return <Button style={styles.button} title={item.name} />;
-            })} */}
           </View>
         ) : (
           <View>
