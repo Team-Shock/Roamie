@@ -7,8 +7,13 @@ import { Ionicons } from "@expo/vector-icons";
 import AppNavigator from "./navigation/AppNavigator";
 import { PostgressWrapper } from "./postgres/postgres";
 import { styles } from "./Styles/styles";
+import { FirebaseWrapper } from './firebase/firebase';
+import { firebaseConfig } from './firebase/config';
+
 
 export default function App(props) {
+  FirebaseWrapper.GetInstance().Initialize(firebaseConfig)
+
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
