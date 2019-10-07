@@ -5,58 +5,38 @@ import { styles } from "../Styles/styles";
 import BackgroundButton from "./BackgroundButton";
 
 const preferenceArr = [
-  "coffee",
-  "bar",
-  "lunch",
-  "brunch",
-  "dinner",
-  "$",
-  "$$",
-  "$$$",
-  "outdoors",
-  "cozy",
-  "vegan-friendly",
-  "carnivorous",
-  "family friendly",
-  "romantic"
+  { id: 1, preference: "coffee" },
+  { id: 2, preference: "brunch" },
+  { id: 3, preference: "breakfast" },
+  { id: 4, preference: "dinner" },
+  { id: 5, preference: "$" },
+  { id: 6, preference: "$$" },
+  { id: 7, preference: "$$$" },
+  { id: 8, preference: "family friendly" },
+  { id: 9, preference: "dog friendly" },
+  { id: 10, preference: "romantic" },
+  { id: 11, preference: "laptop friendly" },
+  { id: 12, preference: "indie" },
+  { id: 13, preference: "local favorite" },
+  { id: 14, preference: "ice cream" },
+  { id: 15, preference: "scenic" },
+  { id: 16, preference: "outdoorsy" }
 ];
 
 export default class Preferences extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: props.selected
+      selected: []
     };
-    this.onPress = this.onPress.bind(this);
-    this.makeButtons = this.makeButtons.bind(this);
   }
-
-  onPress = tag => {
-    let selected;
-    if (this.props.isExclusive) {
-      selected = [tag];
-    } else {
-      selected = addOrRemove(this.state.selected, tag);
-    }
-    this.setState({
-      selected
-    });
-  };
-
-  makeButtons() {
-    // this is working off a dummy array for now
-    return preferenceArr.map((tag, i) => {
-      <BackgroundButton
-        onPress={() => {
-          this.onPress(tag);
-        }}
-        key={i}
-        preference={tag}
-      />;
-    });
-  }
-
   render() {
-    return <View style={styles.container}>{this.makeButtons()}</View>;
+    return (
+      <View style={styles.preferencesContainer}>
+        {preferenceArr.map(pref => (
+          <BackgroundButton key={pref.id} preference={pref.preference} />
+        ))}
+      </View>
+    );
   }
 }
