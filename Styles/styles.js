@@ -15,26 +15,26 @@ export const styles = StyleSheet.create({
   },
   backgroundButtonText: {
     fontSize: 18,
-    textAlign: "center",
-    color: "black",
-    fontSize: 16
+    textAlign: 'center',
+    color: 'black',
+    fontSize: 16,
   },
   backgroundButtonTouchable: {
     marginLeft: 4,
     marginRight: 4,
-    marginBottom: 8
+    marginBottom: 8,
   },
   backgroundButtonView: {
-    flexDirection: "row",
+    flexDirection: 'row',
     borderRadius: 23,
-    borderColor: "pink",
+    borderColor: 'pink',
     borderWidth: 2,
-    backgroundColor: "pink",
+    backgroundColor: 'pink',
     height: 46,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingLeft: 16,
-    paddingRight: 16
+    paddingRight: 16,
   },
   button: {
     width: 30,
@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   buttonContainer: {
-    borderColor: "#F277C6",
+    borderColor: '#F277C6',
     borderWidth: 1,
     margin: 10,
     borderRadius: 15,
@@ -127,11 +127,7 @@ export const styles = StyleSheet.create({
     margin: 20,
   },
   loginButtonContainer: {
-<<<<<<< HEAD
-    borderColor: '#fadadd',
-=======
-    borderColor: "#F277C6",
->>>>>>> 467120ab386b28d282d357007c0dcda37c158808
+    borderColor: '#F277C6',
     borderWidth: 1,
     margin: 10,
     padding: 10,
@@ -154,7 +150,7 @@ export const styles = StyleSheet.create({
     height: 200,
     width: 200,
     borderRadius: 100,
-    marginBottom: 15
+    marginBottom: 15,
   },
   loginText: {
     fontSize: 20,
@@ -163,8 +159,8 @@ export const styles = StyleSheet.create({
   },
   maincontainer: {
     flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#ffffff",
+    flexDirection: 'column',
+    backgroundColor: '#ffffff',
     marginTop: 20,
     margin: 10,
     padding: 0,
@@ -190,9 +186,9 @@ export const styles = StyleSheet.create({
   },
   preferencesContainer: {
     flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    padding: 20
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 20,
   },
   rightButtonContainer: {
     paddingRight: 5,
@@ -237,8 +233,8 @@ export const styles = StyleSheet.create({
   tripLogRow: {
     flex: 1,
     width: 300,
-    textAlign: "center",
-    borderColor: "#F277C6",
+    textAlign: 'center',
+    borderColor: '#F277C6',
     borderWidth: 1,
     marginTop: 15,
     color: '#000000',
