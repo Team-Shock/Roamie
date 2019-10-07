@@ -8,8 +8,13 @@ export class PostgresWrapper {
 
   static async getInstance() {
     if (!this.initialized) {
-        this._postgresInstance = await Axios.create({baseURL: 'http://localhost:8080'})
-        this.initialized = true;
+        try{
+          this._postgresInstance = await Axios.create({baseURL: 'http://localhost:8080'})
+          this.initialized = true;
+        }
+        catch{
+          console.log('Unable to create axios instance')
+        }
     }
     else {
       // Already initialized, nothing more to do here
