@@ -8,24 +8,28 @@ const trips = [
   {
     name: "Barcelona Trip with Friends",
     imageUrl: "https://cdn.cnn.com/cnnnext/dam/assets/170706113411-spain.jpg",
-    sharingUrl: ""
+    sharingUrl: "",
+    startLocation: 'Carrer de Mallorca, 401, 08013 Barcelona, Spain',
+    endLocation: 'Parc de la Ciutadella, 08003 Barcelona, Spain',
+    sharingUrl: '',
+    status: 'complete'
   },
   {
     name: "Costa Rica with Family",
     imageUrl:
       "http://amp.entercostarica.com/images/auto-sized/new_ecr/680x340/pages/18-costa-rica-volcanoes.jpg",
-    sharingUrl: ""
+    sharingUrl: "",
+    startDate: '2019-07-15 04:05:02',
+    endDate: '2019-07-20 14:15:00',
+    startLocation: 'Calle Central Alfredo Volio, Merced, San José Province, San José, Costa Rica',
+    endLocation: 'Guanacaste Province, Playa Hermosa, Costa Rica',
+    sharingUrl: '',
+    status: 'complete'
   },
   {
     name: "Naoshima Solo Trip",
     imageUrl: 'https://photos.smugmug.com/Kyoto/Naoshima/i-pqm9V63/0/a0e01e81/L/shutterstock_568757074-L.jpg',
-    sharingUrl: "",
-    startDate: '2019-09-15 04:05:02',
-    endDate: '2019-09-20 14:15:00',
-    startLocation: 'Carrer de Mallorca, 401, 08013 Barcelona, Spain',
-    endLocation: 'Parc de la Ciutadella, 08003 Barcelona, Spain',
-    sharingUrl: '',
-    status: 'complete'
+    sharingUrl: ""
   },
   {
     name: "Dumbo Date Night",
@@ -37,14 +41,7 @@ const trips = [
     name: "Red Rocks Climbing Trip",
     imageUrl:
       "https://www.mountainphotography.com/images/xl/20180317-Red-Rock-Canyon-Sunrise.jpg",
-    sharingUrl: "",
-    'http://amp.entercostarica.com/images/auto-sized/new_ecr/680x340/pages/18-costa-rica-volcanoes.jpg',
-    startDate: '2019-07-15 04:05:02',
-    endDate: '2019-07-20 14:15:00',
-    startLocation: 'Calle Central Alfredo Volio, Merced, San José Province, San José, Costa Rica',
-    endLocation: 'Guanacaste Province, Playa Hermosa, Costa Rica',
-    sharingUrl: '',
-    status: 'complete'
+    sharingUrl: ""
   }
 ]
 
