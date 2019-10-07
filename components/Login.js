@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "../Styles/styles";
 import Expo from "expo"
 import * as Google from 'expo-google-app-auth'
+import {googleAPIConfig} from '../secrets'
 
 export default class Login extends Component {
   constructor(props) {
@@ -12,39 +13,12 @@ export default class Login extends Component {
   }
 
   signIn = async () => {
-
-    const { type, accessToken, user } = await Google.logInAsync({
-      iosClientId: `323507649259-2qu9db15nbstgaij50nq2m7cbqke4p8s.apps.googleusercontent.com`,
-      // androidClientId: `<YOUR_ANDROID_CLIENT_ID_FOR_EXPO>`,
-      // iosStandaloneAppClientId: `<YOUR_IOS_CLIENT_ID>`,
-      // androidStandaloneAppClientId: `<YOUR_ANDROID_CLIENT_ID>`,
-    });
+    const { type, accessToken, user } = await Google.logInAsync(googleAPIConfig);
     
     if (type === 'success') {
       /* `accessToken` is now valid and can be used to get data from the Google API with HTTP requests */
       console.log(user);
     }
-
-
-    // try {
-    //   const result = await Expo.Google.logInAsync({
-    //     iosClientId: "323507649259-njkthh8sk30ls1na07p56ahp2qjpj4dn.apps.googleusercontent.com",
-    //     //iosClientId: YOUR_CLIENT_ID_HERE,  <-- if you use iOS
-    //     scopes: ["profile", "email"]
-    //   })
-    //   if (result.type === "success") {
-    //     this.setState({
-    //       signedIn: true,
-    //       name: result.user.name,
-    //       photoUrl: result.user.photoUrl
-    //     })
-    //   } else {
-    //     console.log("cancelled")
-    //   }
-  
-    // } catch (e) {
-    //   console.log("error", e)
-    // }
   }
 
   render() {

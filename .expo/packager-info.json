@@ -3,8 +3,8 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerNgrokUrl": "https://hm-8mr.anonymous.roamie.exp.direct",
+  "packagerNgrokUrl": "https://packager.hm-8mr.anonymous.roamie.exp.direct",
+  "ngrokPid": 36604,
   "webpackServerPort": null
 }
