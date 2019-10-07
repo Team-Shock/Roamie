@@ -48,39 +48,6 @@ export default class Login extends Component {
             Login with Facebook
           </Icon.Button>
         </View>
-        /*{" "}
-        {this.state.signedIn ? (
-          <View>
-            <Text> Welcome {this.state.name} </Text>
-            <Image source={{ uri: this.state.photoUrl }} />
-          </View>
-        ) : (
-          <View>
-            <View
-              style={styles.loginButtonContainer}
-              onPress={() => this.signIn()}
-            >
-              <Icon.Button
-                name="google"
-                backgroundColor="#ffffff"
-                color="pink"
-                onPress={() => this.signIn()}
-              >
-                Login with Google
-              </Icon.Button>
-            </View>
-            <View style={styles.loginButtonContainer}>
-              <Icon.Button
-                name="facebook"
-                backgroundColor="#ffffff"
-                color="pink"
-              >
-                Login with Facebook
-              </Icon.Button>
-            </View>
-          </View>
-        )}
-        */
       </View>
     );
   }
