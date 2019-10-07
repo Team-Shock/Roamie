@@ -154,10 +154,7 @@ export const styles = StyleSheet.create({
     height: 200,
     width: 200,
     borderRadius: 100,
-<<<<<<< HEAD
-=======
     marginBottom: 15
->>>>>>> 467120ab386b28d282d357007c0dcda37c158808
   },
   loginText: {
     fontSize: 20,
@@ -166,13 +163,8 @@ export const styles = StyleSheet.create({
   },
   maincontainer: {
     flex: 1,
-<<<<<<< HEAD
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-=======
     flexDirection: "column",
     backgroundColor: "#ffffff",
->>>>>>> 467120ab386b28d282d357007c0dcda37c158808
     marginTop: 20,
     margin: 10,
     padding: 0,
@@ -245,13 +237,8 @@ export const styles = StyleSheet.create({
   tripLogRow: {
     flex: 1,
     width: 300,
-<<<<<<< HEAD
-    textAlign: 'center',
-    borderColor: '#fadadd',
-=======
     textAlign: "center",
     borderColor: "#F277C6",
->>>>>>> 467120ab386b28d282d357007c0dcda37c158808
     borderWidth: 1,
     marginTop: 15,
     color: '#000000',
