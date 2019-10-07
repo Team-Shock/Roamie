@@ -13,7 +13,6 @@ import {
 import { styles } from "../Styles/styles";
 import { Trip } from "./Trip";
 import { PostgresWrapper } from "../postgres/postgres";
-import Axios from "axios";
 
 export class Trips extends Component {
   constructor() {
