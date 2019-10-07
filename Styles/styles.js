@@ -13,6 +13,29 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 0,
   },
+  backgroundButtonText: {
+    fontSize: 18,
+    textAlign: "center",
+    color: "black",
+    fontSize: 16
+  },
+  backgroundButtonTouchable: {
+    marginLeft: 4,
+    marginRight: 4,
+    marginBottom: 8
+  },
+  backgroundButtonView: {
+    flexDirection: "row",
+    borderRadius: 23,
+    borderColor: "pink",
+    borderWidth: 2,
+    backgroundColor: "pink",
+    height: 46,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingLeft: 16,
+    paddingRight: 16
+  },
   button: {
     width: 30,
     height: 30,
@@ -172,6 +195,12 @@ export const styles = StyleSheet.create({
   neweventcontainer: {
     margin: 40,
     justifyContent: 'flex-start',
+  },
+  preferencesContainer: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    padding: 20
   },
   rightButtonContainer: {
     paddingRight: 5,

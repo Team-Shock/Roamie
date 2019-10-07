@@ -13,3 +13,6 @@ export default class CurrentTripScreen extends Component {
     );
   }
 }
+CurrentTripScreen.navigationOptions = {
+  title: "Current Trip"
+};
