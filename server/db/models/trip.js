@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
+const Place = require('../models')
 
 const Trip = db.define('trip', {
   name: {
@@ -23,18 +24,26 @@ const Trip = db.define('trip', {
     defaultValue: new Date()
   },
   startLocation: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    references: {
+      model: Place,
+      key: 'id'
+    }
   },
   endLocation: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    references: {
+      model: Place,
+      key: 'id'
+    }
   },
   sharingUrl: {
     type: Sequelize.STRING
   },
-  status : {
-    type : Sequelize.STRING,
+  status: {
+    type: Sequelize.STRING,
     defaultValue: 'in progress',
-    validate : {
+    validate: {
       isIn: [['in progress', 'complete']]
     }
   }
