@@ -1,3 +1,11 @@
-export const googleAPIConfig = {
-  iosClientId: `323507649259-2qu9db15nbstgaij50nq2m7cbqke4p8s.apps.googleusercontent.com`
-};
+
+
+const RDSTokens = {
+  password: 'RoamieShock1907',
+  username: 'postgres',
+  host: 'roamie-db.ccsldvj96dsk.us-east-1.rds.amazonaws.com',
+  port: '5432',
+  database: 'roamie'
+}
+
+module.exports= RDSTokens
