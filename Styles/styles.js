@@ -19,10 +19,9 @@ export const styles = StyleSheet.create({
     resizeMode: "contain"
   },
   buttonContainer: {
-    borderColor: "#fadadd",
+    borderColor: "#F277C6",
     borderWidth: 1,
     margin: 10,
-    padding: 10,
     borderRadius: 15
   },
   codeHighlightText: {
@@ -32,6 +31,10 @@ export const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.05)",
     borderRadius: 3,
     paddingHorizontal: 4
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#ffffff"
   },
   datacontainer: {
     flex: 5
@@ -44,7 +47,10 @@ export const styles = StyleSheet.create({
     textAlign: "center"
   },
   eventTitle: {
-    color: "#ffffff"
+    color: "#000000",
+    textAlign: "center",
+    fontSize: 20,
+    margin: 5
   },
   getStartedContainer: {
     alignItems: "center",
@@ -89,17 +95,49 @@ export const styles = StyleSheet.create({
   listImage: {
     height: 75,
     width: 300,
-    borderRadius: 20
+    zIndex: -1
   },
   listContainer: {
-    ...StyleSheet.absoluteFill,
-    height: 700,
-    width: 400
+    marginHorizontal: 15
+  },
+  loginButton: {
+    margin: 20
+  },
+  loginButtonContainer: {
+    borderColor: "#F277C6",
+    borderWidth: 1,
+    margin: 10,
+    padding: 10,
+    height: 60,
+    width: 220,
+    alignItems: "center",
+    borderRadius: 15
+  },
+  loginContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FFFFFF"
+  },
+  loginIcon: {
+    height: 20,
+    width: 20
+  },
+  logo: {
+    height: 200,
+    width: 200,
+    borderRadius: 100,
+    marginBottom: 15
+  },
+  loginText: {
+    fontSize: 20,
+    textAlign: "center",
+    margin: 20
   },
   maincontainer: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
     marginTop: 20,
     margin: 10,
     padding: 0
@@ -108,8 +146,7 @@ export const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject
   },
   mapcontainer: {
-    ...StyleSheet.absoluteFillObject,
-    height: 650,
+    height: 550,
     width: 400,
     justifyContent: "flex-end",
     alignItems: "center",
@@ -129,7 +166,8 @@ export const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    overflow: "scroll"
   },
   tabBarInfoContainer: {
     position: "absolute",
@@ -166,11 +204,12 @@ export const styles = StyleSheet.create({
     flex: 1,
     width: 300,
     textAlign: "center",
-    borderColor: "#fadadd",
+    borderColor: "#F277C6",
     borderWidth: 1,
     marginTop: 15,
     color: "#000000",
-    borderRadius: 20
+    borderRadius: 20,
+    overflow: "hidden"
   },
   welcomebuttonscontainer: {
     marginTop: 575
