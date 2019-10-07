@@ -21,7 +21,7 @@ router.get('/:tripId', async (req, res, next) => {
   }
 })
 
-router.create('/', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     await Trip.create();
   } catch (err) {
