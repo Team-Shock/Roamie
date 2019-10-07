@@ -22,11 +22,11 @@ export default class Login extends Component {
         </View>
         <View style={styles.loginButtonContainer}>
           <Icon.Button
-            name="instagram"
+            name="facebook"
             backgroundColor="#ffffff"
             color="#F277C6"
           >
-            Login with Instagram
+            Login with Facebook
           </Icon.Button>
         </View>
       </View>
