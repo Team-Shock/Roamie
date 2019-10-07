@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     resizeMode: "contain"
   },
   buttonContainer: {
-    borderColor: "#fadadd",
+    borderColor: "#F277C6",
     borderWidth: 1,
     margin: 10,
     borderRadius: 15
@@ -104,7 +104,7 @@ export const styles = StyleSheet.create({
     margin: 20
   },
   loginButtonContainer: {
-    borderColor: "#fadadd",
+    borderColor: "#F277C6",
     borderWidth: 1,
     margin: 10,
     padding: 10,
@@ -126,7 +126,8 @@ export const styles = StyleSheet.create({
   logo: {
     height: 200,
     width: 200,
-    borderRadius: 100
+    borderRadius: 100,
+    marginBottom: 15
   },
   loginText: {
     fontSize: 20,
@@ -136,7 +137,7 @@ export const styles = StyleSheet.create({
   maincontainer: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
     marginTop: 20,
     margin: 10,
     padding: 0
@@ -203,7 +204,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     width: 300,
     textAlign: "center",
-    borderColor: "#fadadd",
+    borderColor: "#F277C6",
     borderWidth: 1,
     marginTop: 15,
     color: "#000000",
