@@ -17,10 +17,6 @@ const Place = db.define('place', {
   description: {
     type: Sequelize.TEXT,
   },
-  date: {
-    type: Sequelize.DATE,
-    defaultValue:new Date()
-  },
   locationAddress: {
     type: Sequelize.STRING
   },
