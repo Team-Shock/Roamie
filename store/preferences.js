@@ -24,22 +24,12 @@ const initialState = {
 
 // Action Types
 const GOT_PREFERENCES = "GOT_PREFERENCES";
-const DESELECT_PREFERENCES = "DESELECT_PREFERENCES";
-const SELECT_PREFERENCES = "SELECT_PREFERENCES";
 const SET_PREFERENCES = "SET_PREFERENCES";
 
 // Action Creators
 const gotPreferences = prefs => ({
   type: GOT_PREFERENCES,
   prefs
-});
-const deselectedPreferences = id => ({
-  type: DESELECT_PREFERENCES,
-  id
-});
-const selectedPreferences = id => ({
-  type: SELECT_PREFERENCES,
-  id
 });
 const setThePreferences = preferences => ({
   type: SET_PREFERENCES,
@@ -49,14 +39,6 @@ const setThePreferences = preferences => ({
 // Thunk Creators
 export const getPreferences = prefs => async dispatch => {
   dispatch(gotPreferences(prefs));
-};
-
-export const deselectPref = id => async dispatch => {
-  dispatch(deselectPref(id));
-};
-
-export const selectPref = id => async dispatch => {
-  dispatch(selectPref(id));
 };
 
 export const setPreferences = preferences => async dispatch => {
