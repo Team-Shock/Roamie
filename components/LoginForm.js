@@ -2,7 +2,7 @@ import React from "react";
 import { Text, TextInput, View, Button } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "../Styles/styles";
-import { auth } from "../store/user";
+import { auth } from "../store/user-reducer";
 import {connect} from 'react-redux'
 
 export default class LoginForm extends React.Component {
