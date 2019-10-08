@@ -11,10 +11,10 @@ const database = RDSTokens.database
 const databaseName =
   pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '');
 
-const db = new Sequelize(process.env.DATABASE_URL || `postgres://${username}:${pass}@${host}:${port}/${database}`, {
-  host: host,
-  port: port,
-  logging: false,
+const db = new Sequelize(`postgres://postgres:pass@roamie-db.ccsldvj96dsk.us-east-1.rds.amazonaws.com:5432/roamie`, {
+  // host: host,
+  // port: port,
+  logging: false
   // dialect: 'postgres'
 })
 
