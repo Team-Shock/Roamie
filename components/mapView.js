@@ -5,19 +5,41 @@ import { StyleSheet, Text, View, Image, FlatList, Button } from 'react-native';
 import { styles } from '../Styles/styles';
 
 export default class Map extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      latitude: 40.704385,
+      longitude: -74.009806,
+    };
+  }
+
+  async componentDidMount() {
+    await navigator.geolocation.getCurrentPosition(position => {
+      this.setState({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+    });
+    // console.log(this.state);
+  }
+
   render() {
+    console.log('state:', this.state);
     return (
       <View style={styles.mapcontainer}>
         <MapView
           style={styles.map}
           provider={PROVIDER_GOOGLE}
-          // region={{
-          //   latitude: 42.882004,
-          //   longitude: 74.582748,
-          //   latitudeDelta: 0.0922,
-          //   longitudeDelta: 0.0421,
-          // }}
+          region={{
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
+            latitudeDelta: 2,
+            longitudeDelta: 1,
+          }}
           showsUserLocation={true}
+          followsUserLocation={true}
+          showsMyLocationButton={true}
         />
       </View>
     );

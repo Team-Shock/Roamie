@@ -43,7 +43,7 @@ export default class StartTrip extends Component {
           <Button style={styles.button} title="Start a Trip" />
         </View>
         {this.state.businesses.length ? (
-          <View>
+          <View style={styles.container}>
             <FlatList
               data={this.state.businesses}
               renderItem={({ item }) => (

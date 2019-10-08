@@ -170,7 +170,7 @@ export const styles = StyleSheet.create({
   },
   mapcontainer: {
     // ...StyleSheet.absoluteFillObject,
-    height: 550,
+    height: 400,
     width: 400,
     justifyContent: 'flex-end',
     alignItems: 'center',
