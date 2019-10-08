@@ -15,17 +15,40 @@ export const styles = StyleSheet.create({
   },
   backgroundButtonText: {
     fontSize: 18,
+<<<<<<< HEAD
+    textAlign: "center",
+    color: "#000000",
+    fontSize: 16
+=======
     textAlign: 'center',
     color: 'black',
     fontSize: 16,
+>>>>>>> 2994f9900cdb99ce9370a809351df69bb3a94d58
   },
   backgroundButtonTouchable: {
     marginLeft: 4,
     marginRight: 4,
     marginBottom: 8,
   },
+<<<<<<< HEAD
+  backgroundButtonDeselected: {
+    flexDirection: "row",
+    borderRadius: 23,
+    borderColor: "#dadada",
+    borderWidth: 2,
+    backgroundColor: "#dadada",
+    height: 46,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingLeft: 16,
+    paddingRight: 16
+  },
+  backgroundButtonSelected: {
+    flexDirection: "row",
+=======
   backgroundButtonView: {
     flexDirection: 'row',
+>>>>>>> 2994f9900cdb99ce9370a809351df69bb3a94d58
     borderRadius: 23,
     borderColor: 'pink',
     borderWidth: 2,
@@ -39,13 +62,23 @@ export const styles = StyleSheet.create({
   button: {
     width: 30,
     height: 30,
+<<<<<<< HEAD
+    resizeMode: "contain",
+    color: "#000000"
+=======
     resizeMode: 'contain',
+>>>>>>> 2994f9900cdb99ce9370a809351df69bb3a94d58
   },
   buttonContainer: {
     borderColor: '#F277C6',
     borderWidth: 1,
     margin: 10,
+<<<<<<< HEAD
+    color: "#000000",
+    borderRadius: 15
+=======
     borderRadius: 15,
+>>>>>>> 2994f9900cdb99ce9370a809351df69bb3a94d58
   },
   codeHighlightText: {
     color: 'rgba(96,100,109, 0.8)',
