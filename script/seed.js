@@ -6,7 +6,7 @@ const {Trip, User, Place} = require('../server/db/models')
 // feel free to edit these or add your own!
 const trips = [
   {
-    name: "Barcelona Trip with Friends",
+    name: "Barcelona Trip with Friends and Family",
     imageUrl: "https://cdn.cnn.com/cnnnext/dam/assets/170706113411-spain.jpg",
     sharingUrl: "",
     startLocation: 'Carrer de Mallorca, 401, 08013 Barcelona, Spain',

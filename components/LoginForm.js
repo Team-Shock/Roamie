@@ -1,24 +1,24 @@
-import React from "react";
-import { Text, TextInput, View, Button } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { styles } from "../Styles/styles";
-import { auth } from "../store/user-reducer";
-import {connect} from 'react-redux'
+import React from 'react';
+import { Text, TextInput, View, Button } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { styles } from '../Styles/styles';
+import { auth } from '../store/user-reducer';
+import { connect } from 'react-redux';
 
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { email: "", password: "" };
+    this.state = { email: '', password: '' };
     this.onLogIn = this.onLogIn.bind(this);
     this.onSignUp = this.onSignUp.bind(this);
   }
 
-  onLogIn(){
-    this.props.authUser(this.state.email, this.state.password, 'login')
+  onLogIn() {
+    this.props.authUser(this.state.email, this.state.password, 'login');
   }
 
-  onSignUp(){
-    this.props.authUser(this.state.email, this.state.password, 'signup')
+  onSignUp() {
+    this.props.authUser(this.state.email, this.state.password, 'signup');
   }
   render() {
     return (
@@ -26,7 +26,7 @@ class LoginForm extends React.Component {
         <TextInput
           style={{ height: 40 }}
           placeholder="Your email"
-          onChangeText={email => this.setState({ email })}
+          onChangeText={email => this.setState({ email: email })}
           value={this.state.email}
         />
         <TextInput
@@ -46,6 +46,8 @@ class LoginForm extends React.Component {
           >
             Login
           </Icon.Button>
+       </View>
+       <View style={styles.loginButtonContainer}>
           <Icon.Button
             name="envelope"
             backgroundColor="#ffffff"
@@ -62,8 +64,14 @@ class LoginForm extends React.Component {
   }
 }
 
-const mapDispatchToProp = dispatch => ({
-  authUser: (email, password, requestType) => dispatch(auth(email, password, requestType))
-})
+const mapDispatchToProps = dispatch => ({
+  authUser: (email, password, requestType) =>
+    dispatch(auth(email, password, requestType)),
+});
 
-export default connect(null, mapDispatchToProp) (LoginForm)
+const LogInOrSignUp = connect(
+  null,
+  mapDispatchToProps
+)(LoginForm);
+
+export default LogInOrSignUp;

@@ -5,11 +5,15 @@ import { styles } from "../Styles/styles";
 import LoginForm from "./LoginForm";
 import * as Facebook from 'expo-facebook';
 import { auth } from "../store/user-reducer";
+import { connect } from 'react-redux';
 
-export default class Login extends Component {npm 
+class Login extends Component {npm 
   constructor(props) {
     super(props);
-    this.state = { signedIn: false, name: "", photoUrl: "" };
+    this.state = { name: '', email: '' };
+  }
+  onLogIn() {
+    this.props.addOAuthUser(this.state.name, this.state.email);
   }
 
   signInWithFacebook = async () => {
@@ -27,7 +31,10 @@ export default class Login extends Component {npm
         // Get the user's name using Facebook's Graph API
         const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,birthday,picture.type(large)`);
         // console.log(await response.json())
-        Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
+        const res = await response.json();
+        this.setState({name: res.name, email: res.email})
+        this.onLogIn(name, email)
+        Alert.alert('Logged in!', `Welcome ${res.name}!`);
       } else {
         // type === 'cancel'
       }
@@ -47,11 +54,11 @@ export default class Login extends Component {npm
         <Text style={styles.loginText}>Welcome to Roamie</Text>
         <Image source={logo} style={styles.logo} />
         <LoginForm />
-        <View style={styles.loginButtonContainer}>
+        {/* <View style={styles.loginButtonContainer}>
           <Icon.Button name="google" backgroundColor="#ffffff" color="#F277C6">
             Login with Google
           </Icon.Button>
-        </View>
+        </View> */}
         <View style={styles.loginButtonContainer} >
           <Icon.Button
             name="facebook"
@@ -66,3 +73,16 @@ export default class Login extends Component {npm
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  addOAuthUser: (name, email) =>
+    dispatch(oauth(name, email)),
+});
+
+const LogInOrSignUp = connect(
+  null,
+  mapDispatchToProps
+)(LoginForm);
+
+export default Login;
+
