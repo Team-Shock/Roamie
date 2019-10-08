@@ -1,4 +1,10 @@
 import Axios from 'axios';
+import {RDSTokens} from '../secrets'
+
+const pass = RDSTokens.password
+const username = RDSTokens.username
+const host = RDSTokens.host
+const port = RDSTokens.port
 
 export class PostgresWrapper {
   constructor() {
@@ -9,7 +15,7 @@ export class PostgresWrapper {
   static async getInstance() {
     if (!this.initialized) {
         try{
-          this._postgresInstance = await Axios.create({baseURL: 'http://localhost:8080'})
+          this._postgresInstance = await Axios.create({baseURL: `postgres://${username}:${pass}@${host}:${port}`})
           this.initialized = true;
         }
         catch{
@@ -18,7 +24,7 @@ export class PostgresWrapper {
     }
     else {
       // Already initialized, nothing more to do here
-      
+
     }
 
     return this._postgresInstance;
