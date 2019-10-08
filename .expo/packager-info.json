@@ -2,9 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 52295,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "packagerPid": 53030,
+  "expoServerNgrokUrl": "https://wc-x7z.anonymous.roamie.exp.direct",
+  "packagerNgrokUrl": "https://packager.wc-x7z.anonymous.roamie.exp.direct",
+  "ngrokPid": 53040,
   "webpackServerPort": null
 }

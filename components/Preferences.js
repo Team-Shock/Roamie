@@ -23,7 +23,8 @@ class Preferences extends Component {
   }
 
   async handlePress() {
-    this.props.setPreferences(this.state.preferences);
+    await this.props.setPreferences(this.state.preferences);
+    await this.props.getPreferences();
   }
   render() {
     return (
