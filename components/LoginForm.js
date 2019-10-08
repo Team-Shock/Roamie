@@ -2,13 +2,24 @@ import React from "react";
 import { Text, TextInput, View, Button } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "../Styles/styles";
+import { auth } from "../store/user";
+import {connect} from 'react-redux'
 
 export default class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { email: "", password: "" };
+    this.onLogIn = this.onLogIn.bind(this);
+    this.onSignUp = this.onSignUp.bind(this);
   }
 
+  onLogIn(){
+    this.props.authUser(this.state.email, this.state.password, 'login')
+  }
+
+  onSignUp(){
+    this.props.authUser(this.state.email, this.state.password, 'signup')
+  }
   render() {
     return (
       <View>
@@ -30,13 +41,29 @@ export default class LoginForm extends React.Component {
             backgroundColor="#ffffff"
             color="#F277C6"
             onPress={() => {
-              alert("You are now signed in!");
+              this.onLogIn();
             }}
           >
-            Login with your email
+            Login
+          </Icon.Button>
+          <Icon.Button
+            name="envelope"
+            backgroundColor="#ffffff"
+            color="#F277C6"
+            onPress={() => {
+              this.onSignUp();
+            }}
+          >
+            Sign Up
           </Icon.Button>
         </View>
       </View>
     );
   }
 }
+
+const mapDispatchToPros = dispatch => ({
+  authUser: (email, password, requestType) => dispatch(auth(email, password, requestType))
+})
+
+export const LogInOrSignUp = connect(null, mapDispatchToPros) (LoginForm)

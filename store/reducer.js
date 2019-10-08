@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
 import preferences from "./preferences";
+import user from './user'
 
 const reducer = combineReducers({
-  preferences
+  preferences,
+  user
 });
 
 export default reducer;

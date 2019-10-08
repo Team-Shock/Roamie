@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 41661,
-  "expoServerNgrokUrl": "https://6x-hfx.anonymous.roamie.exp.direct",
-  "packagerNgrokUrl": "https://packager.6x-hfx.anonymous.roamie.exp.direct",
-  "ngrokPid": 41671,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }

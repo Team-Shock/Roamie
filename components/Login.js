@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "../Styles/styles";
 import LoginForm from "./LoginForm";
 import * as Facebook from 'expo-facebook';
-// import * as firebase from 'firebase'
+import { auth } from "../store/user";
 
 export default class Login extends Component {npm 
   constructor(props) {
