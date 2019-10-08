@@ -42,7 +42,6 @@ export const getPreferences = prefs => async dispatch => {
 };
 
 export const setPreferences = preferences => async dispatch => {
-  console.log("PREFERENCES ARE SET", preferences);
   dispatch(setThePreferences(preferences));
   dispatch(gotPreferences(preferences));
 };
