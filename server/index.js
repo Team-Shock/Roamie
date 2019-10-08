@@ -28,7 +28,7 @@ module.exports = app;
  * Node process on process.env
  */
 
-if (process.env.NODE_ENV !== 'production') require('../secrets');
+if (process.env.NODE_ENV !== 'production') require('../client/secrets');
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id));

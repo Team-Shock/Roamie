@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const pkg = require('../../package.json');
-const RDSTokens = require('../../secrets');
+const RDSTokens = require('../../client/secrets');
 
 const pass = RDSTokens.password;
 const username = RDSTokens.username;

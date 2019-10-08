@@ -3,10 +3,18 @@ import { Text, TextInput, View, Button } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "../Styles/styles";
 
-export default class LoginForm extends React.Component {
+class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { email: "", password: "" };
+    this.state = { email: "", password: ""};
+  }
+
+  onLogIn(){
+    auth(this.state.email, this.state.password, 'login')
+  }
+
+  onSignUp(){
+    auth(this.state.email, this.state.password, 'signup')
   }
 
   render() {
@@ -30,13 +38,32 @@ export default class LoginForm extends React.Component {
             backgroundColor="#ffffff"
             color="#F277C6"
             onPress={() => {
-              alert("You are now signed in!");
+              this.onLogIn();
             }}
           >
-            Login with your email
+            Login
+          </Icon.Button>
+          <Icon.Button
+            name="envelope"
+            backgroundColor="#ffffff"
+            color="#F277C6"
+            onPress={() => {
+              this.onSignUp();
+            }}
+          >
+            Sign Up
           </Icon.Button>
         </View>
       </View>
     );
   }
 }
+
+
+
+const mapDispatchToProps = dispatch => ({
+  authUser: (email, password, requestType) => dispatch(auth(email, password, requestType))
+})
+
+export const LoginOrSignUp = connect(null, mapDispatchToProps)(AuthForm)
+
