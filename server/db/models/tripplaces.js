@@ -2,10 +2,10 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const TripPlaces = db.define('tripplaces', {
-    rating : {
-        type : Sequelize.STRING,
+    rating: {
+        type: Sequelize.STRING,
         defaultValue: 'thumbs-up',
-        validate : {
+        validate: {
             isIn: [['thumbs-up', 'thumbs-down']]
         }
     },

@@ -19,7 +19,7 @@ const TripPlaces = require('./tripplaces')
  */
 //A user may have multiple prefences
 Preferences.belongsToMany(User, {through: 'userprefences'})
-User.belongsToMany(Preferences , {through: 'userprefences'})
+User.belongsToMany(Preferences, {through: 'userprefences'})
 
 User.belongsTo(Trip)
 
