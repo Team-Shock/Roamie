@@ -5,7 +5,7 @@ import { styles } from "../Styles/styles";
 import { auth } from "../store/user-reducer";
 import {connect} from 'react-redux'
 
-export default class LoginForm extends React.Component {
+class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { email: "", password: "" };
@@ -62,8 +62,8 @@ export default class LoginForm extends React.Component {
   }
 }
 
-const mapDispatchToPros = dispatch => ({
+const mapDispatchToProp = dispatch => ({
   authUser: (email, password, requestType) => dispatch(auth(email, password, requestType))
 })
 
-export const LogInOrSignUp = connect(null, mapDispatchToPros) (LoginForm)
+export default connect(null, mapDispatchToProp) (LoginForm)
