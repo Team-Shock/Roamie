@@ -15,7 +15,7 @@ export default class Map extends Component {
   }
 
   async componentDidMount() {
-    await navigator.geolocation.getCurrentPosition(position => {
+    await navigator.geolocation.watchPosition(position => {
       this.setState({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,

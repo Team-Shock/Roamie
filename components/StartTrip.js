@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import yelp from '../server/api/yelp';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { StyleSheet, Text, View, Image, FlatList, Button } from 'react-native';
 import { styles } from '../Styles/styles';
 import Map from './mapView';
@@ -10,6 +11,8 @@ export default class StartTrip extends Component {
     super();
     this.state = {
       businesses: [],
+      latitude: 40.704385,
+      longitude: -74.009806,
     };
   }
   async componentDidMount() {
@@ -29,16 +32,33 @@ export default class StartTrip extends Component {
     this.setState({ businesses: request.data.businesses });
     // console.log(request.data.businesses);
     console.log(this.state.businesses[0]);
+    await navigator.geolocation.watchPosition(position => {
+      this.setState({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+    });
   }
 
   render() {
-    let placeholderMap = {
-      uri:
-        'https://media.wired.com/photos/59269cd37034dc5f91bec0f1/master/pass/GoogleMapTA.jpg',
-    };
+    console.log('state:', this.state);
     return (
       <View>
-        <Map />
+        <View style={styles.mapcontainer}>
+          <MapView
+            style={styles.map}
+            provider={PROVIDER_GOOGLE}
+            region={{
+              latitude: this.state.latitude,
+              longitude: this.state.longitude,
+              latitudeDelta: 0.02,
+              longitudeDelta: 0.02,
+            }}
+            showsUserLocation={true}
+            followsUserLocation={true}
+            showsMyLocationButton={true}
+          />
+        </View>
         <View style={styles.buttonContainer}>
           <Button style={styles.button} title="Start a Trip" />
         </View>
