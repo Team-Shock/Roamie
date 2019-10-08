@@ -21,7 +21,13 @@ describe('Trip Places join table', () => {
         tripId: testTrip.id,
         placeId: testPlace.id,
       });
+      let testSearch = await Tripplaces.findAll({
+        where: {
+          tripId: testTrip.id,
+        },
+      });
       expect(testInstance.rating).to.deep.equal('thumbs-up');
+      expect(testSearch[0].placeId).to.equal(testPlace.id);
     }); //end test association
   }); //end describe fields
 }); //end describe model
