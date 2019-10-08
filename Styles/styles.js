@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
   backgroundButtonText: {
     fontSize: 18,
     textAlign: "center",
-    color: "black",
+    color: "#000000",
     fontSize: 16
   },
   backgroundButtonTouchable: {
@@ -24,7 +24,19 @@ export const styles = StyleSheet.create({
     marginRight: 4,
     marginBottom: 8
   },
-  backgroundButtonView: {
+  backgroundButtonDeselected: {
+    flexDirection: "row",
+    borderRadius: 23,
+    borderColor: "#dadada",
+    borderWidth: 2,
+    backgroundColor: "#dadada",
+    height: 46,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingLeft: 16,
+    paddingRight: 16
+  },
+  backgroundButtonSelected: {
     flexDirection: "row",
     borderRadius: 23,
     borderColor: "pink",
@@ -39,12 +51,14 @@ export const styles = StyleSheet.create({
   button: {
     width: 30,
     height: 30,
-    resizeMode: "contain"
+    resizeMode: "contain",
+    color: "#000000"
   },
   buttonContainer: {
     borderColor: "#F277C6",
     borderWidth: 1,
     margin: 10,
+    color: "#000000",
     borderRadius: 15
   },
   codeHighlightText: {
