@@ -8,7 +8,9 @@ import AppNavigator from "./navigation/AppNavigator";
 import { PostgressWrapper } from "./postgres/postgres";
 import { styles } from "./Styles/styles";
 
+
 export default function App(props) {
+
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
