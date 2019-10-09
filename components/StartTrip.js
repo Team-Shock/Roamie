@@ -16,22 +16,14 @@ export default class StartTrip extends Component {
     };
   }
   async componentDidMount() {
-    const request = await yelp
-      .get('/search', {
-        params: {
-          term: 'tacos',
-          location: 'san francisco, ca',
-        },
-      })
-      .then(response => {
-        // console.log(response.data.businesses);
-        this.setState(response.data.businesses);
-        return response;
-      })
-      .catch(error => console.log(error));
-    this.setState({ businesses: request.data.businesses });
-    // console.log(request.data.businesses);
-    console.log(this.state.businesses[0]);
+    const { data } = await yelp.get('/search', {
+      params: {
+        term: 'tacos',
+        location: 'san francisco, ca',
+      },
+    });
+    this.setState({ businesses: data.businesses });
+    // console.log(this.state.businesses[0]);
     await navigator.geolocation.watchPosition(position => {
       this.setState({
         latitude: position.coords.latitude,
@@ -39,6 +31,7 @@ export default class StartTrip extends Component {
       });
     });
   }
+  x;
 
   render() {
     console.log('state:', this.state);
