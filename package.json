@@ -23,6 +23,7 @@
     "chai": "^4.2.0",
     "compression": "^1.7.3",
     "connect-session-sequelize": "^6.0.0",
+    "dotenv": "^8.1.0",
     "expo": "^35.0.0",
     "expo-asset": "^7.0.0",
     "expo-constants": "^7.0.0",

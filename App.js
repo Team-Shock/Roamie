@@ -10,6 +10,7 @@ import { styles } from './Styles/styles';
 import { Provider } from 'react-redux';
 import store from './store/index';
 
+
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
