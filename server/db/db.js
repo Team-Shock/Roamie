@@ -1,23 +1,18 @@
 const Sequelize = require('sequelize');
 const pkg = require('../../package.json');
-const RDSTokens = require('../../secrets');
-
-const pass = RDSTokens.password;
-const username = RDSTokens.username;
-const host = RDSTokens.host;
-const port = RDSTokens.port;
-const database = RDSTokens.database;
+const { pass, username, host, database } = require('../../secrets');
 
 const databaseName =
   pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '');
 
+  //Sequelize initialization using individual variables exported and required from secrets file:
+
 const db = new Sequelize(database, username, pass, {
   host: host,
-  port: port,
+  port: 5432,
+  dialect: 'postgres',
   logging: false,
-  dialect: 'postgres'
-})
-
+});
 
 module.exports = db;
 
