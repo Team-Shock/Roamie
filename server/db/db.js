@@ -1,17 +1,18 @@
 const Sequelize = require('sequelize');
 const pkg = require('../../package.json');
-
-
-
+const { pass, username, host, database } = require('../../secrets');
 
 const databaseName =
   pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '');
 
-const db = new Sequelize(
-  `postgres://postgres:RoamieShock1907@roamie-db.ccsldvj96dsk.us-east-1.rds.amazonaws.com:5432/roamie`,
-  { logging: false }
-);
-//'postgres://postgres:RoamieShock1907@roamie-db.ccsldvj96dsk.us-east-1.rds.amazonaws.com:5432/roamie'
+  //Sequelize initialization using individual variables exported and required from secrets file:
+
+const db = new Sequelize(database, username, pass, {
+  host: host,
+  port: 5432,
+  dialect: 'postgres',
+  logging: false,
+});
 
 module.exports = db;
 
