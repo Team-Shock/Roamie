@@ -4,16 +4,16 @@ module.exports = router;
 
 router.post('/login', async (req, res, next) => {
   try {
-    console.log('REQ BODY', req.body);
-    console.log('QUERY RESULT');
     const data = await User.findAll({ where: { email: req.body.email } });
+
     if (data.length < 1) {
       console.log('No such user found:', req.body.email);
-      res.status(401).send('Wrong username and/or password');
+      res.status(401).send('No account found');
     } else if (!data[0].correctPassword(req.body.password)) {
       console.log('Incorrect password for user:', req.body.email);
-      res.status(401).send('Wrong username and/or password');
+      res.status(401).send('Wrong password!');
     } else {
+      const user = data[0];
       req.login(user, err => (err ? next(err) : res.json(user)));
     }
   } catch (err) {
