@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import yelp from '../server/api/yelp';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { StyleSheet, Text, View, Image, FlatList, Button } from 'react-native';
 import { styles } from '../Styles/styles';
-import Map from './mapView';
+import haversine from 'haversine';
 
 export default class StartTrip extends Component {
   constructor() {
@@ -16,22 +16,20 @@ export default class StartTrip extends Component {
     };
   }
   async componentDidMount() {
-    const { data } = await yelp.get('/search', {
-      params: {
-        term: 'tacos',
-        location: 'san francisco, ca',
-      },
-    });
-    this.setState({ businesses: data.businesses });
-    // console.log(this.state.businesses[0]);
     await navigator.geolocation.watchPosition(position => {
       this.setState({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
       });
     });
+    const { data } = await yelp.get('/search', {
+      params: {
+        latitude: this.state.latitude,
+        longitude: this.state.longitude,
+      },
+    });
+    this.setState({ businesses: data.businesses });
   }
-  x;
 
   render() {
     console.log('state:', this.state);
@@ -50,7 +48,17 @@ export default class StartTrip extends Component {
             showsUserLocation={true}
             followsUserLocation={true}
             showsMyLocationButton={true}
-          />
+          >
+            {this.state.businesses.length > 0
+              ? this.state.businesses.map(business => (
+                  <Marker
+                    coordinate={business.coordinates}
+                    title={business.name}
+                    key={business.id}
+                  />
+                ))
+              : null}
+          </MapView>
         </View>
         <View style={styles.buttonContainer}>
           <Button style={styles.button} title="Start a Trip" />
