@@ -1,9 +1,9 @@
 {
-  "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://vw-b49.anonymous.roamie.exp.direct",
-  "packagerNgrokUrl": "https://packager.vw-b49.anonymous.roamie.exp.direct",
-  "ngrokPid": 59312,
-  "devToolsPort": 19003,
-  "packagerPort": 19002,
-  "packagerPid": 59301
+  "expoServerPort": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "devToolsPort": 19002,
+  "packagerPort": null,
+  "packagerPid": null
 }
