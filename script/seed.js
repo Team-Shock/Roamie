@@ -1,6 +1,6 @@
 const { green, red } = require('chalk');
 const db = require('../server/db');
-const { Trip, User, Place, Preferences } = require('../server/db/models');
+const { Trip, User, Place, Preferences, UserPreferences } = require('../server/db/models');
 const defaultPreferences = require('../utils/defaultPreferences');
 
 //Trips dummy data for development
@@ -90,6 +90,9 @@ async function seed() {
     }),
     User.create({ name: 'Cody', email: 'cody@email.com', password: '123' }),
   ]);
+
+  const userpreferences = await UserPreferences.findAll()
+  console.log(`established ${userpreferences.length} user-preferences`)
 
   await Promise.all(
     trips.map(trip => {
