@@ -1,10 +1,10 @@
 {
-  "devToolsPort": 19003,
+  "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19002,
-  "packagerPid": 16178,
-  "expoServerNgrokUrl": "https://j8-e5k.anonymous.roamie.exp.direct",
-  "packagerNgrokUrl": "https://packager.j8-e5k.anonymous.roamie.exp.direct",
-  "ngrokPid": 16187,
+  "packagerPid": 21338,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }
