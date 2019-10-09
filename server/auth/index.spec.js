@@ -44,4 +44,12 @@ describe('Auth routes', () => {
       expect(res.text).to.deep.equal('Wrong password!');
     });
   }); //end describe login route
+  describe('signup route', () => {
+    it('creates a new User instance from a new email and user', async () => {
+      const res = await request(app)
+        .post('/auth/signup')
+        .send({ email: 'signup@email.com', password: 'signup' });
+      expect(res.body.email).to.deep.equal('signup@email.com');
+    });
+  }); //end describe signup route
 }); //end describe auth routes
