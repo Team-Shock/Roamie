@@ -4,12 +4,11 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import AppNavigator from './navigation/AppNavigator';
+import AppNavigator from './client/navigation/AppNavigator';
 import { PostgressWrapper } from './postgres/postgres';
 import { styles } from './Styles/styles';
 import { Provider } from 'react-redux';
-import store from './store/index';
-
+import store from './client/store/index';
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);

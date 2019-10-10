@@ -81,7 +81,7 @@ export default class StartTrip extends Component {
                       latitude: business.geometry.location.lat,
                       longitude: business.geometry.location.lng,
                     }}
-                    image={require('../assets/images/marker2.png')}
+                    image={require('../../assets/images/marker2.png')}
                     onPress={e => this.getName(business.place_id)}
                     key={business.id}
                   >
