@@ -10,9 +10,9 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import { styles } from "../Styles/styles";
+import { styles } from "../../Styles/styles";
 import { Trip } from "./Trip";
-import { PostgresWrapper } from "../postgres/postgres";
+import { PostgresWrapper } from "../../postgres/postgres";
 
 export class Trips extends Component {
   constructor() {

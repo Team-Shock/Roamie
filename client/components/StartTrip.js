@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import yelp from '../server/api/yelp';
-import { googleKey } from '../secrets';
+import yelp from '../../server/api/yelp';
+import { googleKey } from '../../secrets';
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
 import { StyleSheet, Text, View, Image, FlatList, Button } from 'react-native';
-import { styles } from '../Styles/styles';
+import { styles } from '../../Styles/styles';
 import haversine from 'haversine';
 
 export default class StartTrip extends Component {
@@ -81,7 +81,7 @@ export default class StartTrip extends Component {
                       latitude: business.geometry.location.lat,
                       longitude: business.geometry.location.lng,
                     }}
-                    image={require('../assets/images/marker2.png')}
+                    image={require('../../assets/images/marker2.png')}
                     onPress={e => this.getName(business.place_id)}
                     key={business.id}
                   >

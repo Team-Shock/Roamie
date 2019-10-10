@@ -2,7 +2,7 @@ import React from "react";
 import { ExpoConfigView } from "@expo/samples";
 import { Trips } from "../components/Trips";
 import { View } from "react-native";
-import { styles } from "../Styles/styles";
+import { styles } from "../../Styles/styles";
 
 export default function TripsScreen() {
   /**
