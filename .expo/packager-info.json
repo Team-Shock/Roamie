@@ -1,9 +1,9 @@
 {
-  "expoServerPort": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://s7-npy.anonymous.roamie.exp.direct",
+  "packagerNgrokUrl": "https://packager.s7-npy.anonymous.roamie.exp.direct",
+  "ngrokPid": 35048,
   "devToolsPort": 19002,
-  "packagerPort": null,
-  "packagerPid": null
+  "packagerPort": 19001,
+  "packagerPid": 35039
 }
