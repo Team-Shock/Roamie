@@ -1,12 +1,12 @@
 const { green, red } = require('chalk');
 const db = require('../server/db');
-const { Trip, User, Place } = require('../server/db/models');
+const { Trip, User, Place, Preferences, UserPreferences } = require('../server/db/models');
+const defaultPreferences = require('../utils/defaultPreferences');
 
-// here's some sample candies to get you started
-// feel free to edit these or add your own!
+//Trips dummy data for development
 const trips = [
   {
-    name: 'Barcelona Trip with Friends',
+    name: 'Barcelona Trip with ENEMIES',
     imageUrl: 'https://cdn.cnn.com/cnnnext/dam/assets/170706113411-spain.jpg',
     sharingUrl: '',
     startLocation: 'Carrer de Mallorca, 401, 08013 Barcelona, Spain',
@@ -47,6 +47,7 @@ const trips = [
   },
 ];
 
+//Places dummy data for development
 const places = [
   {
     name: 'Restaurante Silvestre',
@@ -75,6 +76,12 @@ async function seed() {
   await db.sync({ force: true });
   console.log('db synced!');
 
+  const prefs = await Promise.all(
+    defaultPreferences.map(pref => {
+      return Preferences.create(pref);
+    })
+  );
+
   const users = await Promise.all([
     User.create({
       name: 'Shiba Doo',
@@ -83,6 +90,9 @@ async function seed() {
     }),
     User.create({ name: 'Cody', email: 'cody@email.com', password: '123' }),
   ]);
+
+  const userpreferences = await UserPreferences.findAll()
+  console.log(`established ${userpreferences.length} user-preferences`)
 
   await Promise.all(
     trips.map(trip => {

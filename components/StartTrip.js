@@ -11,10 +11,11 @@ export default class StartTrip extends Component {
   constructor() {
     super();
     this.state = {
-      businesses: [],
+      yelp: [],
       google: [],
       latitude: 40.704385,
       longitude: -74.009806,
+      selected: '',
     };
   }
   async componentDidMount() {
@@ -30,7 +31,7 @@ export default class StartTrip extends Component {
         longitude: this.state.longitude,
       },
     });
-    this.setState({ businesses: data.businesses });
+    this.setState({ yelp: data.businesses });
 
     const google = await axios.get(
       `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.latitude},${this.state.longitude}&radius=1500&key=${googleKey}`
@@ -42,6 +43,7 @@ export default class StartTrip extends Component {
     const name = await axios.get(
       `https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&fields=name,rating,formatted_phone_number&key=${googleKey}`
     );
+    this.setState({ selected: name.data.result.name });
     return name.data.result.name;
   };
 
@@ -63,8 +65,8 @@ export default class StartTrip extends Component {
             followsUserLocation={true}
             showsMyLocationButton={true}
           >
-            {this.state.businesses.length > 0
-              ? this.state.businesses.map(business => (
+            {this.state.yelp.length > 0
+              ? this.state.yelp.map(business => (
                   <Marker
                     coordinate={business.coordinates}
                     title={business.name}
@@ -94,10 +96,10 @@ export default class StartTrip extends Component {
         <View style={styles.buttonContainer}>
           <Button style={styles.button} title="Start a Trip" />
         </View>
-        {this.state.businesses.length ? (
+        {this.state.yelp.length ? (
           <View style={styles.container}>
             <FlatList
-              data={this.state.businesses}
+              data={this.state.yelp}
               renderItem={({ item }) => (
                 <Text style={styles.eventTitle}>{item.name}</Text>
               )}
