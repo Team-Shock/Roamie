@@ -1,4 +1,4 @@
-import { PostgresWrapper } from '../postgres/postgres';
+import { PostgresWrapper } from '../../postgres/postgres';
 import Axios from 'axios';
 
 /**

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { tsMethodSignature } from "@babel/types";
-import { styles } from "../Styles/styles";
+import { styles } from "../../Styles/styles";
 
 export function Trip(props) {
   return (

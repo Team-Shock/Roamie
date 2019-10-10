@@ -121,9 +121,7 @@ SettingsStack.navigationOptions = {
 SettingsStack.path = "";
 
 const tabNavigator = createBottomTabNavigator({
-  LoginStack,
   CurrentTripStack,
-  // HomeStack,
   TripsStack,
   SettingsStack
 });

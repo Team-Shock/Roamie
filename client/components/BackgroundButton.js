@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-
 import { TouchableOpacity, View, Text } from "react-native";
-import { styles } from "../Styles/styles";
+import { styles } from  "../../Styles/styles"
+
 
 export default class BackgroundButton extends React.Component {
   constructor(props) {

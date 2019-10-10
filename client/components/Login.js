@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View, Image, Button, Alert } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { styles } from "../Styles/styles";
-import LoginForm from "./LoginForm";
-import * as Facebook from "expo-facebook";
-import { auth } from "../store/user-reducer";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Image, Button, Alert } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { styles } from '../../Styles/styles';
+import LoginForm from './LoginForm';
+import * as Facebook from 'expo-facebook';
+import { auth } from '../store/user-reducer';
+import { connect } from 'react-redux';
 
 class Login extends Component {
   npm;
   constructor(props) {
     super(props);
-    this.state = { name: "", email: "" };
+    this.state = { name: '', email: '' };
   }
   onLogIn() {
     this.props.addOAuthUser(this.state.name, this.state.email);
@@ -24,11 +24,11 @@ class Login extends Component {
         token,
         expires,
         permissions,
-        declinedPermissions
-      } = await Facebook.logInWithReadPermissionsAsync("755192041599866", {
-        permissions: ["public_profile", "email"]
+        declinedPermissions,
+      } = await Facebook.logInWithReadPermissionsAsync('755192041599866', {
+        permissions: ['public_profile', 'email'],
       });
-      if (type === "success") {
+      if (type === 'success') {
         // Get the user's name using Facebook's Graph API
         const response = await fetch(
           `https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,birthday,picture.type(large)`
@@ -37,7 +37,7 @@ class Login extends Component {
         const res = await response.json();
         this.setState({ name: res.name, email: res.email });
         this.onLogIn(name, email);
-        Alert.alert("Logged in!", `Welcome ${res.name}!`);
+        Alert.alert('Logged in!', `Welcome ${res.name}!`);
       } else {
         // type === 'cancel'
       }
@@ -49,7 +49,7 @@ class Login extends Component {
   render() {
     let logo = {
       uri:
-        "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/88ee8450916825.58dd083a2f888.jpg"
+        'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/88ee8450916825.58dd083a2f888.jpg',
     };
     return (
       <View style={styles.loginContainer}>
@@ -77,7 +77,7 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addOAuthUser: (name, email) => dispatch(oauth(name, email))
+  addOAuthUser: (name, email) => dispatch(oauth(name, email)),
 });
 
 const LogInOrSignUp = connect(

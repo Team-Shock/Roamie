@@ -1,5 +1,5 @@
 import axios from "axios";
-import { defaultPreferences } from "../utils/defaultPreferences";
+import { defaultPreferences } from "../../utils/defaultPreferences";
 
 const initialState = {
   preferences: defaultPreferences
