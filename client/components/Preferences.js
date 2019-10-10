@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, Button } from "react-native";
-import { styles } from "../Styles/styles";
+import { styles } from "../../Styles/styles";
 import BackgroundButton from "./BackgroundButton";
 import { connect } from "react-redux";
 import { getPreferences, setPreferences } from "../store/preferences";

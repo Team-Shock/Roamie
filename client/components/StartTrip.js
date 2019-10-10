@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import yelp from '../server/api/yelp';
-import { googleKey } from '../secrets';
+import yelp from '../../server/api/yelp';
+import { googleKey } from '../../secrets';
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
 import { StyleSheet, Text, View, Image, FlatList, Button } from 'react-native';
-import { styles } from '../Styles/styles';
+import { styles } from '../../Styles/styles';
 import haversine from 'haversine';
 
 export default class StartTrip extends Component {
