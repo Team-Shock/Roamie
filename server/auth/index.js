@@ -4,6 +4,7 @@ module.exports = router;
 
 router.post('/login', async (req, res, next) => {
   try {
+    console.log(req.body);
     const data = await User.findAll({ where: { email: req.body.email } });
 
     if (data.length < 1) {
@@ -38,7 +39,7 @@ router.post('/oauth', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
-
+    console.log('SIGNUP', req.body)
     const user = await User.create(req.body);
 
     req.login(user, err => (err ? next(err) : res.json(user)));
