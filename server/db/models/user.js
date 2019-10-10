@@ -70,7 +70,7 @@ const setDefaultPreferences = async user => {
 
 //hooks
 User.beforeCreate(setSaltAndPassword);
-User.afterCreate(setDefaultPreferences);
+User.afterSave(setDefaultPreferences);
 User.beforeUpdate(setSaltAndPassword);
 User.afterBulkCreate(users => {
   users.forEach(setSaltAndPassword);
