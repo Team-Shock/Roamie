@@ -1,11 +1,11 @@
-import { PostgresWrapper } from '../../postgres/postgres';
-import Axios from 'axios';
+import { PostgresWrapper } from "../../postgres/postgres";
+import Axios from "axios";
 
 /**
  * ACTION TYPES
  */
-const GET_USER = 'GET_USER';
-const REMOVE_USER = 'REMOVE_USER';
+const GET_USER = "GET_USER";
+const REMOVE_USER = "REMOVE_USER";
 
 /**
  * INITIAL STATE
@@ -24,7 +24,7 @@ const removeUser = () => ({ type: REMOVE_USER });
 export const me = () => async dispatch => {
   try {
     const instance = await PostgresWrapper.getInstance();
-    const res = await instance.get('/auth/me');
+    const res = await instance.get("/auth/me");
     dispatch(getUser(res.data || defaultUser));
   } catch (err) {
     console.error(err);
@@ -37,9 +37,9 @@ export const auth = (email, password, method) => async dispatch => {
     const instance = await PostgresWrapper.getInstance();
     res = await instance.post(`/auth/${method}`, {
       email,
-      password,
+      password
     });
-    console.log(res)
+    dispatch(getUser(res.data));
   } catch (authError) {
     return dispatch(getUser({ error: authError }));
   }
@@ -51,7 +51,7 @@ export const oauth = (name, email) => async dispatch => {
     const instance = await PostgresWrapper.getInstance();
     res = await instance.post(`/auth/oauth`, {
       email,
-      password,
+      password
     });
   } catch (authError) {
     return dispatch(getUser({ error: authError }));
@@ -68,7 +68,7 @@ export const oauth = (name, email) => async dispatch => {
 export const logout = () => async dispatch => {
   try {
     let instance = await PostgresWrapper.getInstance();
-    await instance.post('/auth/logout');
+    await instance.post("/auth/logout");
     dispatch(removeUser());
     // history.push('/login')
   } catch (err) {
@@ -79,7 +79,7 @@ export const logout = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = defaultUser, action) {
+const user = (state = defaultUser, action) => {
   switch (action.type) {
     case GET_USER:
       return action.user;
@@ -88,4 +88,5 @@ export default function(state = defaultUser, action) {
     default:
       return state;
   }
-}
+};
+export default user;
