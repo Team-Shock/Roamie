@@ -6,7 +6,7 @@ const defaultPreferences = require('../utils/defaultPreferences');
 //Trips dummy data for development
 const trips = [
   {
-    name: 'Barcelona Trip with ENEMIES',
+    name: 'Barcelona Trip with Friends',
     imageUrl: 'https://cdn.cnn.com/cnnnext/dam/assets/170706113411-spain.jpg',
     sharingUrl: '',
     startLocation: 'Carrer de Mallorca, 401, 08013 Barcelona, Spain',
@@ -108,6 +108,7 @@ async function seed() {
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${trips.length} trips`);
+  console.log(`seeded ${places.length} places`);
 
   console.log(`seeded successfully`);
 }
