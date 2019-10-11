@@ -25,7 +25,7 @@ export const me = () => async dispatch => {
   try {
     const instance = await PostgresWrapper.getInstance();
     const res = await instance.get("/auth/me");
-    dispatch(getUser(res.data || defaultUser));
+    dispatch(getUser(res.data));
   } catch (err) {
     console.error(err);
   }
@@ -53,6 +53,7 @@ export const oauth = (name, email) => async dispatch => {
       email,
       password
     });
+    dispatch(getUser(res));
   } catch (authError) {
     return dispatch(getUser({ error: authError }));
   }
@@ -82,6 +83,7 @@ export const logout = () => async dispatch => {
 const user = (state = defaultUser, action) => {
   switch (action.type) {
     case GET_USER:
+      console.log("ACTION.USER INSIDE REDUCER", action.user);
       return action.user;
     case REMOVE_USER:
       return defaultUser;
