@@ -39,6 +39,7 @@ export const auth = (email, password, method) => async dispatch => {
       email,
       password
     });
+    console.log("FROM AUTH THUNK", res.data);
     dispatch(getUser(res.data));
   } catch (authError) {
     return dispatch(getUser({ error: authError }));

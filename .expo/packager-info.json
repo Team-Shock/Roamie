@@ -1,9 +1,9 @@
 {
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://vs-bde.anonymous.roamie.exp.direct",
-  "packagerNgrokUrl": "https://packager.vs-bde.anonymous.roamie.exp.direct",
-  "ngrokPid": 82849,
-  "devToolsPort": 19004,
+  "expoServerNgrokUrl": "https://ii-7jd.anonymous.roamie.exp.direct",
+  "packagerNgrokUrl": "https://packager.ii-7jd.anonymous.roamie.exp.direct",
+  "ngrokPid": 88717,
+  "devToolsPort": 19005,
   "packagerPort": 19003,
-  "packagerPid": 82836
+  "packagerPid": 88706
 }

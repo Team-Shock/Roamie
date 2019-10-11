@@ -5,7 +5,7 @@ import reducer from "./reducer";
 import loggingMiddleware from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 
-export default createStore(
+const store = createStore(
   reducer,
   composeWithDevTools(
     applyMiddleware(
@@ -14,3 +14,4 @@ export default createStore(
     )
   )
 );
+export default store;

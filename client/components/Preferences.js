@@ -17,16 +17,16 @@ class Preferences extends Component {
     this.handlePress = this.handlePress.bind(this);
     this.updateState = this.updateState.bind(this);
   }
-  async componentDidMount() {
-    this.props.user.id
-      ? this.updateState()
-      : console.log("Props from component", this.props);
+  componentDidMount() {
+    console.log("COMPONENT MOUNTED", this.props);
+    this.props.user.id ? this.updateState() : console.log("state not updated");
   }
 
-  async updateState() {
-    const user = await this.props.user;
-    const prefs = await this.props.preferences;
-    await this.setState({
+  updateState() {
+    const user = this.props.user;
+    const prefs = this.props.preferences;
+    console.log("#### Inside update state", user, prefs);
+    this.setState({
       loading: false,
       preferences: prefs,
       user: user
@@ -40,7 +40,7 @@ class Preferences extends Component {
   }
   render() {
     console.log("props inside preferences", this.props);
-    this.updateState();
+
     return (
       <View>
         <View style={styles.preferencesContainer}>
@@ -71,8 +71,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getPreferences: id => dispatch(getPreferences(id)),
-  setPreferences: preferences => dispatch(setPreferences(preferences))
-  // me: () => dispatch(me())
+  setPreferences: preferences => dispatch(setPreferences(preferences)),
+  me: () => dispatch(me())
 });
 
 export default connect(
