@@ -69,8 +69,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  setPreferences: preferences => dispatch(setPreferences(preferences)),
-  me: () => dispatch(me())
+  setPreferences: preferences => dispatch(setPreferences(preferences))
 });
 
 export default connect(

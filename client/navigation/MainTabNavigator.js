@@ -120,12 +120,12 @@ SettingsStack.navigationOptions = {
 
 SettingsStack.path = "";
 
-const tabNavigator = createBottomTabNavigator({
+const MainTabNavigator = createBottomTabNavigator({
+  SettingsStack,
   CurrentTripStack,
-  TripsStack,
-  SettingsStack
+  TripsStack
 });
 
-tabNavigator.path = "";
+MainTabNavigator.path = "";
 
-export default tabNavigator;
+export default MainTabNavigator;
