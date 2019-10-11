@@ -27,11 +27,11 @@ class Login extends Component {
         token,
         expires,
         permissions,
-        declinedPermissions,
-      } = await Facebook.logInWithReadPermissionsAsync('755192041599866', {
-        permissions: ['public_profile', 'email'],
+        declinedPermissions
+      } = await Facebook.logInWithReadPermissionsAsync("755192041599866", {
+        permissions: ["public_profile", "email"]
       });
-      if (type === 'success') {
+      if (type === "success") {
         // Get the user's name using Facebook's Graph API
         const response = await fetch(
           `https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,birthday,picture.type(large)`
@@ -52,7 +52,7 @@ class Login extends Component {
   render() {
     let logo = {
       uri:
-        'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/88ee8450916825.58dd083a2f888.jpg',
+        "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/88ee8450916825.58dd083a2f888.jpg"
     };
     return (
       <View style={styles.loginContainer}>
@@ -80,7 +80,7 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addOAuthUser: (name, email) => dispatch(oauth(name, email)),
+  addOAuthUser: (name, email) => dispatch(oauth(name, email))
 });
 
 const FacebookLogIn = connect(
