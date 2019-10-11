@@ -12,7 +12,7 @@ const SET_FIRSTTIMEVISIT = "SET_FIRSTTIMEVISIT"
  */
 const initialState = {
   user: {},
-  firstTime = false
+  firstTime : false
 };
 
 /**
@@ -69,7 +69,6 @@ export const logout = () => async dispatch => {
     let instance = await PostgresWrapper.getInstance();
     await instance.post("/auth/logout");
     dispatch(removeUser());
-    // history.push('/login')
   } catch (err) {
     console.error(err);
   }
@@ -78,7 +77,7 @@ export const logout = () => async dispatch => {
 /**
  * REDUCER
  */
-const user = (state = defaultUser, action) => {
+const user = (state = initialState, action) => {
   switch (action.type) {
     case SET_FIRSTTIMEVISIT:
       return {...state,

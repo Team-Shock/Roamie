@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { styles } from '../../Styles/styles';
 import LoginForm from './LoginForm';
 import * as Facebook from 'expo-facebook';
-import { auth, oauth } from '../store/user-reducer';
+import { auth, oauth, me} from '../store/user-reducer';
 import { connect } from 'react-redux';
 import { withNavigation } from "react-navigation"
 
@@ -20,7 +20,7 @@ class Login extends Component {
     this.props.navigation.navigate("Settings")
   }
   componentDidMount(){
-    this.props.getUser
+    this.props.getCurrentUser();
   }
 
   signInWithFacebook = async () => {
@@ -82,11 +82,12 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = dispatch => ({
-  user: 
+const mapStateToProps = state => ({
+  user: state.user.user
 })
 
 const mapDispatchToProps = dispatch => ({
+  getCurrentUser: () => dispatch(me()),
   addOAuthUser: (name, email) => dispatch(oauth(name, email))
 });
 

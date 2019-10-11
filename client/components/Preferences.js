@@ -43,7 +43,7 @@ class Preferences extends Component {
     return (
       <View>
         <View style={styles.preferencesContainer}>
-          {this.props.user.preferences.length > 0 ? (
+          {!this.props.user && !this.props.user.preferences && this.props.user.preferences.length > 0 ? (
             this.props.user.preferences.map(pref => (
               <BackgroundButton key={pref.id} pref={pref} />
             ))
