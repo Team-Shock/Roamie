@@ -11,8 +11,8 @@ class Preferences extends Component {
     super(props);
     this.state = {
       loading: true,
-      preferences: this.props.preferences,
-      user: this.props.user
+      preferences: [],
+      user: {}
     };
     this.handlePress = this.handlePress.bind(this);
     this.updateState = this.updateState.bind(this);
@@ -64,10 +64,10 @@ class Preferences extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.user,
-  preferences: state.preferences
-});
+const mapStateToProps = state => {
+  console.log("MAP STATE TO PROPS", state);
+  return { user: state.user, preferences: state.preferences };
+};
 
 const mapDispatchToProps = dispatch => ({
   getPreferences: id => dispatch(getPreferences(id)),
