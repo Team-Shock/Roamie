@@ -51,19 +51,12 @@ export const oauth = (name, email) => async dispatch => {
   try {
     const instance = await PostgresWrapper.getInstance();
     res = await instance.post(`/auth/oauth`, {
-      email,
-      password
+      name,
+      email
     });
-    dispatch(getUser(res));
+    dispatch(getUser(res.data))
   } catch (authError) {
     return dispatch(getUser({ error: authError }));
-  }
-
-  try {
-    dispatch(getUser(res.data));
-    // history.push('/home')
-  } catch (dispatchOrHistoryErr) {
-    console.error(dispatchOrHistoryErr);
   }
 };
 

@@ -24,13 +24,17 @@ router.post("/login", async (req, res, next) => {
 
 router.post("/oauth", async (req, res, next) => {
   try {
-    const data = await User.findOrCreate({ where: { email: req.body.email } });
-    const user = data[0];
+    const data = await User.findAll(
+      { where: { email: req.body.email,
+        name: req.body.name } });
+    let user = data[0];
     if (!user) {
-      console.log("No such user found:", req.body.email);
-      res.status(401).send("Wrong username and/or password");
+      user = await User.create(
+        { email: req.body.email,
+          name: req.body.name } );
+      res.json(user);
     } else {
-      req.login(user, err => (err ? next(err) : res.json(user)));
+      res.json(user);
     }
   } catch (err) {
     next(err);
