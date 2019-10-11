@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { styles } from '../../Styles/styles';
 import LoginForm from './LoginForm';
 import * as Facebook from 'expo-facebook';
-import { auth } from '../store/user-reducer';
+import { auth, oauth } from '../store/user-reducer';
 import { connect } from 'react-redux';
 
 class Login extends Component {
@@ -12,6 +12,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = { name: '', email: '' };
+    this.onLogIn = this.onLogIn.bind(this);
   }
   onLogIn() {
     this.props.addOAuthUser(this.state.name, this.state.email);
@@ -36,7 +37,7 @@ class Login extends Component {
         // console.log(await response.json())
         const res = await response.json();
         this.setState({ name: res.name, email: res.email });
-        this.onLogIn(name, email);
+        this.onLogIn();
         Alert.alert('Logged in!', `Welcome ${res.name}!`);
       } else {
         // type === 'cancel'
@@ -83,6 +84,6 @@ const mapDispatchToProps = dispatch => ({
 const LogInOrSignUp = connect(
   null,
   mapDispatchToProps
-)(LoginForm);
+)(Login);
 
-export default Login;
+export default LogInOrSignUp;

@@ -48,7 +48,6 @@ export default class StartTrip extends Component {
   };
 
   render() {
-    console.log('state:', this.state);
     return (
       <View>
         <View style={styles.mapcontainer}>
