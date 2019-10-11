@@ -6,6 +6,7 @@ import LoginForm from './LoginForm';
 import * as Facebook from 'expo-facebook';
 import { auth, oauth } from '../store/user-reducer';
 import { connect } from 'react-redux';
+import { withNavigation } from "react-navigation"
 
 class Login extends Component {
   npm;
@@ -16,6 +17,7 @@ class Login extends Component {
   }
   onLogIn() {
     this.props.addOAuthUser(this.state.name, this.state.email);
+    this.props.navigation.navigate("Settings")
   }
 
   signInWithFacebook = async () => {
@@ -81,9 +83,9 @@ const mapDispatchToProps = dispatch => ({
   addOAuthUser: (name, email) => dispatch(oauth(name, email)),
 });
 
-const LogInOrSignUp = connect(
+const FacebookLogIn = connect(
   null,
   mapDispatchToProps
 )(Login);
 
-export default LogInOrSignUp;
+export default withNavigation(FacebookLogIn);
