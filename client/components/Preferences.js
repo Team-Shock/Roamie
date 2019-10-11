@@ -24,7 +24,7 @@ class Preferences extends Component {
 
   updateState() {
     const user = this.props.user;
-    const prefs = this.props.preferences;
+    const prefs = this.props.user.preferences;
     console.log("#### Inside update state", user, prefs);
     this.setState({
       loading: false,
@@ -36,7 +36,6 @@ class Preferences extends Component {
   async handlePress() {
     await this.props.me();
     await this.props.setPreferences(this.state.preferences);
-    await this.props.getPreferences();
   }
   render() {
     console.log("props inside preferences", this.props);
@@ -44,8 +43,8 @@ class Preferences extends Component {
     return (
       <View>
         <View style={styles.preferencesContainer}>
-          {this.props.preferences.length > 0 ? (
-            this.props.preferences.map(pref => (
+          {this.props.user.preferences.length > 0 ? (
+            this.props.user.preferences.map(pref => (
               <BackgroundButton key={pref.id} pref={pref} />
             ))
           ) : (
@@ -66,11 +65,10 @@ class Preferences extends Component {
 
 const mapStateToProps = state => {
   console.log("MAP STATE TO PROPS", state);
-  return { user: state.user, preferences: state.preferences };
+  return { user: state.user };
 };
 
 const mapDispatchToProps = dispatch => ({
-  getPreferences: id => dispatch(getPreferences(id)),
   setPreferences: preferences => dispatch(setPreferences(preferences)),
   me: () => dispatch(me())
 });

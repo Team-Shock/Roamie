@@ -33,7 +33,7 @@ export const getPreferences = id => async dispatch => {
 
 export const setPreferences = preferences => async dispatch => {
   dispatch(setThePreferences(preferences));
-  dispatch(gotPreferences(preferences));
+  //dispatch(gotPreferences(preferences));
 };
 // Reducer
 const preferences = (state = initialState, action) => {
