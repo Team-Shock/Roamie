@@ -37,13 +37,12 @@ class Preferences extends Component {
     await this.props.me();
     await this.props.setPreferences(this.state.preferences);
   }
-  render() {
-    console.log("props inside preferences", this.props);
 
+  renderReturn() {
     return (
       <View>
         <View style={styles.preferencesContainer}>
-          {this.props.user.preferences.length > 0 ? (
+          {this.props.user.preferences ? (
             this.props.user.preferences.map(pref => (
               <BackgroundButton key={pref.id} pref={pref} />
             ))
@@ -61,6 +60,16 @@ class Preferences extends Component {
       </View>
     );
   }
+
+  render() {
+    if (this.props.user.preferences) {
+      console.log("!!!!!   PREFERENCES EXIST", this.props.user.preferences);
+      return this.renderReturn();
+    } else {
+      console.log("@@@@@@ PREFERENCES DO NOT EXIST", this.props);
+      return null;
+    }
+  }
 }
 
 const mapStateToProps = state => {
@@ -69,8 +78,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  setPreferences: preferences => dispatch(setPreferences(preferences)),
-  me: () => dispatch(me())
+  setPreferences: preferences => dispatch(setPreferences(preferences))
 });
 
 export default connect(

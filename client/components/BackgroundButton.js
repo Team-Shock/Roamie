@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { TouchableOpacity, View, Text } from "react-native";
-import { styles } from  "../../Styles/styles"
-
+import { styles } from "../../Styles/styles";
 
 export default class BackgroundButton extends React.Component {
   constructor(props) {
@@ -23,16 +22,16 @@ export default class BackgroundButton extends React.Component {
         style={styles.backgroundButtonTouchable}
         onPress={this.toggleSelected}
       >
-        {this.state.selected ? (
+        {!this.state.selected ? (
           <View style={styles.backgroundButtonSelected}>
             <Text style={styles.backgroundButtonText}>
-              {this.props.pref.preference}
+              {this.props.pref.name}
             </Text>
           </View>
         ) : (
           <View style={styles.backgroundButtonDeselected}>
             <Text style={styles.backgroundButtonText}>
-              {this.props.pref.preference}
+              {this.props.pref.name}
             </Text>
           </View>
         )}

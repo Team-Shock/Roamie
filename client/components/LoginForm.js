@@ -16,12 +16,12 @@ class LoginForm extends React.Component {
 
   onLogIn() {
     this.props.auth(this.state.email, this.state.password, "login");
-    this.props.navigation.navigate("Settings");
+    this.props.navigation.navigate("Main");
   }
 
   onSignUp() {
     this.props.auth(this.state.email, this.state.password, "signup");
-    this.props.navigation.navigate("Settings");
+    this.props.navigation.navigate("Main");
   }
   render() {
     return (
