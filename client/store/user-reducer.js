@@ -1,21 +1,24 @@
-import { PostgresWrapper } from '../../postgres/postgres';
-import Axios from 'axios';
+import { PostgresWrapper } from "../../postgres/postgres";
+import Axios from "axios";
 
 /**
  * ACTION TYPES
  */
-const GET_USER = 'GET_USER';
-const REMOVE_USER = 'REMOVE_USER';
-
+const GET_USER = "GET_USER";
+const REMOVE_USER = "REMOVE_USER";
+const SET_FIRSTTIMEVISIT = "SET_FIRSTTIMEVISIT"
 /**
  * INITIAL STATE
  */
-const defaultUser = {};
+const initialState = {
+  user: {},
+  firstTime = false
+};
 
 /**
  * ACTION CREATORS
  */
-
+const setFirstTimeVisitor = firstTime => ({type: SET_FIRSTTIMEVISIT, firstTime})
 const getUser = user => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
 
@@ -25,8 +28,8 @@ const removeUser = () => ({ type: REMOVE_USER });
 export const me = () => async dispatch => {
   try {
     const instance = await PostgresWrapper.getInstance();
-    const res = await instance.get('/auth/me');
-    dispatch(getUser(res.data || defaultUser));
+    const res = await instance.get("/auth/me");
+    dispatch(getUser(res.data));
   } catch (err) {
     console.error(err);
   }
@@ -38,9 +41,9 @@ export const auth = (email, password, method) => async dispatch => {
     const instance = await PostgresWrapper.getInstance();
     res = await instance.post(`/auth/${method}`, {
       email,
-      password,
+      password
     });
-    console.log(res)
+    dispatch(getUser(res.data));
   } catch (authError) {
     return dispatch(getUser({ error: authError }));
   }
@@ -51,25 +54,20 @@ export const oauth = (name, email) => async dispatch => {
   try {
     const instance = await PostgresWrapper.getInstance();
     res = await instance.post(`/auth/oauth`, {
-      email,
-      password,
+      name,
+      email
     });
+    dispatch(setFirstTimeVisitor(res.data.firstTime))
+    dispatch(getUser(res.data.user))
   } catch (authError) {
     return dispatch(getUser({ error: authError }));
-  }
-
-  try {
-    dispatch(getUser(res.data));
-    // history.push('/home')
-  } catch (dispatchOrHistoryErr) {
-    console.error(dispatchOrHistoryErr);
   }
 };
 
 export const logout = () => async dispatch => {
   try {
     let instance = await PostgresWrapper.getInstance();
-    await instance.post('/auth/logout');
+    await instance.post("/auth/logout");
     dispatch(removeUser());
     // history.push('/login')
   } catch (err) {
@@ -80,13 +78,17 @@ export const logout = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = defaultUser, action) {
+const user = (state = defaultUser, action) => {
   switch (action.type) {
+    case SET_FIRSTTIMEVISIT:
+      return {...state,
+        firstTime: action.firstTime};
     case GET_USER:
-      return action.user;
+      return {...state, user: action.user};
     case REMOVE_USER:
-      return defaultUser;
+      return {...state, user: {}};
     default:
       return state;
   }
-}
+};
+export default user;
