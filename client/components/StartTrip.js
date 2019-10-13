@@ -19,50 +19,33 @@ export default class StartTrip extends Component {
     };
   }
   async componentDidMount() {
-    try{
-      await navigator.geolocation.watchPosition(position => {
-        this.setState({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
+    await navigator.geolocation.watchPosition(position => {
+      this.setState({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
       });
-    }
-    catch(error){
-      console.log("Unable to get latitude and longitude coordinates");
-    }
-    try{
-      const { data } = await yelp.get('/search', {
-        params: {
-          latitude: this.state.latitude,
-          longitude: this.state.longitude,
-        },
-      });
-      this.setState({ yelp: data.businesses });
-    }
-    catch(error){
-      console.log("Unable to search using yelp")
-    }
-    try{
-      const google = await axios.get(
-        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.latitude},${this.state.longitude}&radius=1500&key=${googleKey}`
-      );
-      this.setState({ google: google.data.results });
-    }
-    catch(error){
-      console.log("Unable to get google map")
-    }
+    });
+
+    const { data } = await yelp.get('/search', {
+      params: {
+        latitude: this.state.latitude,
+        longitude: this.state.longitude,
+      },
+    });
+    this.setState({ yelp: data.businesses });
+
+    const google = await axios.get(
+      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.latitude},${this.state.longitude}&radius=1500&key=${googleKey}`
+    );
+    this.setState({ google: google.data.results });
   }
 
   getName = async id => {
-    try{
-      const name = await axios.get(
-        `https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&fields=name,rating,formatted_phone_number&key=${googleKey}`
-      );
-      this.setState({ selected: name.data.result.name });
-      return name.data.result.name;
-    }catch{
-      console.log("Unable to get name from google API")
-    }
+    const name = await axios.get(
+      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&fields=name,rating,formatted_phone_number&key=${googleKey}`
+    );
+    this.setState({ selected: name.data.result.name });
+    return name.data.result.name;
   };
 
   render() {

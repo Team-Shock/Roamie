@@ -11,8 +11,7 @@ const SET_FIRSTTIMEVISIT = "SET_FIRSTTIMEVISIT"
  * INITIAL STATE
  */
 const initialState = {
-  user: {},
-  firstTime : false
+  // firstTime : false
 };
 
 /**
@@ -29,6 +28,7 @@ export const me = () => async dispatch => {
   try {
     const instance = await PostgresWrapper.getInstance();
     const res = await instance.get("/auth/me");
+    console.log("Got ME user: ", res.data)
     dispatch(getUser(res.data));
   } catch (err) {
     console.error(err);
@@ -57,8 +57,7 @@ export const oauth = (name, email) => async dispatch => {
       name,
       email
     });
-    dispatch(setFirstTimeVisitor(res.data.firstTime))
-    dispatch(getUser(res.data.user))
+    dispatch(getUser(res.data))
   } catch (authError) {
     return dispatch(getUser({ error: authError }));
   }
@@ -79,13 +78,10 @@ export const logout = () => async dispatch => {
  */
 const user = (state = initialState, action) => {
   switch (action.type) {
-    case SET_FIRSTTIMEVISIT:
-      return {...state,
-        firstTime: action.firstTime};
     case GET_USER:
-      return {...state, user: action.user};
+      return action.user;
     case REMOVE_USER:
-      return {...state, user: {}};
+      return {};
     default:
       return state;
   }

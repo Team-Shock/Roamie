@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { withNavigation } from "react-navigation"
 
 class Login extends Component {
-  npm;
   constructor(props) {
     super(props);
     this.state = { name: '', email: '' };
@@ -92,7 +91,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const FacebookLogIn = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Login);
 

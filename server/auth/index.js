@@ -26,30 +26,18 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/oauth', async (req, res, next) => {
   try {
-<<<<<<< HEAD
     const data = await User.findAll(
       { where: { email: req.body.email,
         name: req.body.name } });
-    let userInfo;
-    userInfo.user = data[0] 
-    if (!userInfo.user) {
-      userInfo.user = await User.create(
+    let user = data[0] 
+    if (!user) {
+      user = await User.create(
         { email: req.body.email,
           name: req.body.name } );
-      userInfo.user.firstTime = true;
-      res.json(userInfo);
-=======
-    const data = await User.findAll({
-      where: { email: req.body.email, name: req.body.name },
-    });
-    let user = data[0];
-    if (!user) {
-      user = await User.create({ email: req.body.email, name: req.body.name });
       res.json(user);
->>>>>>> 3db433450dc992d905789b9c0c8ddce5725e72b7
     } else {
-      userInfo.firstTime = false;
-      res.json(userInfo);
+      console.log("User: ", user)
+      res.json(user);
     }
   } catch (err) {
     next(err);
@@ -58,14 +46,8 @@ router.post('/oauth', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
-<<<<<<< HEAD
-    const user = await User.create(req.body);
-
-=======
-    console.log('SIGNUP', req.body);
     const newUser = await User.create(req.body);
     const user = await User.findByPk(newUser.id, { include: [{ all: true }] });
->>>>>>> 3db433450dc992d905789b9c0c8ddce5725e72b7
     req.login(user, err => (err ? next(err) : res.json(user)));
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
