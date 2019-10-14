@@ -21,11 +21,8 @@ const gotTrips = trips => ({ type: GOT_TRIPS, trips });
  */
 export const getTrips = (userId) => async dispatch => {
   try {
-    console.log("Retrieving trips for user ID: ", userId)
-
     const instance = await PostgresWrapper.getInstance();
     const res = await instance.get(`/api/trips/${userId}`);
-    console.log("Retrieved trips: ", res.data)
     if(res.data){
         dispatch(gotTrips(res.data));
     }

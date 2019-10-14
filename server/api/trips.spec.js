@@ -46,7 +46,6 @@ describe('Trips routes', () => {
     await TripPlaces.create({tripId: 1, placeId:1})
 
     const res = await request(app).get(`/api/trips/${testUser.id}`);
-    console.log("Trips: ", res.body[0])
     expect(res.body[0].name).to.equal("Costa Rica with Family");
     expect(res.body[0].places[0].name).to.equal('Restaurante Silvestre');
 

@@ -13,7 +13,6 @@ import { tsMethodSignature } from "@babel/types";
 import { styles } from "../../Styles/styles";
 
 export function SingleTrip(props) {
-  console.log("Single Trip", props.tripInfo)
   let trip = props.tripInfo
 
   return (

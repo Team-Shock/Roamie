@@ -27,7 +27,6 @@ export const me = () => async dispatch => {
   try {
     const instance = await PostgresWrapper.getInstance();
     const res = await instance.get("/auth/me");
-    console.log("Got ME user: ", res.data)
     dispatch(getUser(res.data));
   } catch (err) {
     console.error(err);

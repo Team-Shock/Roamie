@@ -8,7 +8,6 @@ router.post('/login', async (req, res, next) => {
     const data = await User.findAll({ where: { email: req.body.email } });
 
     if (data.length < 1) {
-      console.log('No such user found:', req.body.email);
       res.status(401).send('No account found');
     } else if (!data[0].correctPassword(req.body.password)) {
       console.log('Incorrect password for user:', req.body.email);
@@ -36,7 +35,6 @@ router.post('/oauth', async (req, res, next) => {
           name: req.body.name } );
       res.json(user);
     } else {
-      console.log("User: ", user)
       res.json(user);
     }
   } catch (err) {
