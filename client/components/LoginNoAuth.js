@@ -18,7 +18,7 @@ class LoginNoAuth extends React.Component {
     this.setState({ modalVisible: visible });
   }
   onLogIn() {
-    this.setModalVisible(!this.state.modalVisible);
+    this.setModalVisible({ modalVisible: false });
     this.props.auth(this.state.email, this.state.password, "login");
     this.props.navigation.navigate("Main");
   }

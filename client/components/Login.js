@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, TouchableHighlight } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "../../Styles/styles";
 import LoginForm from "./LoginForm";
@@ -13,14 +13,17 @@ class Login extends Component {
   npm;
   constructor(props) {
     super(props);
-    this.state = { name: "", email: "", showAbout: false };
+    this.state = { name: "", email: "", showLogin: false };
     this.onLogIn = this.onLogIn.bind(this);
+    this.toggleLogin = this.toggleLogin.bind(this);
   }
   onLogIn() {
     this.props.addOAuthUser(this.state.name, this.state.email);
     this.props.navigation.navigate("Settings");
   }
-
+  toggleLogin(event) {
+    this.setState({ showLogin: !this.state.showLogin });
+  }
   render() {
     let logo = {
       uri:
@@ -33,7 +36,15 @@ class Login extends Component {
           A travel companion {"\n"} for exploring near and far!
         </Text>
         <Image source={logo} style={styles.logo} />
-        <LoginForm />
+        <TouchableHighlight
+          onPress={() => {
+            this.toggleLogin();
+          }}
+          style={styles.loginButtonContainer}
+        >
+          <Text style={styles.modalButtonText}>Enter</Text>
+        </TouchableHighlight>
+        {this.state.showLogin ? <LoginForm /> : null}
         <About />
       </View>
     );

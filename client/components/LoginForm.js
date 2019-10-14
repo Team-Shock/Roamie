@@ -15,7 +15,6 @@ class LoginForm extends React.Component {
     this.state = { email: "", password: "", modalVisible: false };
     this.onLogIn = this.onLogIn.bind(this);
     this.onSignUp = this.onSignUp.bind(this);
-    this.setModalVisible = this.setModalVisible.bind(this);
   }
 
   setModalVisible(visible) {
@@ -61,58 +60,30 @@ class LoginForm extends React.Component {
   render() {
     return (
       <View>
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-          }}
-        >
-          <View style={styles.loginContainer}>
-            <View
-              onPress={() => {
-                this.setModalVisible(!this.state.modalVisible);
-              }}
-            >
-              <LoginNoAuth />
-            </View>
+        <View>
+          <LoginNoAuth />
 
-            <View
-              onPress={() => {
-                this.setModalVisible(!this.state.modalVisible);
-              }}
+          <SignUp />
+
+          <View style={styles.loginButtonContainer}>
+            <Icon.Button
+              name="facebook"
+              backgroundColor="#ffffff"
+              color="#F277C6"
+              onPress={() => this.signInWithFacebook()}
             >
-              <SignUp />
-            </View>
-            <View style={styles.loginButtonContainer}>
-              <Icon.Button
-                name="facebook"
-                backgroundColor="#ffffff"
-                color="#F277C6"
-                onPress={() => this.signInWithFacebook()}
-              >
-                Login with Facebook
-              </Icon.Button>
-            </View>
+              Login with Facebook
+            </Icon.Button>
           </View>
-          <TouchableHighlight
-            onPress={() => {
-              this.setModalVisible(!this.state.modalVisible);
-            }}
-            style={styles.modalClose}
-          >
-            <Text>Return to Login</Text>
-          </TouchableHighlight>
-        </Modal>
-        <TouchableHighlight
+        </View>
+        {/* <TouchableHighlight
           onPress={() => {
-            this.setModalVisible(true);
+            this.setModalVisible(!this.state.modalVisible);
           }}
-          style={styles.loginButtonContainer}
+          style={styles.modalClose}
         >
-          <Text style={styles.modalButtonText}>Enter</Text>
-        </TouchableHighlight>
+          <Text>Return to Login</Text>
+        </TouchableHighlight> */}
       </View>
     );
   }
