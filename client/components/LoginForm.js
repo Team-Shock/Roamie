@@ -6,6 +6,8 @@ import { auth } from "../store/user-reducer";
 import { connect } from "react-redux";
 import { withNavigation } from "react-navigation";
 import * as Facebook from "expo-facebook";
+import SignUp from "./SignUp";
+import LoginNoAuth from "./LoginNoAuth";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -67,45 +69,8 @@ class LoginForm extends React.Component {
           }}
         >
           <View style={styles.loginContainer}>
-            <TextInput
-              style={{ height: 40 }}
-              placeholder="Your email"
-              onChangeText={email =>
-                this.setState({ email: email.toLowerCase() })
-              }
-              value={this.state.email}
-            />
-            <TextInput
-              secureTextEntry={true}
-              style={{ height: 40 }}
-              placeholder="Your password"
-              onChangeText={password => this.setState({ password })}
-              value={this.state.password}
-            />
-            <View style={styles.loginButtonContainer}>
-              <Icon.Button
-                name="envelope"
-                backgroundColor="#ffffff"
-                color="#F277C6"
-                onPress={() => {
-                  this.onLogIn();
-                }}
-              >
-                Login
-              </Icon.Button>
-            </View>
-            <View style={styles.loginButtonContainer}>
-              <Icon.Button
-                name="pencil"
-                backgroundColor="#ffffff"
-                color="#F277C6"
-                onPress={() => {
-                  this.onSignUp();
-                }}
-              >
-                Sign Up
-              </Icon.Button>
-            </View>
+            <LoginNoAuth />
+            <SignUp />
             <View style={styles.loginButtonContainer}>
               <Icon.Button
                 name="facebook"
