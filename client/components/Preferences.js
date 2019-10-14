@@ -18,14 +18,12 @@ class Preferences extends Component {
     this.updateState = this.updateState.bind(this);
   }
   componentDidMount() {
-    console.log("COMPONENT MOUNTED", this.props);
     this.props.user.id ? this.updateState() : console.log("state not updated");
   }
 
   updateState() {
     const user = this.props.user;
     const prefs = this.props.user.preferences;
-    console.log("#### Inside update state", user, prefs);
     this.setState({
       loading: false,
       preferences: prefs,
@@ -37,12 +35,11 @@ class Preferences extends Component {
     await this.props.me();
     await this.props.setPreferences(this.state.preferences);
   }
-
-  renderReturn() {
+  render() {
     return (
       <View>
         <View style={styles.preferencesContainer}>
-          {this.props.user.preferences ? (
+          {this.props.user && this.props.user.preferences && this.props.user.preferences.length > 0 ? (
             this.props.user.preferences.map(pref => (
               <BackgroundButton key={pref.id} pref={pref} />
             ))
@@ -60,20 +57,9 @@ class Preferences extends Component {
       </View>
     );
   }
-
-  render() {
-    if (this.props.user.preferences) {
-      console.log("!!!!!   PREFERENCES EXIST", this.props.user.preferences);
-      return this.renderReturn();
-    } else {
-      console.log("@@@@@@ PREFERENCES DO NOT EXIST", this.props);
-      return null;
-    }
-  }
 }
 
 const mapStateToProps = state => {
-  console.log("MAP STATE TO PROPS", state);
   return { user: state.user };
 };
 

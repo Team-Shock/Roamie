@@ -24,7 +24,6 @@ const setThePreferences = preferences => ({
 export const getPreferences = id => async dispatch => {
   try {
     const { data } = await Axios.get(`/api/preferences/:id`);
-    console.log("DATA FROM GETPREFERENCES THUNK", data);
     dispatch(gotPreferences(data));
   } catch (error) {
     console.log("There was an error getting preferences", error);

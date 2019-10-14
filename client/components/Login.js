@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import { Text, View, Image, TouchableHighlight } from "react-native";
 import { styles } from "../../Styles/styles";
@@ -5,6 +6,7 @@ import LoginForm from "./LoginForm";
 import { connect } from "react-redux";
 import { withNavigation } from "react-navigation";
 import About from "../components/About.js";
+
 
 class Login extends Component {
   constructor(props) {
@@ -43,4 +45,6 @@ class Login extends Component {
   }
 }
 
+
 export default withNavigation(Login);
+
