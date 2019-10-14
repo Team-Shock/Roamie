@@ -1,23 +1,24 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Button, Alert } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { styles } from '../../Styles/styles';
-import LoginForm from './LoginForm';
-import * as Facebook from 'expo-facebook';
-import { auth, oauth } from '../store/user-reducer';
-import { connect } from 'react-redux';
-import { withNavigation } from "react-navigation"
+import React, { Component } from "react";
+import { StyleSheet, Text, View, Image, Button, Alert } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { styles } from "../../Styles/styles";
+import LoginForm from "./LoginForm";
+import * as Facebook from "expo-facebook";
+import { auth, oauth } from "../store/user-reducer";
+import { connect } from "react-redux";
+import { withNavigation } from "react-navigation";
+import About from "../components/About.js";
 
 class Login extends Component {
   npm;
   constructor(props) {
     super(props);
-    this.state = { name: '', email: '' };
+    this.state = { name: "", email: "", showAbout: false };
     this.onLogIn = this.onLogIn.bind(this);
   }
   onLogIn() {
     this.props.addOAuthUser(this.state.name, this.state.email);
-    this.props.navigation.navigate("Settings")
+    this.props.navigation.navigate("Settings");
   }
 
   signInWithFacebook = async () => {
@@ -40,7 +41,7 @@ class Login extends Component {
         const res = await response.json();
         this.setState({ name: res.name, email: res.email });
         this.onLogIn();
-        Alert.alert('Logged in!', `Welcome ${res.name}!`);
+        Alert.alert("Logged in!", `Welcome ${res.name}!`);
       } else {
         // type === 'cancel'
       }
@@ -56,14 +57,13 @@ class Login extends Component {
     };
     return (
       <View style={styles.loginContainer}>
-        <Text style={styles.loginText}>Welcome to Roamie</Text>
+        <Text style={styles.loginHeader}>Welcome to Roamie</Text>
+        <Text style={styles.loginText}>
+          A travel companion {"\n"} for exploring near and far!
+        </Text>
+
         <Image source={logo} style={styles.logo} />
         <LoginForm />
-        {/* <View style={styles.loginButtonContainer}>
-          <Icon.Button name="google" backgroundColor="#ffffff" color="#F277C6">
-            Login with Google
-          </Icon.Button>
-        </View> */}
         <View style={styles.loginButtonContainer}>
           <Icon.Button
             name="facebook"
@@ -73,6 +73,7 @@ class Login extends Component {
           >
             Login with Facebook
           </Icon.Button>
+          <About />
         </View>
       </View>
     );

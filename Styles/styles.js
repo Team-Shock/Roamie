@@ -2,6 +2,11 @@ import { StyleSheet, Platform } from "react-native";
 import { blue } from "ansi-colors";
 
 export const styles = StyleSheet.create({
+  about: {
+    textAlign: "center",
+    fontSize: 18,
+    margin: 20
+  },
   appname: {
     alignItems: "center",
     color: "blue",
@@ -158,16 +163,21 @@ export const styles = StyleSheet.create({
     height: 20,
     width: 20
   },
+  loginHeader: {
+    fontSize: 30,
+    textAlign: "center",
+    margin: 25
+  },
+  loginText: {
+    fontSize: 20,
+    textAlign: "center",
+    margin: 30
+  },
   logo: {
     height: 200,
     width: 200,
     borderRadius: 100,
     marginBottom: 15
-  },
-  loginText: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 20
   },
   maincontainer: {
     flex: 1,
@@ -188,7 +198,18 @@ export const styles = StyleSheet.create({
     alignItems: "center"
     // marginTop: 60,
   },
-
+  modalButtonText: {
+    textAlign: "center",
+    color: "#F277C6",
+    marginTop: 8,
+    fontSize: 15,
+    fontWeight: "600"
+  },
+  modalContainer: {
+    marginTop: 50,
+    textAlign: "center",
+    justifyContent: "center"
+  },
   navigationFilename: {
     marginTop: 5
   },
