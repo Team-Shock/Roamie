@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, TouchableHighlight, Modal } from "react-native";
+import { Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "../../Styles/styles";
 import { auth } from "../store/user-reducer";
@@ -12,14 +12,11 @@ import LoginNoAuth from "./LoginNoAuth";
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { email: "", password: "", modalVisible: false };
+    this.state = {};
     this.onLogIn = this.onLogIn.bind(this);
     this.onSignUp = this.onSignUp.bind(this);
   }
 
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
-  }
   onLogIn() {
     this.props.auth(this.state.email, this.state.password, "login");
     this.props.navigation.navigate("Main");
@@ -76,14 +73,6 @@ class LoginForm extends React.Component {
             </Icon.Button>
           </View>
         </View>
-        {/* <TouchableHighlight
-          onPress={() => {
-            this.setModalVisible(!this.state.modalVisible);
-          }}
-          style={styles.modalClose}
-        >
-          <Text>Return to Login</Text>
-        </TouchableHighlight> */}
       </View>
     );
   }
