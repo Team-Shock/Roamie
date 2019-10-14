@@ -11,6 +11,7 @@ import MapView, {
 import { StyleSheet, Text, View, Image, FlatList, Button } from 'react-native';
 import { styles } from '../../Styles/styles';
 import haversine from 'haversine';
+import PlaceCarousel from './Carousel';
 
 export default class StartTrip extends Component {
   constructor() {
@@ -77,6 +78,7 @@ export default class StartTrip extends Component {
     return name.data.result.name;
   };
 
+  //distance calculator for a trip
   calcDistance = newLatLng => {
     const { prevLatLng } = this.state;
     return haversine(prevLatLng, newLatLng) || 0;
@@ -119,21 +121,8 @@ export default class StartTrip extends Component {
         <View style={styles.buttonContainer}>
           <Button style={styles.button} title="Start a Trip" />
         </View>
-        {this.state.yelp.length ? (
-          <View style={styles.container}>
-            <FlatList
-              data={this.state.yelp}
-              renderItem={({ item }) => (
-                <Text style={styles.eventTitle}>{item.name}</Text>
-              )}
-              keyExtractor={item => item.id}
-            />
-          </View>
-        ) : (
-          <View>
-            <Text>Nothing To See Here</Text>
-          </View>
-        )}
+
+        <PlaceCarousel data={this.state.yelp} />
       </View>
     );
   }

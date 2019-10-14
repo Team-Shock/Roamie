@@ -1,281 +1,312 @@
-import { StyleSheet, Platform } from "react-native";
-import { blue } from "ansi-colors";
+import { StyleSheet, Platform } from 'react-native';
+import { blue } from 'ansi-colors';
 
 export const styles = StyleSheet.create({
   appname: {
-    alignItems: "center",
-    color: "blue",
-    textAlign: "center",
-    fontSize: 20
+    alignItems: 'center',
+    color: 'blue',
+    textAlign: 'center',
+    fontSize: 20,
   },
   backgroundcontainer: {
     flex: 1,
-    backgroundColor: "#fff",
-    padding: 0
+    backgroundColor: '#fff',
+    padding: 0,
   },
   backgroundButtonText: {
     fontSize: 18,
-    textAlign: "center",
-    color: "black",
-    fontSize: 16
+    textAlign: 'center',
+    color: 'black',
+    fontSize: 16,
   },
   backgroundButtonTouchable: {
     marginLeft: 4,
     marginRight: 4,
-    marginBottom: 8
+    marginBottom: 8,
   },
   backgroundButtonDeselected: {
-    flexDirection: "row",
+    flexDirection: 'row',
     borderRadius: 23,
-    borderColor: "#dadada",
+    borderColor: '#dadada',
     borderWidth: 2,
-    backgroundColor: "#dadada",
+    backgroundColor: '#dadada',
     height: 46,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingLeft: 16,
-    paddingRight: 16
+    paddingRight: 16,
   },
   backgroundButtonSelected: {
-    flexDirection: "row",
+    flexDirection: 'row',
     borderRadius: 23,
-    borderColor: "pink",
+    borderColor: 'pink',
     borderWidth: 2,
-    backgroundColor: "pink",
+    backgroundColor: 'pink',
     height: 46,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingLeft: 16,
-    paddingRight: 16
+    paddingRight: 16,
   },
   button: {
     width: 30,
     height: 30,
-    resizeMode: "contain"
+    resizeMode: 'contain',
   },
   buttonContainer: {
-    borderColor: "#F277C6",
+    borderColor: '#F277C6',
     borderWidth: 1,
     margin: 10,
-    borderRadius: 15
+    borderRadius: 15,
   },
   codeHighlightText: {
-    color: "rgba(96,100,109, 0.8)"
+    color: 'rgba(96,100,109, 0.8)',
   },
   codeHighlightContainer: {
-    backgroundColor: "rgba(0,0,0,0.05)",
+    backgroundColor: 'rgba(0,0,0,0.05)',
     borderRadius: 3,
-    paddingHorizontal: 4
+    paddingHorizontal: 4,
   },
   container: {
     flex: 1,
-    backgroundColor: "#ffffff"
+    backgroundColor: '#ffffff',
   },
   datacontainer: {
-    flex: 5
+    flex: 5,
   },
   developmentModeText: {
     marginBottom: 20,
-    color: "rgba(0,0,0,0.4)",
+    color: 'rgba(0,0,0,0.4)',
     fontSize: 14,
     lineHeight: 19,
-    textAlign: "center"
+    textAlign: 'center',
   },
   eventTitle: {
-    color: "#000000",
-    textAlign: "center",
+    color: '#000000',
+    textAlign: 'center',
     fontSize: 20,
-    margin: 5
+    margin: 5,
   },
   getStartedContainer: {
-    alignItems: "center",
-    marginHorizontal: 50
+    alignItems: 'center',
+    marginHorizontal: 50,
   },
   getStartedText: {
     fontSize: 17,
-    color: "rgba(96,100,109, 1)",
+    color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
-    textAlign: "center"
+    textAlign: 'center',
   },
   headercontainer: {
     flex: 1,
     height: 50,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingLeft: 30,
     borderBottomWidth: 1,
-    borderBottomColor: "#dadada"
+    borderBottomColor: '#dadada',
   },
   helpContainer: {
     marginTop: 15,
-    alignItems: "center"
+    alignItems: 'center',
   },
   helpLink: {
-    paddingVertical: 15
+    paddingVertical: 15,
   },
   helpLinkText: {
     fontSize: 14,
-    color: "#2e78b7"
+    color: '#2e78b7',
   },
   homeScreenFilename: {
-    marginVertical: 7
+    marginVertical: 7,
   },
 
   languagepickercontainer: {
-    flex: 2
+    flex: 2,
   },
   leftButtonContainer: {
-    paddingLeft: 5
+    paddingLeft: 5,
   },
   listImage: {
     height: 75,
     width: 300,
-    zIndex: -1
+    zIndex: -1,
   },
   listContainer: {
-    marginHorizontal: 15
+    marginHorizontal: 15,
   },
   loginButton: {
-    margin: 20
+    margin: 20,
   },
   loginButtonContainer: {
-    borderColor: "#F277C6",
+    borderColor: '#F277C6',
     borderWidth: 1,
     margin: 10,
     padding: 10,
     height: 60,
     width: 220,
-    alignItems: "center",
-    borderRadius: 15
+    alignItems: 'center',
+    borderRadius: 15,
   },
   loginContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#FFFFFF"
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
   },
   loginIcon: {
     height: 20,
-    width: 20
+    width: 20,
   },
   logo: {
     height: 200,
     width: 200,
     borderRadius: 100,
-    marginBottom: 15
+    marginBottom: 15,
   },
   loginText: {
     fontSize: 20,
-    textAlign: "center",
-    margin: 20
+    textAlign: 'center',
+    margin: 20,
   },
   maincontainer: {
     flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#ffffff",
+    flexDirection: 'column',
+    backgroundColor: '#ffffff',
     marginTop: 20,
     margin: 10,
-    padding: 0
+    padding: 0,
   },
   map: {
-    ...StyleSheet.absoluteFillObject
+    ...StyleSheet.absoluteFillObject,
   },
   mapcontainer: {
     // ...StyleSheet.absoluteFillObject,
     height: 400,
     width: 400,
-    justifyContent: "flex-end",
-    alignItems: "center"
+    justifyContent: 'flex-end',
+    alignItems: 'center',
     // marginTop: 60,
   },
 
   navigationFilename: {
-    marginTop: 5
+    marginTop: 5,
   },
   neweventcontainer: {
     margin: 40,
-    justifyContent: "flex-start"
+    justifyContent: 'flex-start',
   },
   preferencesContainer: {
     flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    padding: 20
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 20,
   },
   rightButtonContainer: {
-    paddingRight: 5
+    paddingRight: 5,
   },
   screenContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "scroll"
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'scroll',
   },
   tabBarInfoContainer: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
     ...Platform.select({
       ios: {
-        shadowColor: "black",
+        shadowColor: 'black',
         shadowOffset: { width: 0, height: -3 },
         shadowOpacity: 0.1,
-        shadowRadius: 3
+        shadowRadius: 3,
       },
       android: {
-        elevation: 20
-      }
+        elevation: 20,
+      },
     }),
-    alignItems: "center",
-    backgroundColor: "#fbfbfb",
-    paddingVertical: 20
+    alignItems: 'center',
+    backgroundColor: '#fbfbfb',
+    paddingVertical: 20,
   },
   tabBarInfoText: {
     fontSize: 17,
-    color: "rgba(96,100,109, 1)",
-    textAlign: "center"
+    color: 'rgba(96,100,109, 1)',
+    textAlign: 'center',
   },
   titletext: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 20,
-    fontWeight: "bold",
-    flex: 1
+    fontWeight: 'bold',
+    flex: 1,
   },
   tripLogRow: {
     flex: 1,
     width: 300,
-    textAlign: "center",
-    borderColor: "#F277C6",
+    textAlign: 'center',
+    borderColor: '#F277C6',
     borderWidth: 1,
     marginTop: 15,
-    color: "#000000",
+    color: '#000000',
     borderRadius: 20,
-    overflow: "hidden"
+    overflow: 'hidden',
   },
   welcomebuttonscontainer: {
-    marginTop: 575
+    marginTop: 575,
   },
   welcomeContainer: {
-    alignItems: "center",
+    alignItems: 'center',
     marginTop: 10,
-    marginBottom: 20
+    marginBottom: 20,
   },
   welcomeImage: {
     width: 100,
     height: 80,
-    resizeMode: "contain",
+    resizeMode: 'contain',
     marginTop: 3,
-    marginLeft: -10
+    marginLeft: -10,
   },
-  //jackie added for list view
+  //jackie added for carousel view
+  carousel: {
+    flex: 1,
+    // backgroundColor: '#141518',
+  },
   item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16
+    borderWidth: 2,
+    backgroundColor: 'white',
+    flex: 1,
+    borderRadius: 5,
+    borderColor: 'white',
+    elevation: 3,
   },
-  title: {
-    fontSize: 32
-  }
+  imageBackground: {
+    flex: 2,
+    backgroundColor: '#EBEBEB',
+    borderWidth: 5,
+    borderColor: 'white',
+    height: 200,
+  },
+  rightTextContainer: {
+    marginLeft: 'auto',
+    marginRight: -2,
+    backgroundColor: 'rgba(49, 49, 51,0.5)',
+    padding: 3,
+    marginTop: 3,
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
+  },
+  rightText: { color: 'white' },
+  lowerContainer: {
+    flex: 1,
+    margin: 10,
+  },
+  titleText: {
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  contentText: {
+    fontSize: 12,
+  },
 });
