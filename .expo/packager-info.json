@@ -2,8 +2,8 @@
   "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://4c-rzm.anonymous.roamie.exp.direct",
   "packagerNgrokUrl": "https://packager.4c-rzm.anonymous.roamie.exp.direct",
-  "ngrokPid": 17118,
+  "ngrokPid": 17797,
   "devToolsPort": 19003,
   "packagerPort": 19002,
-  "packagerPid": 17109
+  "packagerPid": 17786
 }
