@@ -8,7 +8,6 @@ router.post('/login', async (req, res, next) => {
     const data = await User.findAll({ where: { email: req.body.email } });
 
     if (data.length < 1) {
-      console.log('No such user found:', req.body.email);
       res.status(401).send('No account found');
     } else if (!data[0].correctPassword(req.body.password)) {
       console.log('Incorrect password for user:', req.body.email);
@@ -26,12 +25,14 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/oauth', async (req, res, next) => {
   try {
-    const data = await User.findAll({
-      where: { email: req.body.email, name: req.body.name },
-    });
-    let user = data[0];
+    const data = await User.findAll(
+      { where: { email: req.body.email,
+        name: req.body.name } });
+    let user = data[0] 
     if (!user) {
-      user = await User.create({ email: req.body.email, name: req.body.name });
+      user = await User.create(
+        { email: req.body.email,
+          name: req.body.name } );
       res.json(user);
     } else {
       res.json(user);
@@ -43,7 +44,6 @@ router.post('/oauth', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
-    console.log('SIGNUP', req.body);
     const newUser = await User.create(req.body);
     const user = await User.findByPk(newUser.id, { include: [{ all: true }] });
     req.login(user, err => (err ? next(err) : res.json(user)));
