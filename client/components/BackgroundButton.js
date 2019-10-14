@@ -14,7 +14,6 @@ export default class BackgroundButton extends React.Component {
   toggleSelected() {
     this.setState({ selected: !this.state.selected });
     this.props.pref.selected = !this.props.pref.selected;
-    console.log(this.state.selected, this.props.pref);
   }
   render() {
     return (
@@ -22,7 +21,7 @@ export default class BackgroundButton extends React.Component {
         style={styles.backgroundButtonTouchable}
         onPress={this.toggleSelected}
       >
-        {!this.state.selected ? (
+        {this.state.selected ? (
           <View style={styles.backgroundButtonSelected}>
             <Text style={styles.backgroundButtonText}>
               {this.props.pref.name}
