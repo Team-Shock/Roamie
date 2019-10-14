@@ -53,6 +53,7 @@ class StartTrip extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <View>
         <View style={styles.mapcontainer}>
@@ -86,7 +87,7 @@ class StartTrip extends Component {
           </MapView>
         </View>
 
-        {this.state.currentTrip.id ? (
+        {this.props.currentTrip.id ? (
           <PlaceCarousel data={this.state.categories} />
         ) : (
           <View style={styles.buttonContainer}>
