@@ -205,8 +205,24 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "600"
   },
+  modalClose: {
+    flexDirection: "column-reverse",
+    borderRadius: 23,
+    borderColor: "#dadada",
+    borderWidth: 2,
+    backgroundColor: "#dadada",
+    height: 46,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingLeft: 16,
+    paddingRight: 16,
+    marginBottom: 30,
+    marginHorizontal: 16
+  },
   modalContainer: {
+    flex: 1,
     marginTop: 50,
+    marginHorizontal: 30,
     textAlign: "center",
     justifyContent: "center"
   },
