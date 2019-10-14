@@ -1,10 +1,10 @@
-import { PostgresWrapper } from "../../postgres/postgres";
+import { PostgresWrapper } from '../../postgres/postgres';
 
 /**
  * ACTION TYPES
  */
-const GOT_TRIPS = "GOT_TRIPS";
-const REMOVE_TRIP = "REMOVE_TRIP";
+const GOT_TRIPS = 'GOT_TRIPS';
+const REMOVE_TRIP = 'REMOVE_TRIP';
 /**
  * INITIAL STATE
  */
@@ -19,15 +19,16 @@ const gotTrips = trips => ({ type: GOT_TRIPS, trips });
 /**
  * THUNK CREATORS
  */
-export const getTrips = (userId) => async dispatch => {
+export const getTrips = userId => async dispatch => {
   try {
     const instance = await PostgresWrapper.getInstance();
-    const res = await instance.get(`/api/trips/${userId}`);
-    if(res.data){
-        dispatch(gotTrips(res.data));
-    }
-    else{
-        console.log("Unable to retrieve any trips")
+    const res = await instance.get(
+      `http://172.16.26.140:8080/api/trips/${userId}`
+    );
+    if (res.data) {
+      dispatch(gotTrips(res.data));
+    } else {
+      console.log('Unable to retrieve any trips');
     }
   } catch (err) {
     console.error(err);
@@ -40,7 +41,7 @@ export const getTrips = (userId) => async dispatch => {
 const trips = (state = initialState, action) => {
   switch (action.type) {
     case GOT_TRIPS:
-      return action.trips
+      return action.trips;
     // case REMOVE_TRIP:
     default:
       return state;
