@@ -54,7 +54,12 @@ class Trips extends Component {
         <View style={{ flex: 1 }}>
           <ScrollView>
           {!trips || trips.length <=0 ? (
+            <View>
               <Text>No Trips in your account. Start your trip with Roamie today!</Text>
+              <View style={styles.buttonContainer}>
+              <Button style={styles.button} title="Start a Trip" />
+              </View>
+            </View>
             ) : (
               <View>
               {trips && trips.map(trip => 
@@ -69,7 +74,6 @@ class Trips extends Component {
                   </View>
                   <View style={styles.buttonContainer}>
                     <Button title="View" onPress={() => this.onTripPress(trip)} />
-                    <Button title="Hide from TripLog" />
                   </View>
                 </View>
                 ))}
