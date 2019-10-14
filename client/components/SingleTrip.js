@@ -15,6 +15,10 @@ import { getTrips } from '../store/tripsReducer'
 export class SingleTrip extends Component{
   constructor(props){
     super(props)
+    this.state = {
+      user: {},
+      trip: {}
+    }
     this.onHide = this.onHide.bind(this)
   }
 
@@ -22,7 +26,8 @@ export class SingleTrip extends Component{
 
   }
   componentDidMount(){
-    this.props.user.id
+    this.props.user.id ? this.updateState() : console.log("state not updated");
+    this.props.getTrips(this.props.user.id, this.props.tripInfo.id);
   }
 
   render(){
@@ -69,11 +74,12 @@ export class SingleTrip extends Component{
 }
 
 const mapStateToProps = state => ({
-  user: state.user,
+  user: state.user
+
 })
 
 const mapDispatchToProps = dispatch => ({
-  getTrips : (userId) => dispatch(getTrips(userId))
+  getTrips : (userId, tripId) => dispatch(getTrips(userId, tripId))
 })
 
 export default connect(
