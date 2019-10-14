@@ -273,6 +273,10 @@ export const styles = StyleSheet.create({
     color: "rgba(96,100,109, 1)",
     textAlign: "center"
   },
+  textInput: {
+    height: 40,
+    width: 250
+  },
   titletext: {
     textAlign: "center",
     fontSize: 20,
