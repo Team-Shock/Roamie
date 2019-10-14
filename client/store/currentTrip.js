@@ -27,7 +27,8 @@ export const getCurrentTrip = userId => async dispatch => {
 export const startTrip = (userId, location) => async dispatch => {
   try {
     const instance = await PostgresWrapper.getInstance();
-    const res = instance.post(`/api/trips/${userId}`);
+    let res = await instance.post(`/api/trips/${userId}`);
+    console.log('TRIP FROM BACKEND:', res.data);
     dispatch(startedTrip(res.data));
   } catch (error) {
     console.error(error);
@@ -41,6 +42,7 @@ const currentTrip = (state = initialState, action) => {
     case GOT_CURRENT_TRIP:
       return action.trip;
     case STARTED_TRIP:
+      // console.log('TRIP RETURNED FROM REDUCER:', action.trip);
       return action.trip;
     default:
       return state;

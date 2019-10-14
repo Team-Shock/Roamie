@@ -22,18 +22,18 @@ const Trip = db.define('trip', {
     type: Sequelize.DATE,
     defaultValue: new Date(),
   },
-  startLat: {
-    type: Sequelize.FLOAT,
-  },
-  startLong: {
-    type: Sequelize.FLOAT,
-  },
-  endLat: {
-    type: Sequelize.FLOAT,
-  },
-  endLong: {
-    type: Sequelize.FLOAT,
-  },
+  // startLat: {
+  //   type: Sequelize.FLOAT,
+  // },
+  // startLong: {
+  //   type: Sequelize.FLOAT,
+  // },
+  // endLat: {
+  //   type: Sequelize.FLOAT,
+  // },
+  // endLong: {
+  //   type: Sequelize.FLOAT,
+  // },
   sharingUrl: {
     type: Sequelize.STRING,
   },

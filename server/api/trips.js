@@ -49,6 +49,7 @@ router.post('/:userId', async (req, res, next) => {
   try {
     const newTrip = await Trip.create({
       userId: req.params.userId,
+      name: 'New Trip',
     });
     console.log('NEW TRIP IN POST ROUTE', newTrip);
     res.json(newTrip);
