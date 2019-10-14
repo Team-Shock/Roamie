@@ -5,6 +5,7 @@ import { styles } from "../../Styles/styles";
 import Preferences from "./Preferences";
 import { logout } from "../store/user-reducer";
 import { connect } from "react-redux";
+import { withNavigation } from "react-navigation";
 
 class Settings extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Settings extends Component {
   onLogout() {
     Alert.alert("You have been logged out");
     this.props.logOutUser();
+    this.props.navigation.navigate("Login");
   }
   render() {
     return (
@@ -34,7 +36,9 @@ const mapDispatchToProps = dispatch => ({
   logOutUser: () => dispatch(logout())
 });
 
-export default connect(
+const SettingsComponent = connect(
   null,
   mapDispatchToProps
 )(Settings);
+
+export default withNavigation(SettingsComponent);
