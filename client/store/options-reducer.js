@@ -22,6 +22,7 @@ export const getOptions = (params, loc) => async dispatch => {
         term: params,
       },
     });
+    dispatch(gotOptions(data));
   } catch (error) {
     console.error(error);
   }

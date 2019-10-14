@@ -28,7 +28,7 @@ const removeUser = () => ({ type: REMOVE_USER });
 export const me = () => async dispatch => {
   try {
     const instance = await PostgresWrapper.getInstance();
-    const res = await instance.get('http://172.16.26.140:8080/auth/me');
+    const res = await instance.get('/auth/me');
     dispatch(getUser(res.data));
   } catch (err) {
     console.error(err);
@@ -39,7 +39,7 @@ export const auth = (email, password, method) => async dispatch => {
   let res;
   try {
     const instance = await PostgresWrapper.getInstance();
-    res = await instance.post(`http://172.16.26.140:8080/auth/${method}`, {
+    res = await instance.post(`/auth/${method}`, {
       email,
       password,
     });
@@ -53,7 +53,7 @@ export const oauth = (name, email) => async dispatch => {
   let res;
   try {
     const instance = await PostgresWrapper.getInstance();
-    res = await instance.post(`http://172.16.26.140:8080/auth/oauth`, {
+    res = await instance.post(`/auth/oauth`, {
       name,
       email,
     });

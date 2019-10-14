@@ -14,15 +14,13 @@ import haversine from 'haversine';
 import PlaceCarousel from './Carousel';
 import { getOptions } from '../store/options-reducer';
 import { connect } from 'react-redux';
+import { startTrip, getCurrentTrip } from '../store/currentTrip';
 
 class StartTrip extends Component {
   constructor() {
     super();
     this.state = {
-      yelp: [],
-      google: [],
-      latitude: 40.704385,
-      longitude: -74.009806,
+      location: { latitude: 40.704385, longitude: -74.009806 },
       routeCoordinates: [
         {
           latitude: 40.704385,
@@ -31,11 +29,11 @@ class StartTrip extends Component {
       ],
       distanceTravelled: 0,
       prevLatLng: {},
+      categories: ['Cafe', 'Restaurant', 'Park', 'Movie', 'Museum'],
+      currentTrip: {},
     };
-    // this.getName = this.getName.bind(this);
   }
   async componentDidMount() {
-    let businessList = [];
     //watch the position of the user
     await navigator.geolocation.watchPosition(position => {
       const { coordinate, routeCoordinates, distanceTravelled } = this.state;
@@ -45,25 +43,13 @@ class StartTrip extends Component {
         latitude,
         longitude,
       };
-      // coordinate.timing(newCoordinate).start();
       this.setState({
-        latitude: latitude,
-        longitude: longitude,
+        location: { latitude: latitude, longitude: longitude },
         routeCoordinates: this.state.routeCoordinates.concat([newCoordinate]),
         distanceTravelled: distanceTravelled + this.calcDistance(newCoordinate),
         prevLatLng: newCoordinate,
       });
     });
-    //pull POI based on user's current location
-    const { data } = await yelp.get('/search', {
-      params: {
-        latitude: this.state.latitude,
-        longitude: this.state.longitude,
-        term: 'museum',
-      },
-    });
-
-    this.setState({ yelp: data.businesses });
   }
 
   render() {
@@ -74,8 +60,8 @@ class StartTrip extends Component {
             style={styles.map}
             provider={PROVIDER_GOOGLE}
             region={{
-              latitude: this.state.latitude,
-              longitude: this.state.longitude,
+              latitude: this.state.location.latitude,
+              longitude: this.state.location.longitude,
               latitudeDelta: 0.02,
               longitudeDelta: 0.02,
             }}
@@ -83,7 +69,7 @@ class StartTrip extends Component {
             followsUserLocation={true}
             showsMyLocationButton={true}
           >
-            {this.state.yelp.length > 0
+            {/* {this.state.yelp.length > 0
               ? this.state.yelp.map(business => (
                   <Marker
                     coordinate={business.coordinates}
@@ -96,26 +82,38 @@ class StartTrip extends Component {
             <Polyline
               coordinates={this.state.routeCoordinates}
               strokeWidth={3}
-            />
+            /> */}
           </MapView>
         </View>
-        <View style={styles.buttonContainer}>
-          <Button style={styles.button} title="Start a Trip" />
-        </View>
 
-        <PlaceCarousel data={this.state.yelp} />
+        {this.state.currentTrip.id ? (
+          <PlaceCarousel data={this.state.categories} />
+        ) : (
+          <View style={styles.buttonContainer}>
+            <Button
+              style={styles.button}
+              onPress={() =>
+                this.props.startTrip(this.props.user.id, this.state.location)
+              }
+              title="Start a Trip"
+            />
+          </View>
+        )}
       </View>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  categories: state.categories,
   options: state.options,
+  user: state.user,
+  currentTrip: state.currentTrip,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getOptions: (term, location) => dispatch(getOptions()),
+  getOptions: (params, location) => dispatch(getOptions()),
+  getCurrentTrip: userId => dispatch(getCurrentTrip(userId)),
+  startTrip: (userId, location) => dispatch(startTrip(userId)),
 });
 
 export default connect(
