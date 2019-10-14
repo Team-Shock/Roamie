@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import yelp from '../../server/api/yelp';
 import { googleKey } from '../../secrets';
-import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
+import MapView, {
+  PROVIDER_GOOGLE,
+  Marker,
+  Callout,
+  Polyline,
+} from 'react-native-maps';
 import { StyleSheet, Text, View, Image, FlatList, Button } from 'react-native';
 import { styles } from '../../Styles/styles';
 import haversine from 'haversine';
+import PlaceCarousel from './Carousel';
 
 export default class StartTrip extends Component {
   constructor() {
@@ -15,54 +21,67 @@ export default class StartTrip extends Component {
       google: [],
       latitude: 40.704385,
       longitude: -74.009806,
-      selected: '',
+      routeCoordinates: [
+        {
+          latitude: 40.704385,
+          longitude: -74.009806,
+        },
+      ],
+      distanceTravelled: 0,
+      prevLatLng: {},
     };
+    this.getName = this.getName.bind(this);
   }
   async componentDidMount() {
-    try{
-      await navigator.geolocation.watchPosition(position => {
-        this.setState({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
+    let businessList = [];
+    //watch the position of the user
+    await navigator.geolocation.watchPosition(position => {
+      const { coordinate, routeCoordinates, distanceTravelled } = this.state;
+      const { latitude, longitude } = position.coords;
+
+      const newCoordinate = {
+        latitude,
+        longitude,
+      };
+      // coordinate.timing(newCoordinate).start();
+      this.setState({
+        latitude: latitude,
+        longitude: longitude,
+        routeCoordinates: this.state.routeCoordinates.concat([newCoordinate]),
+        distanceTravelled: distanceTravelled + this.calcDistance(newCoordinate),
+        prevLatLng: newCoordinate,
       });
-    }
-    catch(error){
-      console.log("Unable to get latitude and longitude coordinates");
-    }
-    try{
-      const { data } = await yelp.get('/search', {
-        params: {
-          latitude: this.state.latitude,
-          longitude: this.state.longitude,
-        },
-      });
-      this.setState({ yelp: data.businesses });
-    }
-    catch(error){
-      console.log("Unable to search using yelp")
-    }
-    try{
-      const google = await axios.get(
-        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.latitude},${this.state.longitude}&radius=1500&key=${googleKey}`
-      );
-      this.setState({ google: google.data.results });
-    }
-    catch(error){
-      console.log("Unable to get google map")
-    }
+    });
+    //pull POI based on user's current location
+    const { data } = await yelp.get('/search', {
+      params: {
+        latitude: this.state.latitude,
+        longitude: this.state.longitude,
+      },
+    });
+
+    this.setState({ yelp: data.businesses });
+
+    // const google = await axios.get(
+    //   `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.latitude},${this.state.longitude}&radius=1500&key=${googleKey}`
+    // );
+    // this.setState({ google: google.data.results });
+
+    // console.log('businessList:', businessList);
   }
 
   getName = async id => {
-    try{
-      const name = await axios.get(
-        `https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&fields=name,rating,formatted_phone_number&key=${googleKey}`
-      );
-      this.setState({ selected: name.data.result.name });
-      return name.data.result.name;
-    }catch{
-      console.log("Unable to get name from google API")
-    }
+    const name = await axios.get(
+      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&fields=name,rating,formatted_phone_number&key=${googleKey}`
+    );
+    // this.setState({ selected: name.data.result.name });
+    return name.data.result.name;
+  };
+
+  //distance calculator for a trip
+  calcDistance = newLatLng => {
+    const { prevLatLng } = this.state;
+    return haversine(prevLatLng, newLatLng) || 0;
   };
 
   render() {
@@ -91,43 +110,18 @@ export default class StartTrip extends Component {
                   />
                 ))
               : null}
-            {this.state.google.length > 0
-              ? this.state.google.map(business => (
-                  <Marker
-                    coordinate={{
-                      latitude: business.geometry.location.lat,
-                      longitude: business.geometry.location.lng,
-                    }}
-                    image={require('../../assets/images/marker2.png')}
-                    onPress={e => this.getName(business.place_id)}
-                    key={business.id}
-                  >
-                    <Callout>
-                      <Text>This is a callout</Text>
-                    </Callout>
-                  </Marker>
-                ))
-              : null}
+
+            <Polyline
+              coordinates={this.state.routeCoordinates}
+              strokeWidth={3}
+            />
           </MapView>
         </View>
         <View style={styles.buttonContainer}>
           <Button style={styles.button} title="Start a Trip" />
         </View>
-        {this.state.yelp.length ? (
-          <View style={styles.container}>
-            <FlatList
-              data={this.state.yelp}
-              renderItem={({ item }) => (
-                <Text style={styles.eventTitle}>{item.name}</Text>
-              )}
-              keyExtractor={item => item.id}
-            />
-          </View>
-        ) : (
-          <View>
-            <Text>Nothing To See Here</Text>
-          </View>
-        )}
+
+        <PlaceCarousel data={this.state.yelp} />
       </View>
     );
   }

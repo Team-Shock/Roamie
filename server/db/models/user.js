@@ -64,9 +64,11 @@ const setSaltAndPassword = user => {
 //set initial preferences on new user instance
 const setDefaultPreferences = async user => {
   const preferences = await Preferences.findAll();
-  preferences.map(async pref => {
-    await UserPreferences.create({ userId: user.id, preferenceId: pref.id });
-  });
+  await Promise.all(
+    preferences.map(async pref => {
+      await UserPreferences.create({ userId: user.id, preferenceId: pref.id });
+    })
+  );
 };
 
 //hooks
