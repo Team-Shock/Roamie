@@ -9,8 +9,8 @@ const store = createStore(
   reducer,
   composeWithDevTools(
     applyMiddleware(
-      thunkMiddleware.withExtraArgument({ axios }),
-      loggingMiddleware
+      thunkMiddleware.withExtraArgument({ axios })
+      // loggingMiddleware
     )
   )
 );

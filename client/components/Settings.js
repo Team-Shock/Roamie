@@ -18,7 +18,9 @@ class Settings extends Component{
     return (
       <View style={styles.loginContainer}>
         <Preferences />
-        <Button title="Logout" onPress={() => this.onLogout()} />
+        <View style={styles.buttonContainer}>
+          <Button title="Logout" onPress={() => this.onLogout()} />
+        </View>
       </View>
     );
   }

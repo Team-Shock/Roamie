@@ -15,7 +15,7 @@ import {
 import { styles } from "../../Styles/styles";
 import { SingleTrip } from "./SingleTrip";
 import { me } from '../store/user-reducer';
-import { getTrips } from '../store/trips-reducer'
+import { getTrips } from '../store/tripsReducer'
 import { connect } from 'react-redux';
 
 class Trips extends Component {
@@ -27,14 +27,6 @@ class Trips extends Component {
     }
     this.onBackButton = this.onBackButton.bind(this)
     this.onTripPress = this.onTripPress.bind(this)
-
-  }
-  
-  async componentDidMount() {
-    await this.props.getCurrentUser();
-    if(this.props.user){
-      this.props.getTrips(this.props.user.id);
-    }
   }
 
   onTripPress(tripInfo){
@@ -84,7 +76,9 @@ class Trips extends Component {
         </View>
        ) : (
          <View>
+           <View style={styles.buttonContainer}>
           <Button title="Back" onPress={() => this.onBackButton()} />
+          </View> 
           <SingleTrip tripInfo={this.state.selectedTrip} />
         </View>
        )
@@ -97,17 +91,12 @@ class Trips extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  trips: state.trips
+  trips: state.user.trips
 })
-
-const mapDispatchToProps = dispatch => ({
-  getCurrentUser: () => dispatch(me()),
-  getTrips: (userId) => dispatch(getTrips(userId))
-});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Trips);
 
 

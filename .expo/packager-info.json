@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://u7-tjs.anonymous.roamie.exp.direct",
+  "packagerNgrokUrl": "https://packager.u7-tjs.anonymous.roamie.exp.direct",
+  "ngrokPid": 49865
 }

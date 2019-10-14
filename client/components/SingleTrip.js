@@ -10,8 +10,9 @@ import {
 } from "react-native";
 import { styles } from "../../Styles/styles";
 import { connect } from 'react-redux';
+import { getTrips } from '../store/tripsReducer'
 
-class SingleTrip extends Component{
+export class SingleTrip extends Component{
   constructor(props){
     super(props)
     this.onHide = this.onHide.bind(this)
@@ -20,30 +21,12 @@ class SingleTrip extends Component{
   onHide(){
 
   }
-
-  ShowPlace (props){
-    let place = props.place;
-    return (
-      <View style={styles.tripLogRow} key={place.id}>
-        <Image
-          source={{ uri: place.imageUrl }}
-          style={styles.listImage}
-        />
-        <View>
-          <Text style={styles.eventTitle}>{place.name}</Text>
-          <Text style={styles.eventTitle}>Description: {place.description}</Text>
-          <Text style={styles.eventTitle}>Date: {place.date}</Text>
-          <Text style={styles.eventTitle}>Location: {place.locationAddress}</Text>
-          <View style={styles.buttonContainer}>
-            <Button style={styles.button} title="Hide" onPress={()=> this.onHide()} />
-          </View> 
-        </View>
-      </View>
-    )
+  componentDidMount(){
+    this.props.user.id
   }
 
   render(){
-    let trip = props.tripInfo
+    let trip = this.props.tripInfo
 
     return (
       <View>
@@ -58,8 +41,23 @@ class SingleTrip extends Component{
           <Text>From: {trip.startLocation}</Text>
           <Text>To: {trip.endLocation}</Text>
           <ScrollView>
-              {trip.places && trip.places.filter((place)=> place.visibility).map(place => (
-              <ShowPlace place={place}></ShowPlace>))}
+              {trip.places && trip.places.map(place => (
+                <View style={styles.tripLogRow} key={place.id}>
+                  <Image
+                    source={{ uri: place.imageUrl }}
+                    style={styles.listImage}
+                  />
+                  <View>
+                    <Text style={styles.eventTitle}>{place.name}</Text>
+                    <Text style={styles.eventTitle}>Description: {place.description}</Text>
+                    <Text style={styles.eventTitle}>Date: {place.date}</Text>
+                    <Text style={styles.eventTitle}>Location: {place.locationAddress}</Text>
+                    <View style={styles.buttonContainer}>
+                      <Button style={styles.button} title="Hide" onPress={()=> this.onHide()} />
+                    </View> 
+                  </View>
+                </View>
+              ))}
           </ScrollView>
           <View style={styles.buttonContainer}>
             <Button style={styles.button} title="Share this trip" />
@@ -70,5 +68,15 @@ class SingleTrip extends Component{
   }
 }
 
- 
-export default connect (null, null)(SingleTrip)
+const mapStateToProps = state => ({
+  user: state.user,
+})
+
+const mapDispatchToProps = dispatch => ({
+  getTrips : (userId) => dispatch(getTrips(userId))
+})
+
+export default connect(
+  mapStateToProps,
+  null
+)(SingleTrip);

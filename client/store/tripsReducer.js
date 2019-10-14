@@ -4,16 +4,22 @@ import { PostgresWrapper } from "../../postgres/postgres";
  * ACTION TYPES
  */
 const GOT_TRIPS = "GOT_TRIPS";
+const GOT_SELECTED_TRIP = "GOT_SELECTED_TRIP";
 const REMOVE_TRIP = "REMOVE_TRIP";
 /**
  * INITIAL STATE
  */
-const initialState = [];
+const initialState = [
+  allTrips =[],
+  selectedTrip = {}
+];
 
 /**
  * ACTION CREATORS
  */
 const gotTrips = trips => ({ type: GOT_TRIPS, trips });
+const gotSelectedTrip= trip => ({ type: GOT_SELECTED_TRIP, trip });
+
 // const removedTrips = () => ({ type: REMOVED_TRIPS });
 
 /**
@@ -34,14 +40,31 @@ export const getTrips = (userId) => async dispatch => {
   }
 };
 
+export const getTripWithPlaces = (userId, tripId) => async dispatch => {
+  try {
+    const instance = await PostgresWrapper.getInstance();
+    const res = await instance.get(`/api/trips/${userId}/${tripId}`);
+    if(res.data){
+        dispatch(gotSelectedTrip(res.data));
+    }
+    else{
+        console.log("Unable to retrieve any trips")
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 /**
  * REDUCER
  */
 const trips = (state = initialState, action) => {
   switch (action.type) {
     case GOT_TRIPS:
-      return action.trips
+      return {...state, allTrips: action.trips}
     // case REMOVE_TRIP:
+    case GOT_SELECTED_TRIP:
+      return {...state, selectedTrip: action.selectedTrip}
     default:
       return state;
   }

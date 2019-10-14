@@ -1,10 +1,25 @@
 const router = require('express').Router()
-const {Trip, Place} = require('../db/models')
+const {Trip, Place, TripPlaces} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
     const trips = await Trip.findAll({
+    })
+    res.json(trips)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/:userId/:tripId', async (req, res, next) => {
+  try {
+    const trips = await Trip.findAll({
+      where: {
+        userId: req.params.userId,
+        id: req.params.tripId
+      },
+      include: [{model: Place}]
     })
     res.json(trips)
   } catch (err) {

@@ -3,6 +3,8 @@ module.exports = router;
 
 router.use('/users', require('./users'));
 router.use('/trips', require('./trips'));
+router.use('/places', require('./places'));
+
 router.use('/preferences', require('./preferences'));
 router.use((req, res, next) => {
   const error = new Error('Not Found');
