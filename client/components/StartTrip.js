@@ -64,28 +64,7 @@ class StartTrip extends Component {
     });
 
     this.setState({ yelp: data.businesses });
-
-    //   // const google = await axios.get(
-    //   //   `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.latitude},${this.state.longitude}&radius=1500&key=${googleKey}`
-    //   // );
-    //   // this.setState({ google: google.data.results });
-
-    //   // console.log('businessList:', businessList);
   }
-
-  // getName = async id => {
-  //   const name = await axios.get(
-  //     `https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&fields=name,rating,formatted_phone_number&key=${googleKey}`
-  //   );
-  //   // this.setState({ selected: name.data.result.name });
-  //   return name.data.result.name;
-  // };
-
-  //distance calculator for a trip
-  calcDistance = newLatLng => {
-    const { prevLatLng } = this.state;
-    return haversine(prevLatLng, newLatLng) || 0;
-  };
 
   render() {
     return (
@@ -131,6 +110,7 @@ class StartTrip extends Component {
 }
 
 const mapStateToProps = state => ({
+  categories: state.categories,
   options: state.options,
 });
 
