@@ -25,3 +25,7 @@ router.get('/:userId', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/:userId/:tripId', async (req, res, next) => {
+  
+})

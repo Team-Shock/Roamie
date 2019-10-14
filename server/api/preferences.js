@@ -2,28 +2,22 @@ const router = require('express').Router();
 module.exports = router;
 const { Preferences, User, UserPreferences } = require('../db/models');
 
-router.get('/:userId', async (req, res, next) => {
+router.put('/:userId/change', async (req, res, next) => {
   try {
-    const preferences = await User.findByPk(req.params.userId, {
-      include: [{ all: true }],
-    });
-    res.json(preferences);
-  } catch (error) {
-    next(error);
-  }
-});
+    let newPreferences = req.body.preferences
+    newPreferences = await Promise.all(newPreferences.map(pref => {
+      const oldPref = await UserPreferences.findByPk(pref.id)
+      if (pref.selected !== oldPref.selected){
+      await oldPref.toggleSelected();}
+    }))
+    // const prefSearch = await UserPreferences.findAll({
+    //   where: {
+    //     userId: req.params.userId,
+    //     preferenceId: req.params.prefId,
+    //   },
+    // });
 
-router.put('/:userId/:prefId', async (req, res, next) => {
-  try {
-    const prefSearch = await UserPreferences.findAll({
-      where: {
-        userId: req.params.userId,
-        preferenceId: req.params.prefId,
-      },
-    });
-    const pref = prefSearch[0];
-    await pref.toggleSelected();
-    res.json(pref);
+    res.json(newPreferences);
   } catch (error) {
     next(error);
   }
