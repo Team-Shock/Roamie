@@ -2,6 +2,11 @@ import { StyleSheet, Platform } from 'react-native';
 import { blue } from 'ansi-colors';
 
 export const styles = StyleSheet.create({
+  about: {
+    textAlign: "center",
+    fontSize: 18,
+    margin: 20
+  },
   appname: {
     alignItems: 'center',
     color: 'blue',
@@ -158,17 +163,23 @@ export const styles = StyleSheet.create({
     height: 20,
     width: 20,
   },
+  loginHeader: {
+    fontSize: 30,
+    textAlign: "center",
+    margin: 25
+  },
+  loginText: {
+    fontSize: 20,
+    textAlign: "center",
+    margin: 30
+  },
   logo: {
     height: 200,
     width: 200,
     borderRadius: 100,
     marginBottom: 15,
   },
-  loginText: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 20,
-  },
+
   maincontainer: {
     flex: 1,
     flexDirection: 'column',
@@ -188,7 +199,34 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     // marginTop: 60,
   },
-
+  modalButtonText: {
+    textAlign: "center",
+    color: "#F277C6",
+    marginTop: 8,
+    fontSize: 15,
+    fontWeight: "600"
+  },
+  modalClose: {
+    flexDirection: "column-reverse",
+    borderRadius: 23,
+    borderColor: "#dadada",
+    borderWidth: 2,
+    backgroundColor: "#dadada",
+    height: 46,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingLeft: 16,
+    paddingRight: 16,
+    marginBottom: 30,
+    marginHorizontal: 16
+  },
+  modalContainer: {
+    flex: 1,
+    marginTop: 50,
+    marginHorizontal: 30,
+    textAlign: "center",
+    justifyContent: "center"
+  },
   navigationFilename: {
     marginTop: 5,
   },
@@ -235,6 +273,10 @@ export const styles = StyleSheet.create({
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
     textAlign: 'center',
+  },
+  textInput: {
+    height: 40,
+    width: 250
   },
   titletext: {
     textAlign: 'center',

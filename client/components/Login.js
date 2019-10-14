@@ -1,56 +1,23 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Button, Alert } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { styles } from '../../Styles/styles';
-import LoginForm from './LoginForm';
-import * as Facebook from 'expo-facebook';
-import { auth, oauth, me} from '../store/user-reducer';
-import { connect } from 'react-redux';
-import { withNavigation } from "react-navigation"
+
+import React, { Component } from "react";
+import { Text, View, Image, TouchableHighlight } from "react-native";
+import { styles } from "../../Styles/styles";
+import LoginForm from "./LoginForm";
+import { connect } from "react-redux";
+import { withNavigation } from "react-navigation";
+import About from "../components/About.js";
+
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: '', email: '' };
-    this.onLogIn = this.onLogIn.bind(this);
-  }
-  onLogIn() {
-    this.props.addOAuthUser(this.state.name, this.state.email);
-    this.props.navigation.navigate("Settings")
-  }
-  componentDidMount(){
-    this.props.getCurrentUser();
+    this.state = { name: "", email: "", showLogin: false };
+    this.toggleLogin = this.toggleLogin.bind(this);
   }
 
-  signInWithFacebook = async () => {
-    try {
-      const {
-        type,
-        token,
-        expires,
-        permissions,
-        declinedPermissions
-      } = await Facebook.logInWithReadPermissionsAsync("755192041599866", {
-        permissions: ["public_profile", "email"]
-      });
-      if (type === "success") {
-        // Get the user's name using Facebook's Graph API
-        const response = await fetch(
-          `https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,birthday,picture.type(large)`
-        );
-        // console.log(await response.json())
-        const res = await response.json();
-        this.setState({ name: res.name, email: res.email });
-        this.onLogIn();
-        Alert.alert('Logged in!', `Welcome ${res.name}!`);
-      } else {
-        // type === 'cancel'
-      }
-    } catch ({ message }) {
-      alert(`Facebook Login Error: ${message}`);
-    }
-  };
-
+  toggleLogin(event) {
+    this.setState({ showLogin: !this.state.showLogin });
+  }
   render() {
     let logo = {
       uri:
@@ -58,41 +25,26 @@ class Login extends Component {
     };
     return (
       <View style={styles.loginContainer}>
-        <Text style={styles.loginText}>Welcome to Roamie</Text>
+        <Text style={styles.loginHeader}>Welcome to Roamie</Text>
+        <Text style={styles.loginText}>
+          A travel companion {"\n"} for exploring near and far!
+        </Text>
         <Image source={logo} style={styles.logo} />
-        <LoginForm />
-        {/* <View style={styles.loginButtonContainer}>
-          <Icon.Button name="google" backgroundColor="#ffffff" color="#F277C6">
-            Login with Google
-          </Icon.Button>
-        </View> */}
-        <View style={styles.loginButtonContainer}>
-          <Icon.Button
-            name="facebook"
-            backgroundColor="#ffffff"
-            color="#F277C6"
-            onPress={() => this.signInWithFacebook()}
-          >
-            Login with Facebook
-          </Icon.Button>
-        </View>
+        <TouchableHighlight
+          onPress={() => {
+            this.toggleLogin();
+          }}
+          style={styles.loginButtonContainer}
+        >
+          <Text style={styles.modalButtonText}>Enter</Text>
+        </TouchableHighlight>
+        {this.state.showLogin ? <LoginForm /> : null}
+        <About />
       </View>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.user.user
-})
 
-const mapDispatchToProps = dispatch => ({
-  getCurrentUser: () => dispatch(me()),
-  addOAuthUser: (name, email) => dispatch(oauth(name, email))
-});
+export default withNavigation(Login);
 
-const FacebookLogIn = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login);
-
-export default withNavigation(FacebookLogIn);
