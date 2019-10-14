@@ -11,6 +11,7 @@ class SignUp extends React.Component {
     super(props);
     this.state = { email: "", password: "", modalVisible: false };
     this.onSignUp = this.onSignUp.bind(this);
+    this.setModalVisible = this.setModalVisible.bind(this);
   }
 
   setModalVisible(visible) {
@@ -19,6 +20,7 @@ class SignUp extends React.Component {
 
   onSignUp() {
     this.props.auth(this.state.email, this.state.password, "signup");
+    this.setModalVisible(!this.state.modalVisible);
     this.props.navigation.navigate("Main");
   }
 
@@ -35,7 +37,7 @@ class SignUp extends React.Component {
         >
           <View style={styles.loginContainer}>
             <TextInput
-              style={{ height: 40 }}
+              style={styles.textInput}
               placeholder="Your email"
               onChangeText={email =>
                 this.setState({ email: email.toLowerCase() })
@@ -44,7 +46,7 @@ class SignUp extends React.Component {
             />
             <TextInput
               secureTextEntry={true}
-              style={{ height: 40 }}
+              style={styles.textInput}
               placeholder="Your password"
               onChangeText={password => this.setState({ password })}
               value={this.state.password}

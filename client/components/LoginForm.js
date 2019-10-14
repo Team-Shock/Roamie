@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TextInput, View, TouchableHighlight, Modal } from "react-native";
+import { Text, View, TouchableHighlight, Modal } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "../../Styles/styles";
 import { auth } from "../store/user-reducer";
@@ -15,6 +15,7 @@ class LoginForm extends React.Component {
     this.state = { email: "", password: "", modalVisible: false };
     this.onLogIn = this.onLogIn.bind(this);
     this.onSignUp = this.onSignUp.bind(this);
+    this.setModalVisible = this.setModalVisible.bind(this);
   }
 
   setModalVisible(visible) {
@@ -69,8 +70,21 @@ class LoginForm extends React.Component {
           }}
         >
           <View style={styles.loginContainer}>
-            <LoginNoAuth />
-            <SignUp />
+            <View
+              onPress={() => {
+                this.setModalVisible(!this.state.modalVisible);
+              }}
+            >
+              <LoginNoAuth />
+            </View>
+
+            <View
+              onPress={() => {
+                this.setModalVisible(!this.state.modalVisible);
+              }}
+            >
+              <SignUp />
+            </View>
             <View style={styles.loginButtonContainer}>
               <Icon.Button
                 name="facebook"
