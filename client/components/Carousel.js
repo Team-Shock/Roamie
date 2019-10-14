@@ -7,47 +7,61 @@ import {
   Dimensions,
   ImageBackground,
 } from 'react-native';
-import { styles } from '../../Styles/styles';
-import Carousel from 'react-native-anchor-carousel';
+// import { styles } from '../../Styles/styles';
+import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
+
+const { width: screenWidth } = Dimensions.get('window');
 
 export default class PlaceCarousel extends Component {
-  renderItem = ({ item, index }) => {
-    const { image_url, name } = item;
+  renderItem({ item, index }, parallaxProps) {
     return (
-      <TouchableOpacity
-        activeOpacity={1}
-        style={styles.item}
-        onPress={() => {
-          this.numberCarousel.scrollToIndex(index);
-        }}
-      >
-        <ImageBackground
-          source={{ uri: image_url }}
-          style={styles.imageBackground}
-        ></ImageBackground>
-        <View style={styles.lowerContainer}>
-          <Text style={styles.titleText}>{name}</Text>
-          {/* <Text style={styles.contentText}>{content}</Text> */}
-        </View>
-      </TouchableOpacity>
+      <View style={styles.item}>
+        <ParallaxImage
+          source={{ uri: item.image_url }}
+          containerStyle={styles.imageContainer}
+          style={styles.image}
+          parallaxFactor={0.4}
+          {...parallaxProps}
+        />
+        <Text style={styles.title} numberOfLines={2}>
+          {item.name}
+        </Text>
+      </View>
     );
-  };
+  }
 
   render() {
-    return (
+    return this.props.data ? (
       <View>
         <Carousel
-          style={styles.carousel}
+          sliderWidth={screenWidth}
+          sliderHeight={screenWidth}
+          itemWidth={screenWidth - 60}
           data={this.props.data}
           renderItem={this.renderItem}
-          itemWidth={250}
-          inActiveOpacity={0.3}
-          containerWidth={350}
-          ref={c => {
-            this.numberCarousel = c;
-          }}
+          hasParallaxImages={true}
         />
+      </View>
+    ) : (
+      <View>
+        <Text>Loading...</Text>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  item: {
+    width: screenWidth - 60,
+    height: screenWidth - 60,
+  },
+  imageContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+    borderRadius: 8,
+  },
+  image: {
+    ...StyleSheet.absoluteFillObject,
+    resizeMode: 'cover',
+  },
+});
