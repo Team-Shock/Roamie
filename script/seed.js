@@ -109,12 +109,9 @@ async function seed() {
   const user1 = await User.findByPk(1)
   const trip1 = await Trip.findByPk(1)
   await trip1.update({userId: 1})
-  console.log('Retrieved trip: ', trip1)
   const place1 = await Place.findByPk(1)
-  console.log('Retrieved place: ', place1)
   await TripPlaces.create({tripId: 1, placeId:1})
   const tripPlaces = await TripPlaces.findAll();
-  console.log('trip places: ', tripPlaces)
   
 
   console.log(`seeded ${users.length} users`);

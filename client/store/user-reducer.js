@@ -11,7 +11,6 @@ const SET_FIRSTTIMEVISIT = "SET_FIRSTTIMEVISIT"
  * INITIAL STATE
  */
 const initialState = {
-  // firstTime : false
 };
 
 /**

@@ -38,43 +38,44 @@ class Trips extends Component {
   }
 
   onTripPress(tripInfo){
-    Alert.alert("Trip Pressed!")
     this.setState({singleTripSelected: true,
                   selectedTrip : tripInfo});
     
   }
 
   onBackButton(){
-    Alert.alert("Back Button Pressed!")
-
     this.setState({singleTripSelected:false})
   }
   render() {
-    // console.log("Render In Trips: ", this.props)
     const trips = this.props.trips;
-    //
     return (
       <View>
-      
       {!this.state.singleTripSelected ? (
         <View style={{ flex: 1 }}>
           <ScrollView>
-            {trips && trips.map(trip => 
-            (
-              <View style={styles.tripLogRow} key={trip.id}>
-              <Image
-                source={{ uri: trip.imageUrl }}
-                style={styles.listImage}
-              />
+          {!trips || trips.length <=0 ? (
+              <Text>No Trips in your account. Start your trip with Roamie today!</Text>
+            ) : (
               <View>
-                <Text style={styles.eventTitle}>{trip.name}</Text>
+              {trips && trips.map(trip => 
+                (
+                  <View style={styles.tripLogRow} key={trip.id}>
+                  <Image
+                    source={{ uri: trip.imageUrl }}
+                    style={styles.listImage}
+                  />
+                  <View>
+                    <Text style={styles.eventTitle}>{trip.name}</Text>
+                  </View>
+                  <View style={styles.buttonContainer}>
+                    <Button title="View" onPress={() => this.onTripPress(trip)} />
+                    <Button title="Hide from TripLog" />
+                  </View>
+                </View>
+                ))}
               </View>
-              <View style={styles.buttonContainer}>
-                <Button title="View" onPress={() => this.onTripPress(trip)} />
-                <Button title="Hide from TripLog" />
-              </View>
-            </View>
-            ))}
+            )
+          }
           </ScrollView>
         </View>
        ) : (

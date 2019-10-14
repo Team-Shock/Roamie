@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => {
       // send everything to anyone who asks!
       attributes: ['id', 'email'],
     });
-
+    console.log("User retrieved by Server: ", users)
     res.json(users);
   } catch (err) {
     next(err);
