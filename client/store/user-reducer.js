@@ -6,17 +6,15 @@ import Axios from "axios";
  */
 const GET_USER = "GET_USER";
 const REMOVE_USER = "REMOVE_USER";
-const SET_FIRSTTIMEVISIT = "SET_FIRSTTIMEVISIT"
+
 /**
  * INITIAL STATE
  */
-const initialState = {
-};
+const defaultUser = {};
 
 /**
  * ACTION CREATORS
  */
-const setFirstTimeVisitor = firstTime => ({type: SET_FIRSTTIMEVISIT, firstTime})
 const getUser = user => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
 
@@ -41,6 +39,7 @@ export const auth = (email, password, method) => async dispatch => {
       email,
       password
     });
+    console.log("FROM AUTH THUNK", res.data);
     dispatch(getUser(res.data));
   } catch (authError) {
     return dispatch(getUser({ error: authError }));
@@ -66,6 +65,7 @@ export const logout = () => async dispatch => {
     let instance = await PostgresWrapper.getInstance();
     await instance.post("/auth/logout");
     dispatch(removeUser());
+    // history.push('/login')
   } catch (err) {
     console.error(err);
   }
@@ -74,12 +74,13 @@ export const logout = () => async dispatch => {
 /**
  * REDUCER
  */
-const user = (state = initialState, action) => {
+const user = (state = defaultUser, action) => {
   switch (action.type) {
     case GET_USER:
+      console.log("ACTION.USER INSIDE REDUCER", action.user);
       return action.user;
     case REMOVE_USER:
-      return {};
+      return defaultUser;
     default:
       return state;
   }

@@ -1,18 +1,18 @@
 const { green, red } = require('chalk');
 const db = require('../server/db');
-const { Trip, User, Place, Preferences, UserPreferences, TripPlaces } = require('../server/db/models');
+const { Trip, User, Place, Preferences, UserPreferences } = require('../server/db/models');
 const defaultPreferences = require('../utils/defaultPreferences');
 
 //Trips dummy data for development
 const trips = [
   {
-    name: 'Barcelona Trip with Friends',
+    name: 'Barcelona Trip with ENEMIES',
     imageUrl: 'https://cdn.cnn.com/cnnnext/dam/assets/170706113411-spain.jpg',
     sharingUrl: '',
     startLocation: 'Carrer de Mallorca, 401, 08013 Barcelona, Spain',
     endLocation: 'Parc de la Ciutadella, 08003 Barcelona, Spain',
     sharingUrl: '',
-    status: 'complete'
+    status: 'complete',
   },
   {
     name: 'Costa Rica with Family',
@@ -25,7 +25,7 @@ const trips = [
       'Calle Central Alfredo Volio, Merced, San José Province, San José, Costa Rica',
     endLocation: 'Guanacaste Province, Playa Hermosa, Costa Rica',
     sharingUrl: '',
-    status: 'complete'
+    status: 'complete',
   },
   {
     name: 'Naoshima Solo Trip',
@@ -99,24 +99,15 @@ async function seed() {
       return Trip.create(trip);
     })
   );
+
   await Promise.all(
     places.map(place => {
       return Place.create(place);
     })
   );
 
-  //DUMMY TRIPPLACE FOR FRONT END BUILD OUT:
-  const user1 = await User.findByPk(1)
-  const trip1 = await Trip.findByPk(1)
-  await trip1.update({userId: 1})
-  const place1 = await Place.findByPk(1)
-  await TripPlaces.create({tripId: 1, placeId:1})
-  const tripPlaces = await TripPlaces.findAll();
-  
-
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${trips.length} trips`);
-  console.log(`seeded ${places.length} places`);
 
   console.log(`seeded successfully`);
 }
