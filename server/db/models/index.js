@@ -6,8 +6,11 @@ const TripPlaces = require('./tripplaces');
 const UserPreferences = require('./userpreferences');
 
 //A user may have multiple prefences, and a preference can belong to many users:
-Preferences.belongsToMany(User, { through: UserPreferences });
-User.belongsToMany(Preferences, { through: UserPreferences });
+Preferences.belongsToMany(User, { as: 'user', through: UserPreferences });
+User.belongsToMany(Preferences, {
+  as: 'preferences',
+  through: UserPreferences,
+});
 
 //Users have many trips:
 User.hasMany(Trip);

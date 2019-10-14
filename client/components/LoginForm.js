@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "../../Styles/styles";
 import { auth } from "../store/user-reducer";
 import { connect } from "react-redux";
+import { withNavigation } from "react-navigation";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -15,10 +16,12 @@ class LoginForm extends React.Component {
 
   onLogIn() {
     this.props.auth(this.state.email, this.state.password, "login");
+    this.props.navigation.navigate("Main");
   }
 
   onSignUp() {
     this.props.auth(this.state.email, this.state.password, "signup");
+    this.props.navigation.navigate("Main");
   }
   render() {
     return (
@@ -74,4 +77,4 @@ const LogInOrSignUp = connect(
   mapDispatchToProps
 )(LoginForm);
 
-export default LogInOrSignUp;
+export default withNavigation(LogInOrSignUp);

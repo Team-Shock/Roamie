@@ -1,5 +1,6 @@
 import axios from "axios";
 import { defaultPreferences } from "../../utils/defaultPreferences";
+import Axios from "axios";
 
 const initialState = {
   preferences: defaultPreferences
@@ -20,13 +21,19 @@ const setThePreferences = preferences => ({
 });
 
 // Thunk Creators
-export const getPreferences = () => async dispatch => {
-  dispatch(gotPreferences(prefs));
+export const getPreferences = id => async dispatch => {
+  try {
+    const { data } = await Axios.get(`/api/preferences/:id`);
+    console.log("DATA FROM GETPREFERENCES THUNK", data);
+    dispatch(gotPreferences(data));
+  } catch (error) {
+    console.log("There was an error getting preferences", error);
+  }
 };
 
 export const setPreferences = preferences => async dispatch => {
   dispatch(setThePreferences(preferences));
-  dispatch(gotPreferences(preferences));
+  //dispatch(gotPreferences(preferences));
 };
 // Reducer
 const preferences = (state = initialState, action) => {

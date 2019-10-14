@@ -4,34 +4,46 @@ import { styles } from "../../Styles/styles";
 import BackgroundButton from "./BackgroundButton";
 import { connect } from "react-redux";
 import { getPreferences, setPreferences } from "../store/preferences";
+import { me } from "../store/user-reducer";
 
 class Preferences extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
-      preferences: []
+      preferences: [],
+      user: {}
     };
     this.handlePress = this.handlePress.bind(this);
+    this.updateState = this.updateState.bind(this);
   }
-  async componentDidMount() {
-    await this.props.getPreferences();
-    await this.setState({
+  componentDidMount() {
+    console.log("COMPONENT MOUNTED", this.props);
+    this.props.user.id ? this.updateState() : console.log("state not updated");
+  }
+
+  updateState() {
+    const user = this.props.user;
+    const prefs = this.props.user.preferences;
+    console.log("#### Inside update state", user, prefs);
+    this.setState({
       loading: false,
-      preferences: this.props.preferences
+      preferences: prefs,
+      user: user
     });
   }
 
   async handlePress() {
+    await this.props.me();
     await this.props.setPreferences(this.state.preferences);
-    await this.props.getPreferences();
   }
-  render() {
+
+  renderReturn() {
     return (
       <View>
         <View style={styles.preferencesContainer}>
-          {this.props.preferences.length > 0 ? (
-            this.props.preferences.map(pref => (
+          {this.props.user.preferences ? (
+            this.props.user.preferences.map(pref => (
               <BackgroundButton key={pref.id} pref={pref} />
             ))
           ) : (
@@ -48,14 +60,24 @@ class Preferences extends Component {
       </View>
     );
   }
+
+  render() {
+    if (this.props.user.preferences) {
+      console.log("!!!!!   PREFERENCES EXIST", this.props.user.preferences);
+      return this.renderReturn();
+    } else {
+      console.log("@@@@@@ PREFERENCES DO NOT EXIST", this.props);
+      return null;
+    }
+  }
 }
 
-const mapStateToProps = state => ({
-  preferences: state.preferences
-});
+const mapStateToProps = state => {
+  console.log("MAP STATE TO PROPS", state);
+  return { user: state.user };
+};
 
 const mapDispatchToProps = dispatch => ({
-  getPreferences: () => dispatch(getPreferences()),
   setPreferences: preferences => dispatch(setPreferences(preferences))
 });
 

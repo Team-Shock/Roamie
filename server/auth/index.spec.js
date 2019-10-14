@@ -3,10 +3,17 @@ const request = require('supertest');
 const db = require('../db');
 const app = require('../index');
 const User = db.model('user');
+const Preferences = db.model('preferences');
+const defaultPreferences = require('../../utils/defaultPreferences');
 
 describe('Auth routes', () => {
-  beforeEach(() => {
-    return db.sync({ force: true });
+  beforeEach(async () => {
+    await db.sync({ force: true });
+    await Promise.all(
+      defaultPreferences.map(pref => {
+        return Preferences.create(pref);
+      })
+    );
   });
   describe('login route', async () => {
     const testEmail = 'test@email.com';
@@ -21,6 +28,9 @@ describe('Auth routes', () => {
           email: 'test@email.com',
           password: 'test',
         });
+      const preferences = await Preferences.findAll();
+
+      expect(res.body.preferences.length).to.be.equal(preferences.length);
       expect(res.body.email).to.deep.equal(testEmail);
     });
     it('sends a 401 and an error message when the email is not associated with a user', async () => {
@@ -49,6 +59,8 @@ describe('Auth routes', () => {
       const res = await request(app)
         .post('/auth/signup')
         .send({ email: 'signup@email.com', password: 'signup' });
+      const preferences = await Preferences.findAll();
+      // expect(res.body.preferences.length).to.be.equal(preferences.length);
       expect(res.body.email).to.deep.equal('signup@email.com');
     });
   }); //end describe signup route
