@@ -32,16 +32,14 @@ export default class PlaceCarousel extends Component {
 
   render() {
     return this.props.data ? (
-      <View>
-        <Carousel
-          sliderWidth={screenWidth}
-          sliderHeight={screenWidth}
-          itemWidth={screenWidth - 60}
-          data={this.props.data}
-          renderItem={this.renderItem}
-          hasParallaxImages={true}
-        />
-      </View>
+      <Carousel
+        sliderWidth={screenWidth}
+        sliderHeight={screenWidth}
+        itemWidth={screenWidth - 60}
+        data={this.props.data}
+        renderItem={this.renderItem}
+        hasParallaxImages={true}
+      />
     ) : (
       <View>
         <Text>Loading...</Text>

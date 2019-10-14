@@ -12,8 +12,10 @@ import { StyleSheet, Text, View, Image, FlatList, Button } from 'react-native';
 import { styles } from '../../Styles/styles';
 import haversine from 'haversine';
 import PlaceCarousel from './Carousel';
+import { getOptions } from '../store/options-reducer';
+import { connect } from 'react-redux';
 
-export default class StartTrip extends Component {
+class StartTrip extends Component {
   constructor() {
     super();
     this.state = {
@@ -30,7 +32,7 @@ export default class StartTrip extends Component {
       distanceTravelled: 0,
       prevLatLng: {},
     };
-    this.getName = this.getName.bind(this);
+    // this.getName = this.getName.bind(this);
   }
   async componentDidMount() {
     let businessList = [];
@@ -57,26 +59,27 @@ export default class StartTrip extends Component {
       params: {
         latitude: this.state.latitude,
         longitude: this.state.longitude,
+        term: 'museum',
       },
     });
 
     this.setState({ yelp: data.businesses });
 
-    // const google = await axios.get(
-    //   `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.latitude},${this.state.longitude}&radius=1500&key=${googleKey}`
-    // );
-    // this.setState({ google: google.data.results });
+    //   // const google = await axios.get(
+    //   //   `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.latitude},${this.state.longitude}&radius=1500&key=${googleKey}`
+    //   // );
+    //   // this.setState({ google: google.data.results });
 
-    // console.log('businessList:', businessList);
+    //   // console.log('businessList:', businessList);
   }
 
-  getName = async id => {
-    const name = await axios.get(
-      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&fields=name,rating,formatted_phone_number&key=${googleKey}`
-    );
-    // this.setState({ selected: name.data.result.name });
-    return name.data.result.name;
-  };
+  // getName = async id => {
+  //   const name = await axios.get(
+  //     `https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&fields=name,rating,formatted_phone_number&key=${googleKey}`
+  //   );
+  //   // this.setState({ selected: name.data.result.name });
+  //   return name.data.result.name;
+  // };
 
   //distance calculator for a trip
   calcDistance = newLatLng => {
@@ -126,3 +129,16 @@ export default class StartTrip extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  options: state.options,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getOptions: (term, location) => dispatch(getOptions()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StartTrip);
