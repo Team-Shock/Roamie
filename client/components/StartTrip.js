@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import axios from "axios";
-import yelp from "../../server/api/yelp";
-import { googleKey } from "../../secrets";
+import React, { Component } from 'react';
+import axios from 'axios';
+import yelp from '../../server/api/yelp';
+import { googleKey } from '../../secrets';
 import MapView, {
   PROVIDER_GOOGLE,
   Marker,
@@ -24,8 +24,8 @@ class StartTrip extends Component {
       routeCoordinates: [
         {
           latitude: 40.704385,
-          longitude: -74.009806
-        }
+          longitude: -74.009806,
+        },
       ],
       distanceTravelled: 0,
       prevLatLng: {},
@@ -40,7 +40,7 @@ class StartTrip extends Component {
 
       const newCoordinate = {
         latitude,
-        longitude
+        longitude,
       };
       this.setState({
         location: { latitude: latitude, longitude: longitude },
@@ -53,7 +53,6 @@ class StartTrip extends Component {
   }
 
   render() {
-    console.log('STATE IN RENDER', this.state);
     return (
       <View>
         <View style={styles.mapcontainer}>
@@ -64,27 +63,12 @@ class StartTrip extends Component {
               latitude: this.state.location.latitude,
               longitude: this.state.location.longitude,
               latitudeDelta: 0.02,
-              longitudeDelta: 0.02
+              longitudeDelta: 0.02,
             }}
             showsUserLocation={true}
             followsUserLocation={true}
             showsMyLocationButton={true}
-          >
-            {/* {this.state.yelp.length > 0
-              ? this.state.yelp.map(business => (
-                  <Marker
-                    coordinate={business.coordinates}
-                    title={business.name}
-                    key={business.id}
-                  />
-                ))
-              : null}
-
-            <Polyline
-              coordinates={this.state.routeCoordinates}
-              strokeWidth={3}
-            /> */}
-          </MapView>
+          ></MapView>
         </View>
 
         {this.props.currentTrip.id ? (

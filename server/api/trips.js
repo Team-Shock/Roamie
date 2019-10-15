@@ -73,6 +73,7 @@ router.get('/:userId/current', async (req, res, next) => {
   }
 });
 
+//Starts a new Trip associated with a User
 router.post('/:userId', async (req, res, next) => {
   try {
     const { latitude, longitude } = req.body.location;
@@ -84,6 +85,36 @@ router.post('/:userId', async (req, res, next) => {
     });
 
     res.json(newTrip);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//Adds a trip-place instance to a trip, and creates a Place instance if that user has not visited the place before
+router.post('/places/:tripId', async (req, res, next) => {
+  let place;
+  try {
+    console.log('REQ BODY IN TRIP PLACE POST ROUTE', req.body);
+    const place = req.body.place;
+    const placeSearch = await Place.findAll({
+      where: {
+        uniqueId: place.id,
+      },
+    });
+    if (placeSearch[0]) {
+      place = placeSearch[0];
+    } else {
+      place = await Place.create({
+        name: place.name,
+        imageUrl: place.image_url,
+        locationAddress: place.location.address1,
+        locationLat: place.coordinates.latitude,
+        locationLong: place.coordinates.longitude,
+        visibility: true,
+        uniqueId: place.id,
+      });
+    }
+    await TripPlaces.create({ placeId: place.id, tripId: req.params.tripId });
   } catch (error) {
     next(error);
   }

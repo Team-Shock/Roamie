@@ -25,13 +25,16 @@ const Place = db.define('place', {
     type: Sequelize.STRING,
   },
   locationLat: {
-    type: Sequelize.FLOAT
+    type: Sequelize.FLOAT,
   },
   locationLong: {
-    type: Sequelize.FLOAT
+    type: Sequelize.FLOAT,
   },
   visibility: {
     type: Sequelize.BOOLEAN,
+  },
+  uniqueId: {
+    type: Sequelize.STRING,
   },
 });
 

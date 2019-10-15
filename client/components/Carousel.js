@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import defaultCategories from '../../utils/defaultCategories';
-import { getOptions } from '../store/optionsReducer';
+import { getOptions, addToRoute } from '../store/optionsReducer';
 import { connect } from 'react-redux';
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -18,20 +18,24 @@ class PlaceCarousel extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.findOption = this.findOption.bind(this);
-    this.renderItem = this.renderItem.bind(this);
+
+    this.renderActivities = this.renderActivities.bind(this);
   }
 
-  findOption(params) {
-    this.props.getOptions(params, this.props.location);
-  }
-
-  renderItem({ item, index }, parallaxProps) {
+  renderActivities({ item, index }, parallaxProps) {
+    console.log(
+      'CURRENT TRIP OBJECT IN renderActivities',
+      this.props.currentTrip
+    );
     return (
       <View style={styles.item}>
         <TouchableOpacity
           style={styles.imageContainer}
-          onPress={() => this.findOption(item.name)}
+          onPress={() => {
+            this.props.options.businesses
+              ? this.props.addToRoute(item, this.props.currentTrip.id)
+              : this.props.getOptions(item.name, this.props.location);
+          }}
         >
           <Image
             source={{ uri: item.image_url }}
@@ -50,8 +54,6 @@ class PlaceCarousel extends Component {
   }
 
   render() {
-
-
     return this.props.options.businesses ? (
       <View>
         <Carousel
@@ -60,7 +62,7 @@ class PlaceCarousel extends Component {
           sliderHeight={screenWidth}
           itemWidth={screenWidth - 60}
           data={this.props.options.businesses}
-          renderItem={this.renderItem}
+          renderItem={this.renderActivities}
           // hasParallaxImages={true}
         />
       </View>
@@ -72,7 +74,7 @@ class PlaceCarousel extends Component {
           sliderHeight={screenWidth}
           itemWidth={screenWidth - 60}
           data={defaultCategories}
-          renderItem={this.renderItem}
+          renderItem={this.renderActivities}
           // hasParallaxImages={true}
         />
       </View>
@@ -104,6 +106,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getOptions: (params, location) => dispatch(getOptions(params, location)),
+  addToRoute: (item, tripId) => dispatch(addToRoute(item, tripId)),
 });
 
 export default connect(
