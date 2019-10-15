@@ -64,7 +64,6 @@ export const getSelectedTripNotes = (tripId) => async dispatch => {
     const instance = await PostgresWrapper.getInstance();
     const res = await instance.get(`/api/trips/places/${tripId}`);
     if(res.data){
-        console.log("res", res.data)
         dispatch(gotSelectedTripNotes(res.data));
     }
     else{
