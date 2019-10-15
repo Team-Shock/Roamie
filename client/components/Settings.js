@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "../../Styles/styles";
 import Preferences from "./Preferences";
 
-import { logout } from '../store/userReducer';
+import { logout } from "../store/userReducer";
 
 import { connect } from "react-redux";
 import { withNavigation } from "react-navigation";
@@ -30,9 +30,9 @@ class Settings extends Component {
             onPress={() => this.onLogout()}
           />
 
-        <View style={styles.buttonContainer}>
-          <Button title="Logout" onPress={() => this.onLogout()} />
-
+          <View style={styles.buttonContainer}>
+            <Button title="Logout" onPress={() => this.onLogout()} />
+          </View>
         </View>
       </View>
     );
@@ -40,7 +40,7 @@ class Settings extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  logOutUser: () => dispatch(logout())
+  logOutUser: () => dispatch(logout)
 });
 
 const SettingsComponent = connect(
