@@ -205,6 +205,15 @@ export const styles = StyleSheet.create({
     alignItems: "center"
     // marginTop: 60,
   },
+  mapcontainerModal: {
+    // ...StyleSheet.absoluteFillObject,
+    height: "85%",
+    width: "100%",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginTop: 60,
+    // marginBottom: 10
+  },
   modalButtonText: {
     textAlign: "center",
     color: "#F277C6",
@@ -250,7 +259,9 @@ export const styles = StyleSheet.create({
     paddingRight: 5
   },
   screenContainer: {
-    flex: 1,
+    // flex: 1,
+    height: 40,
+    width: 250,
     justifyContent: "center",
     alignItems: "center",
     overflow: "scroll"

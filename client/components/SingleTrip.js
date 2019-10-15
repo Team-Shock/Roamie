@@ -12,7 +12,8 @@ import { styles } from "../../Styles/styles";
 import { connect } from "react-redux";
 import { getSelectedTrip } from "../store/tripsReducer";
 import { restElement } from "@babel/types";
-import { DateTime } from "luxon";
+import {DateTime} from 'luxon'
+import { TripLogMap } from './Map'
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const format = { month: "long", day: "numeric", year: "numeric" };
@@ -22,10 +23,15 @@ export class SingleTrip extends Component {
     super(props);
     this.state = {
       user: {},
-      trip: {}
+      trip: {},
+      modalVisible: false
     };
     this.getNoteOnPlace = this.getNoteOnPlace.bind(this);
     this.getFormattedDate = this.getFormattedDate.bind(this);
+  }
+
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
   }
 
   getNoteOnPlace(placeId) {
@@ -38,24 +44,13 @@ export class SingleTrip extends Component {
       .setLocale("en-US")
       .toLocaleString(format);
   }
+
   render() {
     let trip = this.props.tripInfo;
     let notes = this.props.notes;
 
     return (
       <View style={styles.screenContainer}>
-        <View style={styles.mapcontainer}>
-          <Image
-            source={{
-              uri:
-                "https://developers.google.com/maps/solutions/images/storelocator_clothing.png"
-            }}
-          />
-        </View>
-        {/* {trip.imageUrl ? (
-          <Image source={{ uri: trip.imageUrl }} style={styles.listImage} />
-        ) : null} */}
-
         <View style={styles.loginContainer}>
           <Text style={styles.eventTitle}>{trip.name}</Text>
           <Text style={styles.eventP}>
@@ -64,6 +59,7 @@ export class SingleTrip extends Component {
           <Text style={styles.eventP}>
             End Date: {this.getFormattedDate(trip.endDate)}
           </Text>
+          <TripLogMap startLat={trip.startLat} startLong = {trip.startLong} places={trip.places}/>
           <ScrollView contentContainerStyle={{ flex: 1 }}>
             <View style={{ alignItems: "center" }}>
               {trip.places &&
