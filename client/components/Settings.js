@@ -29,10 +29,6 @@ class Settings extends Component {
             title="Logout"
             onPress={() => this.onLogout()}
           />
-
-          <View style={styles.buttonContainer}>
-            <Button title="Logout" onPress={() => this.onLogout()} />
-          </View>
         </View>
       </View>
     );

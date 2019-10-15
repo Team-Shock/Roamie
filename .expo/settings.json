@@ -3,6 +3,10 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
+<<<<<<< HEAD
   "urlRandomness": "74-t5x",
+=======
+  "urlRandomness": "qq-z83",
+>>>>>>> 58aed1f01d97aa61480029d115b72edc595c36ba
   "https": false
 }

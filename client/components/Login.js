@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { Text, View, Image, TouchableHighlight } from "react-native";
 import { styles } from "../../Styles/styles";
@@ -6,7 +5,6 @@ import LoginForm from "./LoginForm";
 import { connect } from "react-redux";
 import { withNavigation } from "react-navigation";
 import About from "../components/About.js";
-
 
 class Login extends Component {
   constructor(props) {
@@ -34,7 +32,7 @@ class Login extends Component {
         const res = await response.json();
         this.setState({ name: res.name, email: res.email });
         this.onLogIn();
-        Alert.alert('Logged in!', `Welcome ${res.name}!`);
+        Alert.alert("Logged in!", `Welcome ${res.name}!`);
       } else {
         // type === 'cancel'
       }
@@ -58,21 +56,23 @@ class Login extends Component {
           A travel companion {"\n"} for exploring near and far!
         </Text>
         <Image source={logo} style={styles.logo} />
-        <TouchableHighlight
-          onPress={() => {
-            this.toggleLogin();
-          }}
-          style={styles.loginButtonContainer}
-        >
-          <Text style={styles.modalButtonText}>Enter</Text>
-        </TouchableHighlight>
-        {this.state.showLogin ? <LoginForm /> : null}
+
+        {this.state.showLogin ? (
+          <LoginForm />
+        ) : (
+          <TouchableHighlight
+            onPress={() => {
+              this.toggleLogin();
+            }}
+            style={styles.loginButtonContainer}
+          >
+            <Text style={styles.modalButtonText}>Enter</Text>
+          </TouchableHighlight>
+        )}
         <About />
       </View>
     );
   }
 }
 
-
 export default withNavigation(Login);
-

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import yelp from '../../server/api/yelp';
-import { googleKey } from '../../secrets';
+import React, { Component } from "react";
+import axios from "axios";
+import yelp from "../../server/api/yelp";
+import { googleKey } from "../../secrets";
 import MapView, {
   PROVIDER_GOOGLE,
   Marker,
@@ -24,8 +24,8 @@ class StartTrip extends Component {
       routeCoordinates: [
         {
           latitude: 40.704385,
-          longitude: -74.009806,
-        },
+          longitude: -74.009806
+        }
       ],
       distanceTravelled: 0,
       prevLatLng: {},
@@ -40,7 +40,7 @@ class StartTrip extends Component {
 
       const newCoordinate = {
         latitude,
-        longitude,
+        longitude
       };
       this.setState({
         location: { latitude: latitude, longitude: longitude },
@@ -64,7 +64,7 @@ class StartTrip extends Component {
               latitude: this.state.location.latitude,
               longitude: this.state.location.longitude,
               latitudeDelta: 0.02,
-              longitudeDelta: 0.02,
+              longitudeDelta: 0.02
             }}
             showsUserLocation={true}
             followsUserLocation={true}

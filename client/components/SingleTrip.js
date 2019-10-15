@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import {
   Text,
   View,
@@ -9,75 +9,116 @@ import {
   ScrollView
 } from "react-native";
 import { styles } from "../../Styles/styles";
-import { connect } from 'react-redux';
-import { getSelectedTrip } from '../store/tripsReducer'
+import { connect } from "react-redux";
+import { getSelectedTrip } from "../store/tripsReducer";
 import { restElement } from "@babel/types";
+import { DateTime } from "luxon";
+import Icon from "react-native-vector-icons/FontAwesome";
 
-export class SingleTrip extends Component{
-  constructor(props){
-    super(props)
+const format = { month: "long", day: "numeric", year: "numeric" };
+
+export class SingleTrip extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
       user: {},
       trip: {}
-    }
-    this.getNoteOnPlace = this.getNoteOnPlace.bind(this)
+    };
+    this.getNoteOnPlace = this.getNoteOnPlace.bind(this);
+    this.getFormattedDate = this.getFormattedDate.bind(this);
   }
 
-  getNoteOnPlace(placeId){
-    let result =  this.props.notes.filter(note => note.placeId === placeId);
+  getNoteOnPlace(placeId) {
+    let result = this.props.notes.filter(note => note.placeId === placeId);
     return result;
   }
-  
-  render(){
-    let trip = this.props.tripInfo
-    let notes = this.props.notes
+
+  getFormattedDate(date) {
+    return DateTime.fromISO(date)
+      .setLocale("en-US")
+      .toLocaleString(format);
+  }
+  render() {
+    let trip = this.props.tripInfo;
+    let notes = this.props.notes;
 
     return (
-      <View>
-        {trip.imageUrl ? 
-            <Image
-            source={{uri: trip.imageUrl }}
-            style={styles.listImage}
-          /> :
-          <View></View>
-        }
+      <View style={styles.screenContainer}>
+        <View style={styles.mapcontainer}>
+          <Image
+            source={{
+              uri:
+                "https://developers.google.com/maps/solutions/images/storelocator_clothing.png"
+            }}
+          />
+        </View>
+        {/* {trip.imageUrl ? (
+          <Image source={{ uri: trip.imageUrl }} style={styles.listImage} />
+        ) : null} */}
 
-        <View>
+        <View style={styles.loginContainer}>
           <Text style={styles.eventTitle}>{trip.name}</Text>
-          <Text>Start Date: {trip.startDate}</Text>
-          <Text>End Date: {trip.endDate}</Text>
-          <Text>From: {trip.startLocation}</Text>
-          <Text>To: {trip.endLocation}</Text>
-          <ScrollView>
-              {trip.places && trip.places.map(place => (
-                <View style={styles.tripLogRow} key={place.id}>
-                  <Image
-                    source={{ uri: place.imageUrl }}
-                    style={styles.listImage}
-                  />
-                  <View>
-                    <Text style={styles.eventTitle}>{place.name}</Text>
-                    <Text style={styles.eventTitle}>Description: {place.description}</Text>
-                    <Text style={styles.eventTitle}>Date: {place.date}</Text>
-                    <Text style={styles.eventTitle}>Location: {place.locationAddress}</Text>
-                  </View>
-                  {notes && this.getNoteOnPlace(place.id).map(placeNotes => (
-                    <View key={place.id + Number(placeNotes)}>
-                      <Text >{placeNotes.rating}</Text>
-                      <Text >{placeNotes.notes}</Text>
-                      {/* <Text >{placeNotes.date}</Text> */}
+          <Text style={styles.eventP}>
+            Start Date: {this.getFormattedDate(trip.startDate)}
+          </Text>
+          <Text style={styles.eventP}>
+            End Date: {this.getFormattedDate(trip.endDate)}
+          </Text>
+          <ScrollView contentContainerStyle={{ flex: 1 }}>
+            <View style={{ alignItems: "center" }}>
+              {trip.places &&
+                trip.places.map(place => (
+                  <View style={styles.tripLogRow} key={place.id}>
+                    <Image
+                      source={{ uri: place.imageUrl }}
+                      style={styles.tripImage}
+                    />
+                    <View>
+                      <Text style={styles.eventTitle}>{place.name}</Text>
+
+                      <Text style={styles.eventP}>
+                        Description: {place.description}
+                      </Text>
+                      <Text style={styles.eventP}>
+                        Date: {this.getFormattedDate(place.date)}
+                      </Text>
+                      <Text style={styles.eventP}>
+                        Location: {place.locationAddress}
+                      </Text>
                     </View>
-                    ))
-                  }
-                  {/* <View style={styles.buttonContainer}>
+                    {notes &&
+                      this.getNoteOnPlace(place.id).map(placeNotes => (
+                        <View key={place.id + Number(placeNotes)}>
+                          {placeNotes.rating === "thumbs up" ? (
+                            <Icon style={styles.tripLogIcon} name="thumbs-up" />
+                          ) : (
+                            <Icon
+                              style={styles.tripLogIcon}
+                              name="thumbs-down"
+                            />
+                          )}
+                          <Text style={styles.tripLogText}>
+                            {placeNotes.notes}
+                          </Text>
+                          {/* <Text >{placeNotes.date}</Text> */}
+                        </View>
+                      ))}
+                    {/* <View style={styles.buttonContainer}>
                     <Button style={styles.button} title="Hide" onPress={()=> this.onHide()} />
                   </View>  */}
-                </View>
-              ))}
+                  </View>
+                ))}
+              <View style={styles.loginButtonContainer}>
+                <Icon.Button
+                  name="envelope"
+                  backgroundColor="#ffffff"
+                  color="#F277C6"
+                >
+                  Share this trip!
+                </Icon.Button>
+              </View>
+            </View>
           </ScrollView>
-          <View style={styles.buttonContainer}>
-            <Button style={styles.button} title="Share this trip" />
-          </View>  
         </View>
       </View>
     );
@@ -87,12 +128,11 @@ export class SingleTrip extends Component{
 const mapStateToProps = state => ({
   user: state.user,
   trip: state.trips.selectedTrip
-
-})
+});
 
 const mapDispatchToProps = dispatch => ({
-  getTrip : (userId, tripId) => dispatch(getSelectedTrip(userId, tripId))
-})
+  getTrip: (userId, tripId) => dispatch(getSelectedTrip(userId, tripId))
+});
 
 export default connect(
   mapStateToProps,
