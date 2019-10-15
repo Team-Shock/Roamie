@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import yelp from '../../server/api/yelp';
-import { googleKey } from '../../secrets';
+import React, { Component } from "react";
+import axios from "axios";
+import yelp from "../../server/api/yelp";
+import { googleKey } from "../../secrets";
 import MapView, {
   PROVIDER_GOOGLE,
   Marker,
   Callout,
-  Polyline,
-} from 'react-native-maps';
-import { StyleSheet, Text, View, Image, FlatList, Button } from 'react-native';
-import { styles } from '../../Styles/styles';
-import haversine from 'haversine';
-import PlaceCarousel from './Carousel';
+  Polyline
+} from "react-native-maps";
+import { StyleSheet, Text, View, Image, FlatList, Button } from "react-native";
+import { styles } from "../../Styles/styles";
+import haversine from "haversine";
+import PlaceCarousel from "./Carousel";
+import FeedbackForm from "./FeedbackForm";
 
 export default class StartTrip extends Component {
   constructor() {
@@ -24,11 +25,11 @@ export default class StartTrip extends Component {
       routeCoordinates: [
         {
           latitude: 40.704385,
-          longitude: -74.009806,
-        },
+          longitude: -74.009806
+        }
       ],
       distanceTravelled: 0,
-      prevLatLng: {},
+      prevLatLng: {}
     };
     this.getName = this.getName.bind(this);
   }
@@ -41,7 +42,7 @@ export default class StartTrip extends Component {
 
       const newCoordinate = {
         latitude,
-        longitude,
+        longitude
       };
       // coordinate.timing(newCoordinate).start();
       this.setState({
@@ -49,15 +50,15 @@ export default class StartTrip extends Component {
         longitude: longitude,
         routeCoordinates: this.state.routeCoordinates.concat([newCoordinate]),
         distanceTravelled: distanceTravelled + this.calcDistance(newCoordinate),
-        prevLatLng: newCoordinate,
+        prevLatLng: newCoordinate
       });
     });
     //pull POI based on user's current location
-    const { data } = await yelp.get('/search', {
+    const { data } = await yelp.get("/search", {
       params: {
         latitude: this.state.latitude,
-        longitude: this.state.longitude,
-      },
+        longitude: this.state.longitude
+      }
     });
 
     this.setState({ yelp: data.businesses });
@@ -95,7 +96,7 @@ export default class StartTrip extends Component {
               latitude: this.state.latitude,
               longitude: this.state.longitude,
               latitudeDelta: 0.02,
-              longitudeDelta: 0.02,
+              longitudeDelta: 0.02
             }}
             showsUserLocation={true}
             followsUserLocation={true}
@@ -120,6 +121,7 @@ export default class StartTrip extends Component {
         <View style={styles.buttonContainer}>
           <Button style={styles.button} title="Start a Trip" />
         </View>
+        <FeedbackForm />
 
         <PlaceCarousel data={this.state.yelp} />
       </View>
