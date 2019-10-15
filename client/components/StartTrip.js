@@ -48,12 +48,13 @@ class StartTrip extends Component {
         routeCoordinates: this.state.routeCoordinates.concat([newCoordinate]),
         distanceTravelled: distanceTravelled + this.calcDistance(newCoordinate),
         prevLatLng: newCoordinate,
+        currentTrip: this.props.currentTrip,
       });
     });
   }
 
   render() {
-    console.log(this.state);
+    console.log('STATE IN RENDER', this.state);
     return (
       <View>
         <View style={styles.mapcontainer}>
@@ -114,7 +115,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getOptions: (params, location) => dispatch(getOptions()),
   getCurrentTrip: userId => dispatch(getCurrentTrip(userId)),
-  startTrip: (userId, location) => dispatch(startTrip(userId)),
+  startTrip: (userId, location) => dispatch(startTrip(userId, location)),
 });
 
 export default connect(
