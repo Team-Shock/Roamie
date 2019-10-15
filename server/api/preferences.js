@@ -4,24 +4,16 @@ const { Preferences, User, UserPreferences } = require("../db/models");
 
 router.put("/:userId/change", async (req, res, next) => {
   try {
-
-    let newPreferences = req.body.preferences;
+    console.log("REQ BODY FROM API !!!!!!", req.body);
+    let preferencesArr = req.body.preferences;
     newPreferences = await Promise.all(
-      newPreferences.map(pref => {
+      preferencesArr.map(pref => {
         const oldPref = UserPreferences.findByPk(pref.id);
         if (pref.selected !== oldPref.selected) {
           oldPref.toggleSelected();
         }
       })
     );
-
-
-    // const prefSearch = await UserPreferences.findAll({
-    //   where: {
-    //     userId: req.params.userId,
-    //     preferenceId: req.params.prefId,
-    //   },
-    // });
 
     res.json(newPreferences);
   } catch (error) {
