@@ -1,158 +1,97 @@
-import React, { Component } from "react";
-import axios from "axios";
-import yelp from "../../server/api/yelp";
-import { googleKey } from "../../secrets";
-import MapView, {
-  PROVIDER_GOOGLE,
-  Marker,
-  Callout,
-  Polyline
-} from "react-native-maps";
-import { StyleSheet, Text, View, Image, FlatList, Button, Modal, TouchableOpacity, TouchableHighlight } from "react-native";
-import { styles } from "../../Styles/styles";
-import Geocoder from 'react-native-geocoding';
-import Icon from "react-native-vector-icons/FontAwesome";
+import React, { Component } from 'react';
+// import axios from 'axios';
+import yelp from '../../server/api/yelp';
+// import { googleKey } from '../../secrets';
+import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
+import { View } from 'react-native';
+import { styles } from '../../Styles/styles';
+import haversine from 'haversine';
 
-
-export class Map extends Component {
-  constructor(props) {
-    super(props);
-    Geocoder.init("AIzaSyDFtJUTkoeUoQjChhPxkjNxAOnrDLxXBYo");
+export default class Map extends Component {
+  constructor() {
+    super();
     this.state = {
-        markers: [],
-        routeCoordinates: [],
-        modalVisible: false,
-        mapView: false
-    }
-    this.addMarker = this.addMarker.bind(this);
-  }
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
-  }
-
-  async addMarker(location, title){
-    console.log("Adding Marker")
-    try{
-      let json = await Geocoder.from(location)
-      var location = json.results[0].geometry.location;
-      console.log("Adding Marker")
-      const newCoordinate = {
-        latitude: location.lat,
-        longitude : location.lng
-      };
-      const pin =
-      {
-        latitude: newCoordinate.latitude,
-        longitude: newCoordinate.longitude,
-        title: title
-      }
-      let pins = this.state.markers;
-      pins.push(pin);
-      this.setState({ markers: pins, 
-                    routeCoordinates: this.state.routeCoordinates.concat([newCoordinate])})
-    }
-    catch(error){
-       console.warn(error);
+      yelp: [],
+      google: [],
+      latitude: 40.704385,
+      longitude: -74.009806,
+      routeCoordinates: [
+        {
+          latitude: 40.704385,
+          longitude: -74.009806,
+        },
+      ],
+      distanceTravelled: 0,
+      prevLatLng: {},
     };
+    this.getName = this.getName.bind(this);
   }
-  async componentDidMount(){
-    console.log("Component did mount in Map")
+  async componentDidMount() {
+    let businessList = [];
+    //watch the position of the user
+    await navigator.geolocation.watchPosition(position => {
+      const { coordinate, routeCoordinates, distanceTravelled } = this.state;
+      const { latitude, longitude } = position.coords;
 
-      let places = this.props.places;
-      for(let i = 0; i< places.length; i++){
-          await this.addMarker(places[i].locationAddress, places[i].name)
-      }
+      const newCoordinate = {
+        latitude,
+        longitude,
+      };
+      // coordinate.timing(newCoordinate).start();
+      this.setState({
+        latitude: latitude,
+        longitude: longitude,
+        routeCoordinates: this.state.routeCoordinates.concat([newCoordinate]),
+        distanceTravelled: distanceTravelled + this.calcDistance(newCoordinate),
+        prevLatLng: newCoordinate,
+      });
+    });
+    //pull POI based on user's current location
+    const { data } = await yelp.get('/search', {
+      params: {
+        latitude: this.state.latitude,
+        longitude: this.state.longitude,
+      },
+    });
+
+    this.setState({ yelp: data.businesses });
   }
-  
+
+  //distance calculator for a trip
+  calcDistance = newLatLng => {
+    const { prevLatLng } = this.state;
+    return haversine(prevLatLng, newLatLng) || 0;
+  };
+
   render() {
-    console.log("Map Lat", this.props.startLat);
-    console.log("Map Long", this.props.startLong);
-    console.log("Markers", this.state.markers);
-    console.log("Places", this.props.places.length);
-    console.log("Route Coordinates", this.state.routeCoordinates);
-
-    let startLatitude = this.props.startLat;
-    let startLongitude = this.props.startLong;
-
     return (
-        <View>
-          <Modal
-            animationType="slide"
-            transparent={false}
-            visible={this.state.modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-            }}
-          >
-            {/* <View style={styles.modalContainer}> */}
-                <View>
-                {startLatitude ?
-                    <View>
-                        <View style={styles.mapcontainerModal}>
-                        <MapView
-                            style={styles.map}
-                            provider={PROVIDER_GOOGLE}
-                            region={{
-                            latitude: startLatitude,
-                            longitude: startLongitude,
-                            latitudeDelta: 0.02,
-                            longitudeDelta: 0.02
-                            }}
-                            showsUserLocation={true}
-                            followsUserLocation={true}
-                            showsMyLocationButton={true}
-                            zoomEnabled={true}
-                        >
-                        {
-                            this.state.markers.map((marker, idx) => {
-                                return (
-                                    <Marker
-                                        key={idx}
-                                        coordinate={{latitude: marker.latitude,
-                                        longitude: marker.longitude}}
-                                        title={marker.title}
-                                        description={marker.subtitle}
-                                    />
-                                )
-                            })
-                        }
-                        <Polyline
-                            coordinates={this.state.routeCoordinates}
-                            strokeWidth={3}
-                        />
-                        </MapView>
-                        </View>
-                    </View> : null}
-            </View>
-            {/* </View> */}
-            <TouchableHighlight
-              onPress={() => {
-                this.setModalVisible(!this.state.modalVisible);
-              }}
-              style={styles.modalClose}
-            >
-              <Text>Close Map</Text>
-            </TouchableHighlight>
-          </Modal>
-  
-          <TouchableHighlight
-                onPress={() => {
-                    this.setModalVisible(true);
-                }}
-                >
-                <Icon.Button
-                    name="map"
-                    backgroundColor="#ffffff"
-                    color="#F277C6"
-                    onPress={() => {
-                    this.setModalVisible(true);
-                    }}
-                >
-                    Map
-                </Icon.Button>
-            </TouchableHighlight>
+      <View style={styles.mapcontainer}>
+        <MapView
+          style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          region={{
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02,
+          }}
+          showsUserLocation={true}
+          followsUserLocation={true}
+          showsMyLocationButton={true}
+        >
+          {this.state.yelp.length > 0
+            ? this.state.yelp.map(business => (
+                <Marker
+                  coordinate={business.coordinates}
+                  title={business.name}
+                  key={business.id}
+                />
+              ))
+            : null}
 
-        </View>
-      );
+          <Polyline coordinates={this.state.routeCoordinates} strokeWidth={3} />
+        </MapView>
+      </View>
+    );
   }
 }

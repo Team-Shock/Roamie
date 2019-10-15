@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 import { getSelectedTrip } from "../store/tripsReducer";
 import { restElement } from "@babel/types";
 import {DateTime} from 'luxon'
-import { Map } from './Map'
+import { TripLogMap } from './Map'
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const format = { month: "long", day: "numeric", year: "numeric" };
@@ -59,7 +59,7 @@ export class SingleTrip extends Component {
           <Text style={styles.eventP}>
             End Date: {this.getFormattedDate(trip.endDate)}
           </Text>
-          <Map startLat={trip.startLat} startLong = {trip.startLong} places={trip.places}/>
+          <TripLogMap startLat={trip.startLat} startLong = {trip.startLong} places={trip.places}/>
           <ScrollView contentContainerStyle={{ flex: 1 }}>
             <View style={{ alignItems: "center" }}>
               {trip.places &&

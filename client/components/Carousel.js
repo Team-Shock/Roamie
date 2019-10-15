@@ -5,46 +5,74 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
-  ImageBackground,
+  Image,
 } from 'react-native';
-// import { styles } from '../../Styles/styles';
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
+import defaultCategories from '../../utils/defaultCategories';
+import { getOptions, addToRoute } from '../store/optionsReducer';
+import { connect } from 'react-redux';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-export default class PlaceCarousel extends Component {
-  renderItem({ item, index }, parallaxProps) {
+class PlaceCarousel extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+
+    this.renderActivities = this.renderActivities.bind(this);
+  }
+
+  renderActivities({ item, index }, parallaxProps) {
     return (
       <View style={styles.item}>
-        <ParallaxImage
-          source={{ uri: item.image_url }}
-          containerStyle={styles.imageContainer}
-          style={styles.image}
-          parallaxFactor={0.4}
-          {...parallaxProps}
-        />
-        <Text style={styles.title} numberOfLines={2}>
-          {item.name}
-        </Text>
+        <TouchableOpacity
+          style={styles.imageContainer}
+          onPress={() => {
+            this.props.options.businesses
+              ? this.props.addToRoute(item, this.props.currentTrip.id)
+              : this.props.getOptions(item.name, this.props.location);
+          }}
+        >
+          <Image
+            source={{ uri: item.image_url }}
+            containerStyle={styles.imageContainer}
+            style={styles.image}
+            // parallaxFactor={0.4}
+            // {...parallaxProps}
+          />
+
+          <Text style={styles.title} numberOfLines={2}>
+            {item.name}
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }
 
   render() {
-    return this.props.data ? (
+    return this.props.options.businesses ? (
       <View>
         <Carousel
+          layout={'default'}
           sliderWidth={screenWidth}
           sliderHeight={screenWidth}
           itemWidth={screenWidth - 60}
-          data={this.props.data}
-          renderItem={this.renderItem}
-          hasParallaxImages={true}
+          data={this.props.options.businesses}
+          renderItem={this.renderActivities}
+          // hasParallaxImages={true}
         />
       </View>
     ) : (
       <View>
-        <Text>Loading...</Text>
+        <Carousel
+          layout={'default'}
+          sliderWidth={screenWidth}
+          sliderHeight={screenWidth}
+          itemWidth={screenWidth - 60}
+          data={defaultCategories}
+          renderItem={this.renderActivities}
+          // hasParallaxImages={true}
+        />
       </View>
     );
   }
@@ -53,7 +81,7 @@ export default class PlaceCarousel extends Component {
 const styles = StyleSheet.create({
   item: {
     width: screenWidth - 60,
-    height: screenWidth - 60,
+    height: screenWidth - 100,
   },
   imageContainer: {
     flex: 1,
@@ -65,3 +93,20 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
 });
+
+const mapStateToProps = state => ({
+  options: state.options.options,
+  user: state.user,
+  currentTrip: state.currentTrip,
+  nextPlace: state.options.nextPlace,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getOptions: (params, location) => dispatch(getOptions(params, location)),
+  addToRoute: (item, tripId) => dispatch(addToRoute(item, tripId)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PlaceCarousel);
