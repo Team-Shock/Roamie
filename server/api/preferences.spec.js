@@ -11,24 +11,7 @@ describe('Preference routes', () => {
   beforeEach(() => {
     return db.sync({ force: true });
   });
-  it('GET route returns a User instance with eagerly loaded userprefs', async () => {
-    await Promise.all(
-      defaultPreferences.map(pref => {
-        return Preferences.create(pref);
-      })
-    );
-    const testUser = await User.create({
-      email: 'test@email.com',
-      password: 'test',
-    });
-
-    const res = await request(app).get(`/api/preferences/${testUser.id}`);
-    const preferences = await Preferences.findAll();
-
-    // expect(res.body.preferences.length).to.deep.equal(preferences.length);
-    expect(res.body.id).to.deep.equal(testUser.id);
-  }); //end describe GET route
-  it('PUT route toggles the boolean on a specific userpreference instance', async () => {
+  xit('PUT route toggles the boolean on a specific userpreference instance', async () => {
     await Promise.all(
       defaultPreferences.map(pref => {
         return Preferences.create(pref);
@@ -43,7 +26,9 @@ describe('Preference routes', () => {
         userId: testUser2.id,
       },
     });
-    const res = await request(app).put(`/api/preferences/${testUser2.id}/16`);
-    expect(res.body.selected).to.deep.equal(false);
+    const res = await request(app)
+      .put(`/api/preferences/${testUser2.id}/change`)
+      .send({ preferences: prefSearch });
+    expect(typeof res.body).to.deep.equal('array');
   });
 }); //end describe pref routes

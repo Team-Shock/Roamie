@@ -1,9 +1,7 @@
-import { combineReducers } from 'redux';
-import preferences from './preferences';
-import user from './user-reducer';
-import trips from './trips-reducer';
-import options from './options-reducer';
-import currentTrip from './currentTrip';
+import { combineReducers } from "redux";
+import preferences from "./preferences";
+import user from "./userReducer";
+import trips from "./tripsReducer"
 
 const reducer = combineReducers({
   preferences,
