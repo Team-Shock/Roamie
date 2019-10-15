@@ -19,10 +19,10 @@ class PlaceCarousel extends Component {
     super(props);
     this.state = {};
     this.findOption = this.findOption.bind(this);
+    this.renderItem = this.renderItem.bind(this);
   }
 
   findOption(params) {
-    console.log('PROPS IN CAROUSEL', this.props);
     this.props.getOptions(params, this.props.location);
   }
 
@@ -31,7 +31,7 @@ class PlaceCarousel extends Component {
       <View style={styles.item}>
         <TouchableOpacity
           style={styles.imageContainer}
-          onPress={this.findOption(item.name)}
+          onPress={() => this.findOption(item.name)}
         >
           <Image
             source={{ uri: item.image_url }}
@@ -50,11 +50,19 @@ class PlaceCarousel extends Component {
   }
 
   render() {
-    console.log('PROPS IN CAROUSEL', this.props);
 
-    return this.props.data ? (
+
+    return this.props.options.businesses ? (
       <View>
-        <Text>Loading...</Text>
+        <Carousel
+          layout={'default'}
+          sliderWidth={screenWidth}
+          sliderHeight={screenWidth}
+          itemWidth={screenWidth - 60}
+          data={this.props.options.businesses}
+          renderItem={this.renderItem}
+          // hasParallaxImages={true}
+        />
       </View>
     ) : (
       <View>

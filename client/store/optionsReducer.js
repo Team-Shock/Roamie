@@ -15,7 +15,7 @@ const gotOptions = options => ({
 //THUNK CREATORS
 export const getOptions = (params, location) => async dispatch => {
   try {
-    console.log(params, location);
+
     const { data } = await yelp.get('/search', {
       params: {
         latitude: location.latitude,
