@@ -86,11 +86,16 @@ export const styles = StyleSheet.create({
     lineHeight: 19,
     textAlign: "center"
   },
+  eventP: {
+    fontSize: 14,
+    textAlign: "center",
+    padding: 5
+  },
   eventTitle: {
     color: "#000000",
     textAlign: "center",
     fontSize: 20,
-    margin: 5
+    margin: 10
   },
   getStartedContainer: {
     alignItems: "center",
@@ -284,6 +289,18 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     flex: 1
+  },
+  tripImage: {
+    width: 300
+  },
+  tripLogText: {
+    fontSize: 18,
+    margin: 10
+  },
+  tripLogIcon: {
+    color: "#F277C6",
+    fontSize: 40,
+    alignSelf: "center"
   },
   tripLogRow: {
     flex: 1,
