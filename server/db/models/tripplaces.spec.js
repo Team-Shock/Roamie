@@ -26,7 +26,7 @@ describe('Trip Places join table', () => {
           tripId: testTrip.id,
         },
       });
-      expect(testInstance.rating).to.deep.equal('thumbs-up');
+      expect(testInstance.rating).to.deep.equal('not rated');
       expect(testSearch[0].placeId).to.equal(testPlace.id);
     }); //end test association
   }); //end describe fields

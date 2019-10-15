@@ -15,10 +15,6 @@ const initialState = {};
 /**
  * ACTION CREATORS
  */
-const setFirstTimeVisitor = firstTime => ({
-  type: SET_FIRSTTIMEVISIT,
-  firstTime,
-});
 const getUser = user => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
 

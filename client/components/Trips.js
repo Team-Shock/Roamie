@@ -14,33 +14,30 @@ import {
 } from "react-native";
 import { styles } from "../../Styles/styles";
 import { SingleTrip } from "./SingleTrip";
-import { me } from '../store/user-reducer';
-import { getTrips } from '../store/trips-reducer'
 import { connect } from 'react-redux';
+import { getSelectedTrip , getSelectedTripNotes} from '../store/tripsReducer'
 
 class Trips extends Component {
   constructor(props) {
     super(props);
     this.state = {
       singleTripSelected : false,
-      selectedTrip : {}
+      selectedTripId : 0
     }
     this.onBackButton = this.onBackButton.bind(this)
     this.onTripPress = this.onTripPress.bind(this)
-
   }
-  
-  async componentDidMount() {
-    await this.props.getCurrentUser();
-    if(this.props.user){
-      this.props.getTrips(this.props.user.id);
+  componentDidMount(){
+    if(this.state.selectedTripId !== 0){
+      this.props.getTrip(this.props.user.id, this.state.selectedTripId)
     }
   }
 
-  onTripPress(tripInfo){
+  onTripPress(tripId){
     this.setState({singleTripSelected: true,
-                  selectedTrip : tripInfo});
-    
+              selectedTripId : tripId});
+    this.props.getTrip(this.props.user.id, tripId)
+    this.props.getNotes(tripId)
   }
 
   onBackButton(){
@@ -48,13 +45,19 @@ class Trips extends Component {
   }
   render() {
     const trips = this.props.trips;
+
     return (
       <View>
       {!this.state.singleTripSelected ? (
         <View style={{ flex: 1 }}>
           <ScrollView>
           {!trips || trips.length <=0 ? (
+            <View>
               <Text>No Trips in your account. Start your trip with Roamie today!</Text>
+              <View style={styles.buttonContainer}>
+              <Button style={styles.button} title="Start a Trip" />
+              </View>
+            </View>
             ) : (
               <View>
               {trips && trips.map(trip => 
@@ -68,8 +71,7 @@ class Trips extends Component {
                     <Text style={styles.eventTitle}>{trip.name}</Text>
                   </View>
                   <View style={styles.buttonContainer}>
-                    <Button title="View" onPress={() => this.onTripPress(trip)} />
-                    <Button title="Hide from TripLog" />
+                    <Button title="View" onPress={() => this.onTripPress(trip.id)} />
                   </View>
                 </View>
                 ))}
@@ -80,8 +82,13 @@ class Trips extends Component {
         </View>
        ) : (
          <View>
-          <Button title="Back" onPress={() => this.onBackButton()} />
-          <SingleTrip tripInfo={this.state.selectedTrip} />
+           <View style={styles.buttonContainer}>
+            <Button title="See All Trips" onPress={() => this.onBackButton()} />
+          </View> 
+          {this.props.selectedTrip  ? 
+            <SingleTrip tripInfo={this.props.selectedTrip} notes={this.props.notes}/> :
+            <View></View>
+          }
         </View>
        )
       }
@@ -93,13 +100,15 @@ class Trips extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  trips: state.trips
+  trips: state.user.trips,
+  selectedTrip: state.trips.selectedTrip,
+  notes : state.trips.selectedTripNotes
 })
 
 const mapDispatchToProps = dispatch => ({
-  getCurrentUser: () => dispatch(me()),
-  getTrips: (userId) => dispatch(getTrips(userId))
-});
+  getTrip : (userId, tripId) => dispatch(getSelectedTrip(userId, tripId)),
+  getNotes: (tripId) => dispatch(getSelectedTripNotes(tripId))
+})
 
 export default connect(
   mapStateToProps,

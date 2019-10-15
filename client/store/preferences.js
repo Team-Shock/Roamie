@@ -1,6 +1,7 @@
 import axios from "axios";
 import { defaultPreferences } from "../../utils/defaultPreferences";
 import Axios from "axios";
+import { PostgresWrapper } from "../../postgres/postgres";
 
 const initialState = {
   preferences: defaultPreferences
@@ -21,6 +22,8 @@ const setThePreferences = preferences => ({
 });
 
 // Thunk Creators
+
+//This currently isn't being called
 export const getPreferences = id => async dispatch => {
   try {
     const { data } = await Axios.get(`/api/preferences/:id`);
@@ -30,9 +33,17 @@ export const getPreferences = id => async dispatch => {
   }
 };
 
-export const setPreferences = preferences => async dispatch => {
-  dispatch(setThePreferences(preferences));
-  //dispatch(gotPreferences(preferences));
+export const setPreferences = (preferences, id) => async dispatch => {
+  try {
+    const instance = await PostgresWrapper.getInstance();
+    const { data } = await instance.put(
+      `/api/preferences/:id/change`,
+      preferences
+    );
+    dispatch(gotPreferences(data));
+  } catch (error) {
+    console.log("There was an error editing preferences", error);
+  }
 };
 // Reducer
 const preferences = (state = initialState, action) => {

@@ -4,9 +4,9 @@ const db = require('../db')
 const TripPlaces = db.define('tripplaces', {
     rating: {
         type: Sequelize.STRING,
-        defaultValue: 'thumbs-up',
+        defaultValue: 'not rated',
         validate: {
-            isIn: [['thumbs-up', 'thumbs-down']]
+            isIn: [['thumbs up', 'thumbs down', 'not rated']]
         }
     },
     notes: {

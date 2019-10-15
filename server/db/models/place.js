@@ -1,38 +1,38 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
+const Sequelize = require('sequelize');
+const db = require('../db');
 
 const Place = db.define('place', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
-    }
+      notEmpty: true,
+    },
   },
   imageUrl: {
     type: Sequelize.STRING,
     defaultValue:
-      'https://staceylarsen.typepad.com/.a/6a015390d3bc08970b016768711edf970b-pi'
+      'https://staceylarsen.typepad.com/.a/6a015390d3bc08970b016768711edf970b-pi',
   },
   description: {
     type: Sequelize.TEXT,
   },
   date: {
     type: Sequelize.DATE,
-    defaultValue:new Date()
+    defaultValue: new Date(),
   },
   locationAddress: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   locationLat: {
-    type: Sequelize.STRING
+    type: Sequelize.FLOAT
   },
   locationLong: {
-    type: Sequelize.STRING
+    type: Sequelize.FLOAT
   },
   visibility: {
-    type: Sequelize.BOOLEAN
-  }
-})
+    type: Sequelize.BOOLEAN,
+  },
+});
 
-module.exports = Place
+module.exports = Place;

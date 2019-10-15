@@ -16,21 +16,23 @@ export default class PlaceCarousel extends Component {
   renderItem({ item, index }, parallaxProps) {
     return (
       <View style={styles.item}>
-        <ParallaxImage
+        {/* <ParallaxImage
           source={{ uri: item.image_url }}
           containerStyle={styles.imageContainer}
           style={styles.image}
           parallaxFactor={0.4}
           {...parallaxProps}
-        />
+        /> */}
         <Text style={styles.title} numberOfLines={2}>
-          {item.name}
+          {item}
         </Text>
       </View>
     );
   }
 
   render() {
+    console.log('PROPS IN CAROUSEL', this.props);
+
     return this.props.data ? (
       <Carousel
         sliderWidth={screenWidth}
@@ -38,7 +40,7 @@ export default class PlaceCarousel extends Component {
         itemWidth={screenWidth - 60}
         data={this.props.data}
         renderItem={this.renderItem}
-        hasParallaxImages={true}
+        // hasParallaxImages={true}
       />
     ) : (
       <View>

@@ -51,7 +51,7 @@ const trips = [
 const places = [
   {
     name: 'Restaurante Silvestre',
-    imageUrl: '',
+    // imageUrl: '',
     description: '',
     date: '2019-07-16 12:00:00',
     locationAddress:
@@ -62,7 +62,7 @@ const places = [
   },
   {
     name: 'Onna Cafe',
-    imageUrl: '',
+    // imageUrl: '',
     description: '',
     date: '2019-09-16 12:00:00',
     locationAddress: 'Carrer de Santa Teresa, 1, 08012 Barcelona, Spain',
@@ -88,7 +88,7 @@ async function seed() {
       email: 'shiba@email.com',
       password: '123',
     }),
-    User.create({ name: 'Cody', email: 'cody@email.com', password: '123' }),
+    // User.create({ name: 'Cody', email: 'cody@email.com', password: '123' }),
   ]);
 
   const userpreferences = await UserPreferences.findAll()
@@ -106,11 +106,49 @@ async function seed() {
   );
 
   //DUMMY TRIPPLACE FOR FRONT END BUILD OUT:
-  const user1 = await User.findByPk(1)
-  const trip1 = await Trip.findByPk(1)
-  await trip1.update({userId: 1})
-  const place1 = await Place.findByPk(1)
-  await TripPlaces.create({tripId: 1, placeId:1})
+  // const user1 = await User.findAll({
+  //   where: {
+  //     email: 'shiba@email.com'
+  //   }
+  // })
+  const allTrips = await Trip.findAll()
+  await Promise.all(
+    allTrips.map(trip => {
+      return trip.update({
+        userId: 1
+      });
+    })
+  );
+
+  //COSTA RICA
+  const place1 = await Place.findAll({
+    where : {
+      name: places[0].name
+    }
+  })
+
+  const trip1 = await Trip.findAll({
+    where : {
+      name: trips[1].name
+    }
+  })
+  await TripPlaces.create({rating: "thumbs up", notes:"Delicious food!", tripId: trip1[0].id, placeId: place1[0].id})
+
+  // //BARCELONA
+  const place2 = await Place.findAll({
+    where : {
+      name: places[1].name
+    }
+  })
+
+  const trip2 = await Trip.findAll({
+    where : {
+      name: trips[0].name
+    }
+  })
+  await TripPlaces.create({rating: "thumbs down", notes:"Not recommended. I've had better.",tripId: trip2[0].id, placeId: place2[0].id})
+
+
   const tripPlaces = await TripPlaces.findAll();
   
 
