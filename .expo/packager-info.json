@@ -1,9 +1,9 @@
 {
-  "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://qq-z83.anonymous.roamie.exp.direct",
-  "packagerNgrokUrl": "https://packager.qq-z83.anonymous.roamie.exp.direct",
-  "ngrokPid": 21827,
+  "expoServerPort": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19002,
-  "packagerPort": 19001,
-  "packagerPid": 21814
+  "packagerPort": null,
+  "packagerPid": null
 }

@@ -10,6 +10,8 @@ const trips = [
     imageUrl: 'https://www.sabre.com/locations/anz/wp/wp-content/uploads/uploadsaus_nz.jpg-720x290.jpg',
     startDate: '2015-12-16 04:05:02',
     endDate: '2016-01-04 14:15:00',
+    startLat: '-33.865143',
+    startLong: '151.209900',
     status: 'complete'
   },
   {
@@ -138,6 +140,7 @@ async function seed() {
 
   // //SYDNEY AZ
   const bondiBeach = await Place.create(aznzPlaces[0])
+  const hotelSydney = await Place.create(aznzPlaces[1])
 
   const azNzTrip = await Trip.findAll({
     where : {
@@ -148,6 +151,10 @@ async function seed() {
   await TripPlaces.create({rating: "thumbs up",
                            notes:"Bondi beach was the perfect place after landing to get brekkie (breakfast). We loved the Bondi to Coogree Beach coastal walk and enjoyed all the beautiful beaches along the way",
                           tripId: azNzTrip[0].id, placeId: bondiBeach.id})
+
+  await TripPlaces.create({rating: "thumbs up",
+                           notes:"Amazing views and great location!",
+                          tripId: azNzTrip[0].id, placeId: hotelSydney.id})
 
 
   const tripPlaces = await TripPlaces.findAll();

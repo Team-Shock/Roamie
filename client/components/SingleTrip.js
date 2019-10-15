@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { getSelectedTrip } from '../store/tripsReducer'
 import { restElement } from "@babel/types";
 import {DateTime} from 'luxon'
+import { Map } from './Map'
 
 const format = { month: "long", day: "numeric", year: "numeric" };
 
@@ -38,9 +39,15 @@ export class SingleTrip extends Component{
   render(){
     let trip = this.props.tripInfo
     let notes = this.props.notes
+    console.log("Single Trip Lat: ", trip.startLat)
+    console.log("Single Trip Long: ", trip.startLong)
 
     return (
+      
       <View style={styles.tripLogRow}>
+        <View>
+          <Map startLat={trip.startLat} startLong = {trip.startLong} places={trip.places}/>
+        </View>
         {trip.imageUrl ? 
             <Image
             source={{uri: trip.imageUrl }}
@@ -48,11 +55,11 @@ export class SingleTrip extends Component{
           /> :
           <View></View>
         }
-
         <View>
           <Text style={styles.eventTitle}>{trip.name}</Text>
           <Text>Start Date: {this.getFormattedDate(trip.startDate)}</Text>
           <Text>End Date: {this.getFormattedDate(trip.endDate)}</Text>
+
           <ScrollView>
               {trip.places && trip.places.map(place => (
                 <View style={styles.tripLogRow} key={place.id}>
