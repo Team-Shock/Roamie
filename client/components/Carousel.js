@@ -23,10 +23,6 @@ class PlaceCarousel extends Component {
   }
 
   renderActivities({ item, index }, parallaxProps) {
-    console.log(
-      'CURRENT TRIP OBJECT IN renderActivities',
-      this.props.currentTrip
-    );
     return (
       <View style={styles.item}>
         <TouchableOpacity
@@ -99,9 +95,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  options: state.options,
+  options: state.options.options,
   user: state.user,
   currentTrip: state.currentTrip,
+  nextPlace: state.options.nextPlace,
 });
 
 const mapDispatchToProps = dispatch => ({

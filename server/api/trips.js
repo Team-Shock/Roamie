@@ -92,9 +92,8 @@ router.post('/:userId', async (req, res, next) => {
 
 //Adds a trip-place instance to a trip, and creates a Place instance if that user has not visited the place before
 router.post('/places/:tripId', async (req, res, next) => {
-  let place;
+  let nextPlace;
   try {
-    console.log('REQ BODY IN TRIP PLACE POST ROUTE', req.body);
     const place = req.body.place;
     const placeSearch = await Place.findAll({
       where: {
@@ -102,9 +101,9 @@ router.post('/places/:tripId', async (req, res, next) => {
       },
     });
     if (placeSearch[0]) {
-      place = placeSearch[0];
+      nextPlace = placeSearch[0];
     } else {
-      place = await Place.create({
+      nextPlace = await Place.create({
         name: place.name,
         imageUrl: place.image_url,
         locationAddress: place.location.address1,
@@ -114,7 +113,11 @@ router.post('/places/:tripId', async (req, res, next) => {
         uniqueId: place.id,
       });
     }
-    await TripPlaces.create({ placeId: place.id, tripId: req.params.tripId });
+    await TripPlaces.create({
+      placeId: nextPlace.id,
+      tripId: req.params.tripId,
+    });
+    res.json(nextPlace);
   } catch (error) {
     next(error);
   }
