@@ -1,9 +1,9 @@
 {
-  "expoServerPort": null,
-  "expoServerNgrokUrl": "https://f3-ee3.anonymous.roamie.exp.direct",
-  "packagerNgrokUrl": "https://packager.f3-ee3.anonymous.roamie.exp.direct",
-  "ngrokPid": 60299,
-  "devToolsPort": 19002,
-  "packagerPort": null,
-  "packagerPid": null
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "devToolsPort": 19004,
+  "packagerPort": 19002,
+  "packagerPid": 28374
 }

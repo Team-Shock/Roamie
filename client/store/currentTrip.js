@@ -26,7 +26,6 @@ export const getCurrentTrip = userId => async dispatch => {
 
 export const startTrip = (userId, location) => async dispatch => {
   try {
-  
     const instance = await PostgresWrapper.getInstance();
     let res = await instance.post(`/api/trips/${userId}`, {
       location,

@@ -12,7 +12,7 @@ import { StyleSheet, Text, View, Image, FlatList, Button } from 'react-native';
 import { styles } from '../../Styles/styles';
 import haversine from 'haversine';
 import PlaceCarousel from './Carousel';
-import { getOptions } from '../store/options-reducer';
+import { getOptions } from '../store/optionsReducer';
 import { connect } from 'react-redux';
 import { startTrip, getCurrentTrip } from '../store/currentTrip';
 
@@ -29,7 +29,6 @@ class StartTrip extends Component {
       ],
       distanceTravelled: 0,
       prevLatLng: {},
-      categories: ['Cafe', 'Restaurant', 'Park', 'Movie', 'Museum'],
       currentTrip: {},
     };
   }
@@ -89,7 +88,12 @@ class StartTrip extends Component {
         </View>
 
         {this.props.currentTrip.id ? (
-          <PlaceCarousel data={this.state.categories} />
+          <View>
+            <PlaceCarousel
+              data={this.state.categories}
+              location={this.state.location}
+            />
+          </View>
         ) : (
           <View style={styles.buttonContainer}>
             <Button
@@ -113,7 +117,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getOptions: (params, location) => dispatch(getOptions()),
   getCurrentTrip: userId => dispatch(getCurrentTrip(userId)),
   startTrip: (userId, location) => dispatch(startTrip(userId, location)),
 });
