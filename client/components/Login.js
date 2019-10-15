@@ -15,6 +15,34 @@ class Login extends Component {
     this.toggleLogin = this.toggleLogin.bind(this);
   }
 
+  signInWithFacebook = async () => {
+    try {
+      const {
+        type,
+        token,
+        expires,
+        permissions,
+        declinedPermissions
+      } = await Facebook.logInWithReadPermissionsAsync("755192041599866", {
+        permissions: ["public_profile", "email"]
+      });
+      if (type === "success") {
+        // Get the user's name using Facebook's Graph API
+        const response = await fetch(
+          `https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,birthday,picture.type(large)`
+        );
+        const res = await response.json();
+        this.setState({ name: res.name, email: res.email });
+        this.onLogIn();
+        Alert.alert('Logged in!', `Welcome ${res.name}!`);
+      } else {
+        // type === 'cancel'
+      }
+    } catch ({ message }) {
+      alert(`Facebook Login Error: ${message}`);
+    }
+  };
+
   toggleLogin(event) {
     this.setState({ showLogin: !this.state.showLogin });
   }
