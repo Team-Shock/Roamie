@@ -181,13 +181,13 @@ async function seed() {
                            notes:"Located on the Sydney Harbor in the The Rocks neighborhood. We had stunning views of the Opera House and Harbor Bridge from our balcony",
                           tripId: azNzTrip[0].id, placeId: hotelSydney.id})
 
-  await TripPlaces.create({rating: "thumbs up",
-                        notes:"We camped near Milford Sound to get an early start kayaking the next day",
-                        tripId: azNzTrip[0].id, placeId: milfordSound.id})
+  // await TripPlaces.create({rating: "thumbs up",
+  //                       notes:"We camped near Milford Sound to get an early start kayaking the next day",
+  //                       tripId: azNzTrip[0].id, placeId: milfordSound.id})
 
-  await TripPlaces.create({rating: "thumbs up",
-                        notes:"The city is an amusement park for adrenaline junkies! We went up to Bob's Peak via cable car and did downhill mountain biking!",
-                        tripId: azNzTrip[0].id, placeId: queenstown.id})
+  // await TripPlaces.create({rating: "thumbs up",
+  //                       notes:"The city is an amusement park for adrenaline junkies! We went up to Bob's Peak via cable car and did downhill mountain biking!",
+  //                       tripId: azNzTrip[0].id, placeId: queenstown.id})
 
   const tripPlaces = await TripPlaces.findAll();
   

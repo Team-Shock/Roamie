@@ -259,7 +259,9 @@ export const styles = StyleSheet.create({
     paddingRight: 5
   },
   screenContainer: {
-    flex: 1,
+    // flex: 1,
+    height: 40,
+    width: 250,
     justifyContent: "center",
     alignItems: "center",
     overflow: "scroll"
