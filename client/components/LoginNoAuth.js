@@ -2,7 +2,7 @@ import React from "react";
 import { Text, TextInput, View, TouchableHighlight, Modal } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "../../Styles/styles";
-import { auth } from "../store/user-reducer";
+import { auth } from "../store/userReducer";
 import { connect } from "react-redux";
 import { withNavigation } from "react-navigation";
 

@@ -4,7 +4,7 @@ import { styles } from "../../Styles/styles";
 import BackgroundButton from "./BackgroundButton";
 import { connect } from "react-redux";
 import { getPreferences, setPreferences } from "../store/preferences";
-import { me } from "../store/user-reducer";
+import { me } from "../store/userReducer";
 
 class Preferences extends Component {
   constructor(props) {

@@ -4,6 +4,7 @@ const { Preferences, User, UserPreferences } = require("../db/models");
 
 router.put("/:userId/change", async (req, res, next) => {
   try {
+
     let newPreferences = req.body.preferences;
     newPreferences = await Promise.all(
       newPreferences.map(pref => {
@@ -13,6 +14,8 @@ router.put("/:userId/change", async (req, res, next) => {
         }
       })
     );
+
+
     // const prefSearch = await UserPreferences.findAll({
     //   where: {
     //     userId: req.params.userId,

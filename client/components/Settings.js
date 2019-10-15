@@ -3,7 +3,9 @@ import { StyleSheet, Text, View, Image, Button, Alert } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "../../Styles/styles";
 import Preferences from "./Preferences";
-import { logout } from "../store/user-reducer";
+
+import { logout } from '../store/userReducer';
+
 import { connect } from "react-redux";
 import { withNavigation } from "react-navigation";
 
@@ -20,12 +22,17 @@ class Settings extends Component {
     return (
       <View style={styles.loginContainer}>
         <Preferences />
+
         <View style={styles.loginButtonContainer}>
           <Button
             style={styles.loginButton}
             title="Logout"
             onPress={() => this.onLogout()}
           />
+
+        <View style={styles.buttonContainer}>
+          <Button title="Logout" onPress={() => this.onLogout()} />
+
         </View>
       </View>
     );
