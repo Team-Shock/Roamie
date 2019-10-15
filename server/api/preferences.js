@@ -6,9 +6,9 @@ router.put('/:userId/change', async (req, res, next) => {
   try {
     let newPreferences = req.body.preferences
     newPreferences = await Promise.all(newPreferences.map(pref => {
-      const oldPref = await UserPreferences.findByPk(pref.id)
+      const oldPref = UserPreferences.findByPk(pref.id)
       if (pref.selected !== oldPref.selected){
-      await oldPref.toggleSelected();}
+      oldPref.toggleSelected();}
     }))
     // const prefSearch = await UserPreferences.findAll({
     //   where: {

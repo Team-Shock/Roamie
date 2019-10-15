@@ -16,12 +16,12 @@ router.get('/:userId/:tripId', async (req, res, next) => {
   try {
     const trips = await Trip.findAll({
       where: {
-        userId: req.params.userId,
-        id: req.params.tripId
+        id: req.params.tripId,
+        userId: req.params.userId
       },
       include: [{model: Place}]
     })
-    res.json(trips)
+    res.json(trips[0])
   } catch (err) {
     next(err)
   }

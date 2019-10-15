@@ -51,7 +51,7 @@ const trips = [
 const places = [
   {
     name: 'Restaurante Silvestre',
-    imageUrl: '',
+    // imageUrl: '',
     description: '',
     date: '2019-07-16 12:00:00',
     locationAddress:
@@ -62,7 +62,7 @@ const places = [
   },
   {
     name: 'Onna Cafe',
-    imageUrl: '',
+    // imageUrl: '',
     description: '',
     date: '2019-09-16 12:00:00',
     locationAddress: 'Carrer de Santa Teresa, 1, 08012 Barcelona, Spain',

@@ -1,4 +1,5 @@
 import { PostgresWrapper } from "../../postgres/postgres";
+import user from "./userReducer";
 
 /**
  * ACTION TYPES
@@ -40,11 +41,13 @@ export const getTrips = (userId) => async dispatch => {
   }
 };
 
-export const getTripWithPlaces = (userId, tripId) => async dispatch => {
+export const getSelectedTrip = (userId, tripId) => async dispatch => {
   try {
     const instance = await PostgresWrapper.getInstance();
     const res = await instance.get(`/api/trips/${userId}/${tripId}`);
     if(res.data){
+        console.log("Trip reducer after API: ", res.data)
+
         dispatch(gotSelectedTrip(res.data));
     }
     else{
@@ -64,7 +67,7 @@ const trips = (state = initialState, action) => {
       return {...state, allTrips: action.trips}
     // case REMOVE_TRIP:
     case GOT_SELECTED_TRIP:
-      return {...state, selectedTrip: action.selectedTrip}
+      return {...state, selectedTrip: action.trip}
     default:
       return state;
   }

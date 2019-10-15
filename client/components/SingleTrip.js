@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { styles } from "../../Styles/styles";
 import { connect } from 'react-redux';
-import { getTrips } from '../store/tripsReducer'
+import { getSelectedTrip } from '../store/tripsReducer'
 
 export class SingleTrip extends Component{
   constructor(props){
@@ -25,20 +25,19 @@ export class SingleTrip extends Component{
   onHide(){
 
   }
-  componentDidMount(){
-    this.props.user.id ? this.updateState() : console.log("state not updated");
-    this.props.getTrips(this.props.user.id, this.props.tripInfo.id);
-  }
-
   render(){
-    let trip = this.props.tripInfo
 
+    let trip = this.props.tripInfo
     return (
       <View>
-        <Image
-          source={{ uri: trip.imageUrl }}
-          style={styles.listImage}
-        />
+        {trip.imageUrl ? 
+            <Image
+            source={{uri: trip.imageUrl }}
+            style={styles.listImage}
+          /> :
+          <View></View>
+        }
+
         <View>
           <Text style={styles.eventTitle}>{trip.name}</Text>
           <Text>Start Date: {trip.startDate}</Text>
@@ -74,15 +73,16 @@ export class SingleTrip extends Component{
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  trip: state.trips.selectedTrip
 
 })
 
 const mapDispatchToProps = dispatch => ({
-  getTrips : (userId, tripId) => dispatch(getTrips(userId, tripId))
+  getTrip : (userId, tripId) => dispatch(getSelectedTrip(userId, tripId))
 })
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(SingleTrip);

@@ -14,25 +14,30 @@ import {
 } from "react-native";
 import { styles } from "../../Styles/styles";
 import { SingleTrip } from "./SingleTrip";
-import { me } from '../store/user-reducer';
-import { getTrips } from '../store/tripsReducer'
 import { connect } from 'react-redux';
+import { getSelectedTrip } from '../store/tripsReducer'
 
 class Trips extends Component {
   constructor(props) {
     super(props);
     this.state = {
       singleTripSelected : false,
-      selectedTrip : {}
+      selectedTripId : 0
     }
     this.onBackButton = this.onBackButton.bind(this)
     this.onTripPress = this.onTripPress.bind(this)
   }
+  componentDidMount(){
+    if(this.state.selectedTripId !== 0){
+      this.props.getTrip(this.props.user.id, this.state.selectedTripId)
+    }
+  }
 
-  onTripPress(tripInfo){
+  onTripPress(tripId){
     this.setState({singleTripSelected: true,
-                  selectedTrip : tripInfo});
-    
+              selectedTripId : tripId});
+    this.props.getTrip(this.props.user.id, tripId)
+
   }
 
   onBackButton(){
@@ -40,6 +45,7 @@ class Trips extends Component {
   }
   render() {
     const trips = this.props.trips;
+
     return (
       <View>
       {!this.state.singleTripSelected ? (
@@ -65,7 +71,7 @@ class Trips extends Component {
                     <Text style={styles.eventTitle}>{trip.name}</Text>
                   </View>
                   <View style={styles.buttonContainer}>
-                    <Button title="View" onPress={() => this.onTripPress(trip)} />
+                    <Button title="View" onPress={() => this.onTripPress(trip.id)} />
                   </View>
                 </View>
                 ))}
@@ -77,9 +83,12 @@ class Trips extends Component {
        ) : (
          <View>
            <View style={styles.buttonContainer}>
-          <Button title="Back" onPress={() => this.onBackButton()} />
+            <Button title="See All Trips" onPress={() => this.onBackButton()} />
           </View> 
-          <SingleTrip tripInfo={this.state.selectedTrip} />
+          {this.props.selectedTrip  ? 
+            <SingleTrip tripInfo={this.props.selectedTrip} /> :
+            <View></View>
+          }
         </View>
        )
       }
@@ -91,12 +100,17 @@ class Trips extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  trips: state.user.trips
+  trips: state.user.trips,
+  selectedTrip: state.trips.selectedTrip
+})
+
+const mapDispatchToProps = dispatch => ({
+  getTrip : (userId, tripId) => dispatch(getSelectedTrip(userId, tripId))
 })
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(Trips);
 
 
