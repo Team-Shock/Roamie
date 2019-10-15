@@ -11,6 +11,19 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+//MOVE TO TRIP_PLACES API
+router.get('/places/:tripId', async (req, res, next) => {
+  try {
+    const userNotes = await TripPlaces.findAll({
+      where: {
+        tripId: req.params.tripId
+      }
+    })
+    res.json(userNotes)
+  } catch (err) {
+    next(err)
+  }
+})
 
 router.get('/:userId/:tripId', async (req, res, next) => {
   try {
@@ -26,6 +39,8 @@ router.get('/:userId/:tripId', async (req, res, next) => {
     next(err)
   }
 })
+
+
 
 router.get('/:userId', async (req, res, next) => {
   try {

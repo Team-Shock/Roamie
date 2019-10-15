@@ -15,7 +15,7 @@ import {
 import { styles } from "../../Styles/styles";
 import { SingleTrip } from "./SingleTrip";
 import { connect } from 'react-redux';
-import { getSelectedTrip } from '../store/tripsReducer'
+import { getSelectedTrip , getSelectedTripNotes} from '../store/tripsReducer'
 
 class Trips extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class Trips extends Component {
     this.setState({singleTripSelected: true,
               selectedTripId : tripId});
     this.props.getTrip(this.props.user.id, tripId)
-
+    this.props.getNotes(tripId)
   }
 
   onBackButton(){
@@ -86,7 +86,7 @@ class Trips extends Component {
             <Button title="See All Trips" onPress={() => this.onBackButton()} />
           </View> 
           {this.props.selectedTrip  ? 
-            <SingleTrip tripInfo={this.props.selectedTrip} /> :
+            <SingleTrip tripInfo={this.props.selectedTrip} notes={this.props.notes}/> :
             <View></View>
           }
         </View>
@@ -101,11 +101,13 @@ class Trips extends Component {
 const mapStateToProps = state => ({
   user: state.user,
   trips: state.user.trips,
-  selectedTrip: state.trips.selectedTrip
+  selectedTrip: state.trips.selectedTrip,
+  notes : state.trips.selectedTripNotes
 })
 
 const mapDispatchToProps = dispatch => ({
-  getTrip : (userId, tripId) => dispatch(getSelectedTrip(userId, tripId))
+  getTrip : (userId, tripId) => dispatch(getSelectedTrip(userId, tripId)),
+  getNotes: (tripId) => dispatch(getSelectedTripNotes(tripId))
 })
 
 export default connect(

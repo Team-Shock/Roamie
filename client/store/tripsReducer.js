@@ -7,19 +7,22 @@ import user from "./userReducer";
 const GOT_TRIPS = "GOT_TRIPS";
 const GOT_SELECTED_TRIP = "GOT_SELECTED_TRIP";
 const REMOVE_TRIP = "REMOVE_TRIP";
+const GOT_SELECTED_TRIP_NOTES = "GOT_SELECTED_TRIP_NOTES"
 /**
  * INITIAL STATE
  */
 const initialState = [
   allTrips =[],
-  selectedTrip = {}
+  selectedTrip = {},
+  notes = []
 ];
 
 /**
  * ACTION CREATORS
  */
 const gotTrips = trips => ({ type: GOT_TRIPS, trips });
-const gotSelectedTrip= trip => ({ type: GOT_SELECTED_TRIP, trip });
+const gotSelectedTrip = trip => ({ type: GOT_SELECTED_TRIP, trip });
+const gotSelectedTripNotes = notes => ({ type: GOT_SELECTED_TRIP_NOTES, notes });
 
 // const removedTrips = () => ({ type: REMOVED_TRIPS });
 
@@ -46,8 +49,6 @@ export const getSelectedTrip = (userId, tripId) => async dispatch => {
     const instance = await PostgresWrapper.getInstance();
     const res = await instance.get(`/api/trips/${userId}/${tripId}`);
     if(res.data){
-        console.log("Trip reducer after API: ", res.data)
-
         dispatch(gotSelectedTrip(res.data));
     }
     else{
@@ -57,6 +58,23 @@ export const getSelectedTrip = (userId, tripId) => async dispatch => {
     console.error(err);
   }
 };
+
+export const getSelectedTripNotes = (tripId) => async dispatch => {
+  try {
+    const instance = await PostgresWrapper.getInstance();
+    const res = await instance.get(`/api/trips/places/${tripId}`);
+    if(res.data){
+        console.log("res", res.data)
+        dispatch(gotSelectedTripNotes(res.data));
+    }
+    else{
+        console.log("Unable to retrieve any trip notes")
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 
 /**
  * REDUCER
@@ -68,6 +86,8 @@ const trips = (state = initialState, action) => {
     // case REMOVE_TRIP:
     case GOT_SELECTED_TRIP:
       return {...state, selectedTrip: action.trip}
+    case GOT_SELECTED_TRIP_NOTES:
+      return {...state, selectedTripNotes: action.notes}
     default:
       return state;
   }

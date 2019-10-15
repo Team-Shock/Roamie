@@ -11,6 +11,7 @@ import {
 import { styles } from "../../Styles/styles";
 import { connect } from 'react-redux';
 import { getSelectedTrip } from '../store/tripsReducer'
+import { restElement } from "@babel/types";
 
 export class SingleTrip extends Component{
   constructor(props){
@@ -19,15 +20,18 @@ export class SingleTrip extends Component{
       user: {},
       trip: {}
     }
-    this.onHide = this.onHide.bind(this)
+    this.getNoteOnPlace = this.getNoteOnPlace.bind(this)
   }
 
-  onHide(){
-
+  getNoteOnPlace(placeId){
+    let result =  this.props.notes.filter(note => note.placeId === placeId);
+    return result;
   }
+  
   render(){
-
     let trip = this.props.tripInfo
+    let notes = this.props.notes
+
     return (
       <View>
         {trip.imageUrl ? 
@@ -56,10 +60,18 @@ export class SingleTrip extends Component{
                     <Text style={styles.eventTitle}>Description: {place.description}</Text>
                     <Text style={styles.eventTitle}>Date: {place.date}</Text>
                     <Text style={styles.eventTitle}>Location: {place.locationAddress}</Text>
-                    <View style={styles.buttonContainer}>
-                      <Button style={styles.button} title="Hide" onPress={()=> this.onHide()} />
-                    </View> 
                   </View>
+                  {notes && this.getNoteOnPlace(place.id).map(placeNotes => (
+                    <View key={place.id + Number(placeNotes)}>
+                      <Text >{placeNotes.rating}</Text>
+                      <Text >{placeNotes.notes}</Text>
+                      {/* <Text >{placeNotes.date}</Text> */}
+                    </View>
+                    ))
+                  }
+                  {/* <View style={styles.buttonContainer}>
+                    <Button style={styles.button} title="Hide" onPress={()=> this.onHide()} />
+                  </View>  */}
                 </View>
               ))}
           </ScrollView>

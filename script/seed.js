@@ -132,7 +132,7 @@ async function seed() {
       name: trips[1].name
     }
   })
-  await TripPlaces.create({tripId: trip1[0].id, placeId: place1[0].id})
+  await TripPlaces.create({rating: "thumbs up", notes:"Delicious food!", tripId: trip1[0].id, placeId: place1[0].id})
 
   // //BARCELONA
   const place2 = await Place.findAll({
@@ -146,7 +146,7 @@ async function seed() {
       name: trips[0].name
     }
   })
-  await TripPlaces.create({tripId: trip2[0].id, placeId: place2[0].id})
+  await TripPlaces.create({rating: "thumbs down", notes:"Not recommended. I've had better.",tripId: trip2[0].id, placeId: place2[0].id})
 
 
   const tripPlaces = await TripPlaces.findAll();
