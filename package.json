@@ -51,6 +51,7 @@
     "react-native-modal": "^11.4.0",
     "react-native-oauth": "^2.1.18",
     "react-native-snap-carousel": "^3.8.2",
+    "react-native-switch": "^1.5.0",
     "react-native-web": "^0.11.7",
     "react-navigation": "^3.13.0",
     "react-navigation-stack": "^1.9.4",

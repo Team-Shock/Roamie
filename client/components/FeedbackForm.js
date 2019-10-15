@@ -12,7 +12,7 @@ import { submitFeedback } from "../store/tripsReducer";
 class FeedbackForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { feedbackText: "", modalVisible: false };
+    this.state = { feedbackText: "", liked: false, modalVisible: false };
 
     this.setModalVisible = this.setModalVisible.bind(this);
   }
@@ -32,14 +32,45 @@ class FeedbackForm extends React.Component {
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
+          style={{ marginTop: 50 }}
         >
           <View style={styles.loginContainer}>
+            <Text style={styles.loginHeader}>How was this place?</Text>
             <TextInput
-              style={styles.textInput}
-              placeholder="Tell Roamie what you thought of this place"
+              multiline={true}
+              style={{ height: 250, width: 250, margin: 15 }}
+              placeholder="Tell Roamie what you thought, or make a note about anything memorable about this spot"
               onChangeText={text => this.setState({ feedbackText: text })}
               value={this.state.feedbackText}
             />
+
+            {this.state.liked ? (
+              <Text style={styles.loginText}>I like this place</Text>
+            ) : (
+              <Text style={styles.loginText}>I dislike this place</Text>
+            )}
+            <View style={styles.loginButtonContainer}>
+              <Icon.Button
+                name="thumbs-up"
+                backgroundColor="#ffffff"
+                color="#F277C6"
+                onPress={() => this.setState({ liked: true })}
+              >
+                I liked this place
+              </Icon.Button>
+            </View>
+            <View style={styles.loginButtonContainer}>
+              <Icon.Button
+                name="thumbs-down"
+                backgroundColor="#ffffff"
+                color="#F277C6"
+                onPress={() => {
+                  this.setState({ liked: false });
+                }}
+              >
+                I disliked this place
+              </Icon.Button>
+            </View>
 
             <View style={styles.loginButtonContainer}>
               <Icon.Button
