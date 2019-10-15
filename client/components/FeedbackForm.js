@@ -111,6 +111,7 @@ class FeedbackForm extends React.Component {
   }
 }
 
+//This thunk doesn't exist yet
 const mapDispatchToProps = dispatch => ({
   submitFeedback: (feedbackText, liked) =>
     dispatch(submitFeedback(feedbackText, liked))
