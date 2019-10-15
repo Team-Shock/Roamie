@@ -10,48 +10,41 @@ const trips = [
     imageUrl: 'https://www.sabre.com/locations/anz/wp/wp-content/uploads/uploadsaus_nz.jpg-720x290.jpg',
     startDate: '2015-12-16 04:05:02',
     endDate: '2016-01-04 14:15:00',
-    startLocation: 'Sydney, Australia',
-    endLocation: 'Sydney, Australia',
     status: 'complete'
   },
   {
     name: 'Costa Rica with Family',
     imageUrl:
       'http://amp.entercostarica.com/images/auto-sized/new_ecr/680x340/pages/18-costa-rica-volcanoes.jpg',
-    sharingUrl: '',
     startDate: '2019-07-15 04:05:02',
     endDate: '2019-07-20 14:15:00',
-    startLocation:
-      'Calle Central Alfredo Volio, Merced, San José Province, San José, Costa Rica',
-    endLocation: 'Guanacaste Province, Playa Hermosa, Costa Rica',
     sharingUrl: '',
     status: 'complete'
   },
-  {
-    name: 'Naoshima Solo Trip',
-    imageUrl:
-      'https://photos.smugmug.com/Kyoto/Naoshima/i-pqm9V63/0/a0e01e81/L/shutterstock_568757074-L.jpg',
-    sharingUrl: '',
-  },
-  {
-    name: 'Dumbo Date Night',
-    imageUrl:
-      'http://blog.newyorkpass.com/wp-content/uploads/2017/03/Brooklyn_-_The_Dumbo_View-wikipedia.jpg',
-    sharingUrl: '',
-  },
-  {
-    name: 'Red Rocks Climbing Trip',
-    imageUrl:
-      'https://www.mountainphotography.com/images/xl/20180317-Red-Rock-Canyon-Sunrise.jpg',
-    sharingUrl: '',
-  },
+  // {
+  //   name: 'Naoshima Solo Trip',
+  //   imageUrl:
+  //     'https://photos.smugmug.com/Kyoto/Naoshima/i-pqm9V63/0/a0e01e81/L/shutterstock_568757074-L.jpg',
+  //   sharingUrl: '',
+  // },
+  // {
+  //   name: 'Dumbo Date Night',
+  //   imageUrl:
+  //     'http://blog.newyorkpass.com/wp-content/uploads/2017/03/Brooklyn_-_The_Dumbo_View-wikipedia.jpg',
+  //   sharingUrl: '',
+  // },
+  // {
+  //   name: 'Red Rocks Climbing Trip',
+  //   imageUrl:
+  //     'https://www.mountainphotography.com/images/xl/20180317-Red-Rock-Canyon-Sunrise.jpg',
+  //   sharingUrl: '',
+  // },
 ];
 
 //Places dummy data for development
 const places = [
   {
     name: 'Restaurante Silvestre',
-    // imageUrl: '',
     description: '',
     date: '2019-07-16 12:00:00',
     locationAddress:
@@ -69,7 +62,18 @@ const aznzPlaces = [
     description: 'Coastal Walk',
     date: '2015-12-16 12:00:00',
     locationAddress:
-      'Bondi Beach',
+      'Bondi Beach, Sydney, Australia',
+    // locationLat: '9.938935',
+    // locationLong: '-84.076361',
+    visibility: 'true',
+  },
+  {
+    name: 'Park Hyatt Sydney',
+    imageUrl: 'https://www.sydneycoastwalks.com.au/wp-content/uploads/2015/07/BondiCoogeewalk.jpg',
+    description: 'Park Hyatt Hotel centrally located',
+    date: '2015-12-16 12:30:00',
+    locationAddress:
+      '7 Hickson Rd, The Rocks NSW 2000, Australia',
     // locationLat: '9.938935',
     // locationLong: '-84.076361',
     visibility: 'true',

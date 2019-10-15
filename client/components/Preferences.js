@@ -32,14 +32,18 @@ class Preferences extends Component {
   }
 
   async handlePress() {
-    await this.props.me();
-    await this.props.setPreferences(this.state.preferences);
+    await this.props.setPreferences(this.state.user.id, this.state.preferences);
   }
   render() {
     return (
-      <View>
+      <View style={styles.loginContainer}>
+        <Text style={styles.loginText}>
+          Select some preferences to help Roamie make suggestions for you:
+        </Text>
         <View style={styles.preferencesContainer}>
-          {this.props.user && this.props.user.preferences && this.props.user.preferences.length > 0 ? (
+          {this.props.user &&
+          this.props.user.preferences &&
+          this.props.user.preferences.length > 0 ? (
             this.props.user.preferences.map(pref => (
               <BackgroundButton key={pref.id} pref={pref} />
             ))
@@ -47,10 +51,10 @@ class Preferences extends Component {
             <Text>Loading...</Text>
           )}
         </View>
-        <View style={styles.buttonContainer}>
+        <View style={styles.loginButtonContainer}>
           <Button
-            style={styles.button}
-            title="Submit edits to preferences"
+            style={styles.loginButton}
+            title="Submit edits"
             onPress={this.handlePress}
           />
         </View>

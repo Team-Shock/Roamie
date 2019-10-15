@@ -53,8 +53,6 @@ export class SingleTrip extends Component{
           <Text style={styles.eventTitle}>{trip.name}</Text>
           <Text>Start Date: {this.getFormattedDate(trip.startDate)}</Text>
           <Text>End Date: {this.getFormattedDate(trip.endDate)}</Text>
-          <Text>From: {trip.startLocation}</Text>
-          <Text>To: {trip.endLocation}</Text>
           <ScrollView>
               {trip.places && trip.places.map(place => (
                 <View style={styles.tripLogRow} key={place.id}>
