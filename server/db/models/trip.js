@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
+var moment = require('moment');
 
 const Trip = db.define('trip', {
   name: {
