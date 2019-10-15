@@ -79,7 +79,29 @@ const aznzPlaces = [
     // locationLat: '9.938935',
     // locationLong: '-84.076361',
     visibility: 'true',
-  }
+  },
+  {
+    name: 'Milford Sound, New Zealand',
+    imageUrl: 'https://www.cunard.com/content/dam/cunard/inventory-assets/ports/MS2/MS2.jpg.image.750.563.low.jpg',
+    description: '',
+    date: '2015-12-17 12:30:00',
+    locationAddress:
+      'Milford Sound, New Zealand',
+    // locationLat: '9.938935',
+    // locationLong: '-84.076361',
+    visibility: 'true',
+  },
+  {
+    name: 'Queenstown, NZ',
+    imageUrl: 'https://www.newzealand.com/assets/Tourism-NZ/Other/8ecc0a0aa8/img-1542389353-2950-14984-F1F57DB9-9BC8-C838-42E8EFEC764A6979__FocalPointCropWzQyNyw2NDAsNTQsNjMsODUsImpwZyIsNjUsMi41XQ.jpg',
+    description: '',
+    date: '2015-12-18 12:30:00',
+    locationAddress:
+      'Queenstown, NZ',
+    // locationLat: '9.938935',
+    // locationLong: '-84.076361',
+    visibility: 'true',
+  },
 ];
 
 async function seed() {
@@ -141,6 +163,9 @@ async function seed() {
   // //SYDNEY AZ
   const bondiBeach = await Place.create(aznzPlaces[0])
   const hotelSydney = await Place.create(aznzPlaces[1])
+  const milfordSound = await Place.create(aznzPlaces[2])
+  const queenstown = await Place.create(aznzPlaces[3])
+
 
   const azNzTrip = await Trip.findAll({
     where : {
@@ -153,9 +178,16 @@ async function seed() {
                           tripId: azNzTrip[0].id, placeId: bondiBeach.id})
 
   await TripPlaces.create({rating: "thumbs up",
-                           notes:"Amazing views and great location!",
+                           notes:"Located on the Sydney Harbor in the The Rocks neighborhood. We had stunning views of the Opera House and Harbor Bridge from our balcony",
                           tripId: azNzTrip[0].id, placeId: hotelSydney.id})
 
+  await TripPlaces.create({rating: "thumbs up",
+                        notes:"We camped near Milford Sound to get an early start kayaking the next day",
+                        tripId: azNzTrip[0].id, placeId: milfordSound.id})
+
+  await TripPlaces.create({rating: "thumbs up",
+                        notes:"The city is an amusement park for adrenaline junkies! We went up to Bob's Peak via cable car and did downhill mountain biking!",
+                        tripId: azNzTrip[0].id, placeId: queenstown.id})
 
   const tripPlaces = await TripPlaces.findAll();
   

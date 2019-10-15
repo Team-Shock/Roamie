@@ -8,9 +8,11 @@ import MapView, {
   Callout,
   Polyline
 } from "react-native-maps";
-import { StyleSheet, Text, View, Image, FlatList, Button } from "react-native";
+import { StyleSheet, Text, View, Image, FlatList, Button, Modal, TouchableOpacity, TouchableHighlight } from "react-native";
 import { styles } from "../../Styles/styles";
 import Geocoder from 'react-native-geocoding';
+import Icon from "react-native-vector-icons/FontAwesome";
+
 
 export class Map extends Component {
   constructor(props) {
@@ -18,9 +20,14 @@ export class Map extends Component {
     Geocoder.init("AIzaSyDFtJUTkoeUoQjChhPxkjNxAOnrDLxXBYo");
     this.state = {
         markers: [],
-        routeCoordinates: []
+        routeCoordinates: [],
+        modalVisible: false,
+        mapView: false
     }
     this.addMarker = this.addMarker.bind(this);
+  }
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
   }
 
   async addMarker(location, title){
@@ -69,46 +76,83 @@ export class Map extends Component {
 
     return (
         <View>
-            {startLatitude ?
+          <Modal
+            animationType="slide"
+            transparent={false}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+            }}
+          >
+            {/* <View style={styles.modalContainer}> */}
                 <View>
-                    <View style={styles.mapcontainer}>
-                    <MapView
-                        style={styles.map}
-                        provider={PROVIDER_GOOGLE}
-                        region={{
-                        latitude: startLatitude,
-                        longitude: startLongitude,
-                        latitudeDelta: 0.02,
-                        longitudeDelta: 0.02
-                        }}
-                        showsUserLocation={true}
-                        followsUserLocation={true}
-                        showsMyLocationButton={true}
-                        zoomEnabled={true}
-                    >
-                    {
-                        this.state.markers.map((marker, idx) => {
-                            return (
-                                <Marker
-                                    key={idx}
-                                    coordinate={{latitude: marker.latitude,
-                                    longitude: marker.longitude}}
-                                    title={marker.title}
-                                    description={marker.subtitle}
-                                />
-                            )
-                        })
-                    }
-                    <Polyline
-                        coordinates={this.state.routeCoordinates}
-                        strokeWidth={3}
-                    />
-                    </MapView>
-                    </View>
-                </View> : null}
+                {startLatitude ?
+                    <View>
+                        <View style={styles.mapcontainerModal}>
+                        <MapView
+                            style={styles.map}
+                            provider={PROVIDER_GOOGLE}
+                            region={{
+                            latitude: startLatitude,
+                            longitude: startLongitude,
+                            latitudeDelta: 0.02,
+                            longitudeDelta: 0.02
+                            }}
+                            showsUserLocation={true}
+                            followsUserLocation={true}
+                            showsMyLocationButton={true}
+                            zoomEnabled={true}
+                        >
+                        {
+                            this.state.markers.map((marker, idx) => {
+                                return (
+                                    <Marker
+                                        key={idx}
+                                        coordinate={{latitude: marker.latitude,
+                                        longitude: marker.longitude}}
+                                        title={marker.title}
+                                        description={marker.subtitle}
+                                    />
+                                )
+                            })
+                        }
+                        <Polyline
+                            coordinates={this.state.routeCoordinates}
+                            strokeWidth={3}
+                        />
+                        </MapView>
+                        </View>
+                    </View> : null}
+            </View>
+            {/* </View> */}
+            <TouchableHighlight
+              onPress={() => {
+                this.setModalVisible(!this.state.modalVisible);
+              }}
+              style={styles.modalClose}
+            >
+              <Text>Close Map</Text>
+            </TouchableHighlight>
+          </Modal>
+  
+          <TouchableHighlight
+                onPress={() => {
+                    this.setModalVisible(true);
+                }}
+                >
+                <Icon.Button
+                    name="map"
+                    backgroundColor="#ffffff"
+                    color="#F277C6"
+                    onPress={() => {
+                    this.setModalVisible(true);
+                    }}
+                >
+                    Map
+                </Icon.Button>
+            </TouchableHighlight>
+
         </View>
-        
-      
-    );
+      );
   }
 }
