@@ -6,52 +6,45 @@ const defaultPreferences = require('../utils/defaultPreferences');
 //Trips dummy data for development
 const trips = [
   {
-    name: 'Barcelona Trip with Friends',
-    imageUrl: 'https://cdn.cnn.com/cnnnext/dam/assets/170706113411-spain.jpg',
-    sharingUrl: '',
-    startLocation: 'Carrer de Mallorca, 401, 08013 Barcelona, Spain',
-    endLocation: 'Parc de la Ciutadella, 08003 Barcelona, Spain',
-    sharingUrl: '',
+    name: 'Australia & New Zealand Honeymoon ❤️',
+    imageUrl: 'https://www.sabre.com/locations/anz/wp/wp-content/uploads/uploadsaus_nz.jpg-720x290.jpg',
+    startDate: '2015-12-16 04:05:02',
+    endDate: '2016-01-04 14:15:00',
     status: 'complete'
   },
   {
     name: 'Costa Rica with Family',
     imageUrl:
       'http://amp.entercostarica.com/images/auto-sized/new_ecr/680x340/pages/18-costa-rica-volcanoes.jpg',
-    sharingUrl: '',
     startDate: '2019-07-15 04:05:02',
     endDate: '2019-07-20 14:15:00',
-    startLocation:
-      'Calle Central Alfredo Volio, Merced, San José Province, San José, Costa Rica',
-    endLocation: 'Guanacaste Province, Playa Hermosa, Costa Rica',
     sharingUrl: '',
     status: 'complete'
   },
-  {
-    name: 'Naoshima Solo Trip',
-    imageUrl:
-      'https://photos.smugmug.com/Kyoto/Naoshima/i-pqm9V63/0/a0e01e81/L/shutterstock_568757074-L.jpg',
-    sharingUrl: '',
-  },
-  {
-    name: 'Dumbo Date Night',
-    imageUrl:
-      'http://blog.newyorkpass.com/wp-content/uploads/2017/03/Brooklyn_-_The_Dumbo_View-wikipedia.jpg',
-    sharingUrl: '',
-  },
-  {
-    name: 'Red Rocks Climbing Trip',
-    imageUrl:
-      'https://www.mountainphotography.com/images/xl/20180317-Red-Rock-Canyon-Sunrise.jpg',
-    sharingUrl: '',
-  },
+  // {
+  //   name: 'Naoshima Solo Trip',
+  //   imageUrl:
+  //     'https://photos.smugmug.com/Kyoto/Naoshima/i-pqm9V63/0/a0e01e81/L/shutterstock_568757074-L.jpg',
+  //   sharingUrl: '',
+  // },
+  // {
+  //   name: 'Dumbo Date Night',
+  //   imageUrl:
+  //     'http://blog.newyorkpass.com/wp-content/uploads/2017/03/Brooklyn_-_The_Dumbo_View-wikipedia.jpg',
+  //   sharingUrl: '',
+  // },
+  // {
+  //   name: 'Red Rocks Climbing Trip',
+  //   imageUrl:
+  //     'https://www.mountainphotography.com/images/xl/20180317-Red-Rock-Canyon-Sunrise.jpg',
+  //   sharingUrl: '',
+  // },
 ];
 
 //Places dummy data for development
 const places = [
   {
     name: 'Restaurante Silvestre',
-    // imageUrl: '',
     description: '',
     date: '2019-07-16 12:00:00',
     locationAddress:
@@ -59,17 +52,32 @@ const places = [
     locationLat: '9.938935',
     locationLong: '-84.076361',
     visibility: 'true',
-  },
+  }
+];
+
+const aznzPlaces = [
   {
-    name: 'Onna Cafe',
-    // imageUrl: '',
-    description: '',
-    date: '2019-09-16 12:00:00',
-    locationAddress: 'Carrer de Santa Teresa, 1, 08012 Barcelona, Spain',
-    locationLat: '41.400135',
-    locationLong: '2.159935',
+    name: 'Bondi Beach',
+    imageUrl: 'https://www.sydneycoastwalks.com.au/wp-content/uploads/2015/07/BondiCoogeewalk.jpg',
+    description: 'Coastal Walk',
+    date: '2015-12-16 12:00:00',
+    locationAddress:
+      'Bondi Beach, Sydney, Australia',
+    // locationLat: '9.938935',
+    // locationLong: '-84.076361',
     visibility: 'true',
   },
+  {
+    name: 'Park Hyatt Sydney',
+    imageUrl: 'https://www.sydneycoastwalks.com.au/wp-content/uploads/2015/07/BondiCoogeewalk.jpg',
+    description: 'Park Hyatt Hotel centrally located',
+    date: '2015-12-16 12:30:00',
+    locationAddress:
+      '7 Hickson Rd, The Rocks NSW 2000, Australia',
+    // locationLat: '9.938935',
+    // locationLong: '-84.076361',
+    visibility: 'true',
+  }
 ];
 
 async function seed() {
@@ -105,12 +113,6 @@ async function seed() {
     })
   );
 
-  //DUMMY TRIPPLACE FOR FRONT END BUILD OUT:
-  // const user1 = await User.findAll({
-  //   where: {
-  //     email: 'shiba@email.com'
-  //   }
-  // })
   const allTrips = await Trip.findAll()
   await Promise.all(
     allTrips.map(trip => {
@@ -134,19 +136,18 @@ async function seed() {
   })
   await TripPlaces.create({rating: "thumbs up", notes:"Delicious food!", tripId: trip1[0].id, placeId: place1[0].id})
 
-  // //BARCELONA
-  const place2 = await Place.findAll({
-    where : {
-      name: places[1].name
-    }
-  })
+  // //SYDNEY AZ
+  const bondiBeach = await Place.create(aznzPlaces[0])
 
-  const trip2 = await Trip.findAll({
+  const azNzTrip = await Trip.findAll({
     where : {
       name: trips[0].name
     }
   })
-  await TripPlaces.create({rating: "thumbs down", notes:"Not recommended. I've had better.",tripId: trip2[0].id, placeId: place2[0].id})
+
+  await TripPlaces.create({rating: "thumbs up",
+                           notes:"Bondi beach was the perfect place after landing to get brekkie (breakfast). We loved the Bondi to Coogree Beach coastal walk and enjoyed all the beautiful beaches along the way",
+                          tripId: azNzTrip[0].id, placeId: bondiBeach.id})
 
 
   const tripPlaces = await TripPlaces.findAll();
