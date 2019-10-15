@@ -41,7 +41,6 @@ export const setPreferences = (id, preferences) => async dispatch => {
       `/api/preferences/${id}/change`,
       preferences
     );
-    dispatch(gotPreferences(data));
   } catch (error) {
     console.log("There was an error editing preferences", error);
   }
