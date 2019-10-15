@@ -62,7 +62,7 @@ export const oauth = (name, email) => async dispatch => {
 export const logout = () => async dispatch => {
   try {
     let instance = await PostgresWrapper.getInstance();
-    await instance.post('http://172.16.26.140:8080/auth/logout');
+    await instance.post('/auth/logout');
     dispatch(removeUser());
   } catch (err) {
     console.error(err);
