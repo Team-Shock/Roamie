@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 import { getSelectedTrip } from "../store/tripsReducer";
 import { restElement } from "@babel/types";
 import {DateTime} from 'luxon'
-import { TripLogMap } from './Map'
+import { TripLogMap } from './TripLogMap'
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const format = { month: "long", day: "numeric", year: "numeric" };
