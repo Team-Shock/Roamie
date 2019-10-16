@@ -32,7 +32,10 @@ class Preferences extends Component {
   }
 
   async handlePress() {
-    await this.props.setPreferences(this.state.user.id, this.state.preferences);
+    await this.props.setPreferences(
+      this.props.user.id,
+      this.props.user.preferences
+    );
   }
   render() {
     return (
@@ -68,7 +71,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  setPreferences: preferences => dispatch(setPreferences(preferences))
+  setPreferences: (id, preferences) => dispatch(setPreferences(id, preferences))
 });
 
 export default connect(
