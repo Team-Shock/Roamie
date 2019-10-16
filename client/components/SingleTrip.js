@@ -6,14 +6,17 @@ import {
   StyleSheet,
   Button,
   ImageBackground,
-  ScrollView
+  ScrollView,
+  Modal,
+  TouchableOpacity, 
+  TouchableHighlight
 } from "react-native";
 import { styles } from "../../Styles/styles";
 import { connect } from "react-redux";
 import { getSelectedTrip } from "../store/tripsReducer";
 import { restElement } from "@babel/types";
 import {DateTime} from 'luxon'
-import { TripLogMap } from './Map'
+import { TripLogMap } from './TripLogMap'
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const format = { month: "long", day: "numeric", year: "numeric" };
@@ -59,7 +62,46 @@ export class SingleTrip extends Component {
           <Text style={styles.eventP}>
             End Date: {this.getFormattedDate(trip.endDate)}
           </Text>
-          <TripLogMap startLat={trip.startLat} startLong = {trip.startLong} places={trip.places}/>
+          <View>
+            <Modal
+              animationType="slide"
+              transparent={false}
+              visible={this.state.modalVisible}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+              }}
+            >
+              <View>
+                <TripLogMap startLat={trip.startLat} startLong = {trip.startLong} places={trip.places}/>
+              </View>
+              <TouchableHighlight
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}
+                style={styles.modalClose}
+              >
+                <Text>Close Map</Text>
+              </TouchableHighlight>
+            </Modal>
+    
+            <TouchableHighlight
+                  onPress={() => {
+                      this.setModalVisible(true);
+                  }}
+                  >
+                  <Icon.Button
+                      name="map"
+                      backgroundColor="#ffffff"
+                      color="#F277C6"
+                      onPress={() => {
+                      this.setModalVisible(true);
+                      }}
+                  >
+                      Map
+                  </Icon.Button>
+              </TouchableHighlight>
+
+          </View>
           <ScrollView contentContainerStyle={{ flex: 1 }}>
             <View style={{ alignItems: "center" }}>
               {trip.places &&
