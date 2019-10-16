@@ -47,7 +47,7 @@ class Trips extends Component {
 
     return (
       <View>
-        {!this.state.singleTripSelected ? (
+      {!this.state.singleTripSelected ? (
           <View>
             <ScrollView contentContainerStyle={{ flex: 1 }}>
               {!trips || trips.length <= 0 ? (

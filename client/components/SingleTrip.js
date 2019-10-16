@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 import { getSelectedTrip } from "../store/tripsReducer";
 import { restElement } from "@babel/types";
 import {DateTime} from 'luxon'
-import { TripLogMap } from './Map'
+import { TripLogMap } from './TripLogMap'
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const format = { month: "long", day: "numeric", year: "numeric" };
@@ -50,16 +50,18 @@ export class SingleTrip extends Component {
     let notes = this.props.notes;
 
     return (
-      <View style={styles.screenContainer}>
-        <View style={styles.loginContainer}>
+      // <View style={styles.screenContainer}>
+        // <View style={styles.loginContainer}>
+        <View>
           <Text style={styles.eventTitle}>{trip.name}</Text>
+          <TripLogMap startLat={trip.startLat} startLong = {trip.startLong} places={trip.places}/>
+
           <Text style={styles.eventP}>
             Start Date: {this.getFormattedDate(trip.startDate)}
           </Text>
           <Text style={styles.eventP}>
             End Date: {this.getFormattedDate(trip.endDate)}
           </Text>
-          <TripLogMap startLat={trip.startLat} startLong = {trip.startLong} places={trip.places}/>
           <ScrollView contentContainerStyle={{ flex: 1 }}>
             <View style={{ alignItems: "center" }}>
               {trip.places &&
@@ -116,7 +118,7 @@ export class SingleTrip extends Component {
             </View>
           </ScrollView>
         </View>
-      </View>
+      // </View>
     );
   }
 }

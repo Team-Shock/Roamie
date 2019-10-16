@@ -9,7 +9,7 @@ import { StyleSheet, Text, View, Image, FlatList, Button, Modal, TouchableOpacit
 import { styles } from "../../Styles/styles";
 import Geocoder from 'react-native-geocoding';
 import Icon from "react-native-vector-icons/FontAwesome";
-
+import { googleKey } from '../../secrets'
 
 export class TripLogMap extends Component {
   constructor(props) {
@@ -27,7 +27,36 @@ export class TripLogMap extends Component {
     this.setState({ modalVisible: visible });
   }
 
+  async getDirections(startLoc, destinationLoc) {
+    console.log("Get Directions from : ",startLoc);
+    console.log("Get Directions to : ",destinationLoc);
+    try {
+        let resp = await fetch(`https://maps.googleapis.com/maps/api/directions/json?key=${googleKey}&origin=${ startLoc.replace(" ", "+") }&destination=${ destinationLoc.replace(" ", "+")  }`)
+        let respJson = await resp.json();
+        // console.log("res", respJson)
+        if(respJson.routes[0]){
+            let points = Polyline.decode(respJson.routes[0].overview_polyline.points);
+            let coords = points.map((point, index) => {
+                return  {
+                    latitude : point[0],
+                    longitude : point[1]
+                }
+            })
+            console.log("Adding coords:", coords)
+            this.setState({routeCoordinates: coords})
+        }
+        else{
+            console.log("Unable to find directions from: ", startLoc)
+            console.log("Unable to find directions to: ", destinationLoc)
+        }
+    } catch(error) {
+        alert(error)
+        return error
+    }
+  }   
+
   async addMarker(location, title){
+      console.log("Add Marker for ", location)
     try{
       let json = await Geocoder.from(location)
       var location = json.results[0].geometry.location;
@@ -43,8 +72,7 @@ export class TripLogMap extends Component {
       }
       let pins = this.state.markers;
       pins.push(pin);
-      this.setState({ markers: pins, 
-                    routeCoordinates: this.state.routeCoordinates.concat([newCoordinate])})
+      this.setState({ markers: pins })
     }
     catch(error){
        console.warn(error);
@@ -54,6 +82,10 @@ export class TripLogMap extends Component {
       let places = this.props.places;
       for(let i = 0; i< places.length; i++){
           await this.addMarker(places[i].locationAddress, places[i].name)
+          if((i+1) < places.length){
+              console.log("Inside If loop")
+            await this.getDirections(places[i].locationAddress, places[i+1].locationAddress )
+          }
       }
   }
   
