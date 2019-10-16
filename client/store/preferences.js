@@ -33,14 +33,14 @@ export const getPreferences = id => async dispatch => {
   }
 };
 
-export const setPreferences = (preferences, id) => async dispatch => {
+export const setPreferences = (id, preferences) => async dispatch => {
   try {
+    console.log("FROM THE THUNK", preferences);
     const instance = await PostgresWrapper.getInstance();
     const { data } = await instance.put(
-      `/api/preferences/:id/change`,
+      `/api/preferences/${id}/change`,
       preferences
     );
-    dispatch(gotPreferences(data));
   } catch (error) {
     console.log("There was an error editing preferences", error);
   }
