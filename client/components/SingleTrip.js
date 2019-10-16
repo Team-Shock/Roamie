@@ -8,15 +8,15 @@ import {
   ImageBackground,
   ScrollView,
   Modal,
-  TouchableOpacity, 
+  TouchableOpacity,
   TouchableHighlight
 } from "react-native";
 import { styles } from "../../Styles/styles";
 import { connect } from "react-redux";
 import { getSelectedTrip } from "../store/tripsReducer";
 import { restElement } from "@babel/types";
-import {DateTime} from 'luxon'
-import { TripLogMap } from './TripLogMap'
+import { DateTime } from "luxon";
+import { TripLogMap } from "./TripLogMap";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const format = { month: "long", day: "numeric", year: "numeric" };
@@ -54,7 +54,7 @@ export class SingleTrip extends Component {
 
     return (
       <View style={styles.screenContainer}>
-        <View style={styles.loginContainer}>
+        <View>
           <Text style={styles.eventTitle}>{trip.name}</Text>
           <Text style={styles.eventP}>
             Start Date: {this.getFormattedDate(trip.startDate)}
@@ -72,7 +72,11 @@ export class SingleTrip extends Component {
               }}
             >
               <View>
-                <TripLogMap startLat={trip.startLat} startLong = {trip.startLong} places={trip.places}/>
+                <TripLogMap
+                  startLat={trip.startLat}
+                  startLong={trip.startLong}
+                  places={trip.places}
+                />
               </View>
               <TouchableHighlight
                 onPress={() => {
@@ -83,24 +87,23 @@ export class SingleTrip extends Component {
                 <Text>Close Map</Text>
               </TouchableHighlight>
             </Modal>
-    
-            <TouchableHighlight
-                  onPress={() => {
-                      this.setModalVisible(true);
-                  }}
-                  >
-                  <Icon.Button
-                      name="map"
-                      backgroundColor="#ffffff"
-                      color="#F277C6"
-                      onPress={() => {
-                      this.setModalVisible(true);
-                      }}
-                  >
-                      Map
-                  </Icon.Button>
-              </TouchableHighlight>
 
+            <TouchableHighlight
+              onPress={() => {
+                this.setModalVisible(true);
+              }}
+            >
+              <Icon.Button
+                name="map"
+                backgroundColor="#ffffff"
+                color="#F277C6"
+                onPress={() => {
+                  this.setModalVisible(true);
+                }}
+              >
+                Map
+              </Icon.Button>
+            </TouchableHighlight>
           </View>
           <ScrollView contentContainerStyle={{ flex: 1 }}>
             <View style={{ alignItems: "center" }}>
@@ -138,12 +141,8 @@ export class SingleTrip extends Component {
                           <Text style={styles.tripLogText}>
                             {placeNotes.notes}
                           </Text>
-                          {/* <Text >{placeNotes.date}</Text> */}
                         </View>
                       ))}
-                    {/* <View style={styles.buttonContainer}>
-                    <Button style={styles.button} title="Hide" onPress={()=> this.onHide()} />
-                  </View>  */}
                   </View>
                 ))}
               <View style={styles.loginButtonContainer}>
