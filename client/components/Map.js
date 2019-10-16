@@ -15,8 +15,8 @@ class Map extends Component {
       location: { latitude: 40.704385, longitude: -74.009806 },
       routeCoordinates: [
         {
-          latitude: 40.704385,
-          longitude: -74.009806,
+          latitude: 40.7506,
+          longitude: -73.9935,
         },
       ],
       distanceTravelled: 0,
@@ -25,7 +25,6 @@ class Map extends Component {
       errorMessage: '',
     };
   }
-
 
   async componentDidMount() {
     //watch the position of the user
