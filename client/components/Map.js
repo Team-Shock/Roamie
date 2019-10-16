@@ -57,6 +57,7 @@ class Map extends Component {
       this.props.options.businesses
     );
     console.log('LAT/LONG STATE IN MAP COMPONENT:', this.state.location);
+    console.log('ROUTE STATE IN MAP COMPONENT:', this.state.routeCoordinates);
     return (
       <View style={styles.mapcontainer}>
         <MapView
