@@ -63,83 +63,44 @@ export class TripLogMap extends Component {
 
     return (
         <View>
-          <Modal
-            animationType="slide"
-            transparent={false}
-            visible={this.state.modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-            }}
-          >
-            {/* <View style={styles.modalContainer}> */}
-                <View>
-                {startLatitude ?
-                    <View>
-                        <View style={styles.mapcontainerModal}>
-                        <MapView
-                            style={styles.map}
-                            provider={PROVIDER_GOOGLE}
-                            region={{
-                            latitude: startLatitude,
-                            longitude: startLongitude,
-                            latitudeDelta: 0.02,
-                            longitudeDelta: 0.02
-                            }}
-                            showsUserLocation={true}
-                            followsUserLocation={true}
-                            showsMyLocationButton={true}
-                            zoomEnabled={true}
-                        >
-                        {
-                            this.state.markers.map((marker, idx) => {
-                                return (
-                                    <Marker
-                                        key={idx}
-                                        coordinate={{latitude: marker.latitude,
-                                        longitude: marker.longitude}}
-                                        title={marker.title}
-                                        description={marker.subtitle}
-                                    />
-                                )
-                            })
-                        }
-                        <Polyline
-                            coordinates={this.state.routeCoordinates}
-                            strokeWidth={3}
-                        />
-                        </MapView>
-                        </View>
-                    </View> : null}
-            </View>
-            {/* </View> */}
-            <TouchableHighlight
-              onPress={() => {
-                this.setModalVisible(!this.state.modalVisible);
-              }}
-              style={styles.modalClose}
-            >
-              <Text>Close Map</Text>
-            </TouchableHighlight>
-          </Modal>
-  
-          <TouchableHighlight
-                onPress={() => {
-                    this.setModalVisible(true);
-                }}
-                >
-                <Icon.Button
-                    name="map"
-                    backgroundColor="#ffffff"
-                    color="#F277C6"
-                    onPress={() => {
-                    this.setModalVisible(true);
+        {startLatitude ?
+            <View>
+                <View style={styles.mapcontainerModal}>
+                <MapView
+                    style={styles.map}
+                    provider={PROVIDER_GOOGLE}
+                    region={{
+                    latitude: startLatitude,
+                    longitude: startLongitude,
+                    latitudeDelta: 0.02,
+                    longitudeDelta: 0.02
                     }}
+                    showsUserLocation={true}
+                    followsUserLocation={true}
+                    showsMyLocationButton={true}
+                    zoomEnabled={true}
                 >
-                    Map
-                </Icon.Button>
-            </TouchableHighlight>
-
-        </View>
+                {
+                    this.state.markers.map((marker, idx) => {
+                        return (
+                            <Marker
+                                key={idx}
+                                coordinate={{latitude: marker.latitude,
+                                longitude: marker.longitude}}
+                                title={marker.title}
+                                description={marker.subtitle}
+                            />
+                        )
+                    })
+                }
+                <Polyline
+                    coordinates={this.state.routeCoordinates}
+                    strokeWidth={3}
+                />
+                </MapView>
+                </View>
+            </View> : null}
+         </View>      
       );
     }
 }
