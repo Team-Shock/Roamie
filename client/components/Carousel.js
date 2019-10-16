@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,7 +13,7 @@ import { getOptions } from '../store/optionsReducer';
 import { addToRoute } from '../store/currentTrip';
 import { connect } from 'react-redux';
 
-const { width: screenWidth } = Dimensions.get('window');
+const { width: screenWidth } = Dimensions.get("window");
 
 class PlaceCarousel extends Component {
   constructor(props) {
@@ -41,11 +41,14 @@ class PlaceCarousel extends Component {
             // parallaxFactor={0.4}
             // {...parallaxProps}
           />
-
-          <Text style={styles.title} numberOfLines={2}>
-            {item.name}
-          </Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.title} numberOfLines={2}>
+              {item.name}
+            </Text>
+          </View>
         </TouchableOpacity>
+        {/* Renders a feedback form for every business, but a conditional should be added so it only comes up if the user visits it */}
+        {this.props.options.businesses ? <FeedbackForm item={item} /> : null}
       </View>
     );
   }
@@ -53,8 +56,9 @@ class PlaceCarousel extends Component {
   render() {
     return this.props.options.businesses ? (
       <View>
+        <Text style={styles.title}>Pick a business to visit:</Text>
         <Carousel
-          layout={'default'}
+          layout={"default"}
           sliderWidth={screenWidth}
           sliderHeight={screenWidth}
           itemWidth={screenWidth - 60}
@@ -65,8 +69,9 @@ class PlaceCarousel extends Component {
       </View>
     ) : (
       <View>
+        <Text style={styles.title}>Pick a category to begin:</Text>
         <Carousel
-          layout={'default'}
+          layout={"default"}
           sliderWidth={screenWidth}
           sliderHeight={screenWidth}
           itemWidth={screenWidth - 60}
@@ -82,29 +87,42 @@ class PlaceCarousel extends Component {
 const styles = StyleSheet.create({
   item: {
     width: screenWidth - 60,
-    height: screenWidth - 100,
-  },
-  imageContainer: {
-    flex: 1,
-    backgroundColor: 'white',
-    borderRadius: 8,
+    height: 200,
+    borderRadius: 15
   },
   image: {
     ...StyleSheet.absoluteFillObject,
-    resizeMode: 'cover',
+    resizeMode: "cover"
   },
+  imageContainer: {
+    flex: 1,
+    width: screenWidth - 60,
+    backgroundColor: "white",
+    borderRadius: 15,
+    overflow: "hidden"
+  },
+
+  title: {
+    fontSize: 18,
+    textAlign: "center",
+    margin: 10
+  },
+  textContainer: {
+    height: 40,
+    backgroundColor: "rgba(255, 255, 255, 0.6)"
+  }
 });
 
 const mapStateToProps = state => ({
   options: state.options.options,
   user: state.user,
   currentTrip: state.currentTrip,
-  nextPlace: state.options.nextPlace,
+  nextPlace: state.options.nextPlace
 });
 
 const mapDispatchToProps = dispatch => ({
   getOptions: (params, location) => dispatch(getOptions(params, location)),
-  addToRoute: (item, tripId) => dispatch(addToRoute(item, tripId)),
+  addToRoute: (item, tripId) => dispatch(addToRoute(item, tripId))
 });
 
 export default connect(

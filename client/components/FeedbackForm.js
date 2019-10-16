@@ -12,7 +12,7 @@ import { submitFeedback } from "../store/tripsReducer";
 class FeedbackForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { feedbackText: "", liked: false, modalVisible: false };
+    this.state = { feedbackText: "", liked: true, modalVisible: false };
 
     this.setModalVisible = this.setModalVisible.bind(this);
   }
@@ -35,7 +35,9 @@ class FeedbackForm extends React.Component {
           style={{ marginTop: 50 }}
         >
           <View style={styles.loginContainer}>
-            <Text style={styles.loginHeader}>How was this place?</Text>
+            <Text style={styles.loginHeader}>
+              How was {this.props.item.name}?
+            </Text>
             <TextInput
               multiline={true}
               style={{ height: 250, width: 250, margin: 15 }}
@@ -94,10 +96,10 @@ class FeedbackForm extends React.Component {
             <Text>Return to Trip</Text>
           </TouchableHighlight>
         </Modal>
-        <View style={styles.loginButtonContainer}>
+        <View style={{ textAlign: "center" }}>
           <Icon.Button
             name="pencil"
-            backgroundColor="#ffffff"
+            backgroundColor="rgba(255, 255, 255, 1)"
             color="#F277C6"
             onPress={() => {
               this.setModalVisible(true);
