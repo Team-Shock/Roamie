@@ -29,7 +29,7 @@ class StartTrip extends Component {
 
 
   render() {
-    console.log("Current Trip ", this.props.currentTrip)
+
     return (
       <View>
         {this.props.currentTrip.id ? (

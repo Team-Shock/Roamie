@@ -73,8 +73,8 @@ const aznzPlaces = [
     description: "Coastal Walk",
     date: "2015-12-16 12:00:00",
     locationAddress: "Bondi Beach, Sydney, Australia",
-    // locationLat: '9.938935',
-    // locationLong: '-84.076361',
+    locationLat: -33.8915,
+    locationLong: 151.2767,
     visibility: "true"
   },
   {
@@ -84,8 +84,8 @@ const aznzPlaces = [
     description: "Park Hyatt Hotel centrally located",
     date: "2015-12-16 12:30:00",
     locationAddress: "7 Hickson Rd, The Rocks NSW 2000, Australia",
-    // locationLat: '9.938935',
-    // locationLong: '-84.076361',
+    locationLat: -34.5270929,
+    locationLong: 150.2434099,
     visibility: "true"
   },
   {

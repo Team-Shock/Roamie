@@ -9,6 +9,7 @@ import { StyleSheet, Text, View, Image, FlatList, Button, Modal, TouchableOpacit
 import { styles } from "../../Styles/styles";
 import Geocoder from 'react-native-geocoding';
 import Icon from "react-native-vector-icons/FontAwesome";
+import {connect} from 'react-redux'
 
 
 export class TripLogMap extends Component {
@@ -18,15 +19,10 @@ export class TripLogMap extends Component {
     this.state = {
         markers: [],
         routeCoordinates: [],
-        modalVisible: false,
-        mapView: false
+   
     }
     this.addMarker = this.addMarker.bind(this);
   }
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
-  }
-
   async addMarker(location, title){
     try{
       let json = await Geocoder.from(location)
@@ -50,22 +46,57 @@ export class TripLogMap extends Component {
        console.warn(error);
     };
   }
+
+  // async addMarkerLatLong(latitude, longitude, title){
+   
+  //   try{
+  //     const newCoordinate = {
+  //       latitude: latitude,
+  //       longitude : longitude
+  //     };
+  //     const pin =
+  //     {
+  //       latitude: newCoordinate.latitude,
+  //       longitude: newCoordinate.longitude,
+  //       title: title
+  //     }
+  //     let pins = this.state.markers;
+  //     pins.push(pin);
+  //     this.setState({ markers: pins, 
+  //                   routeCoordinates: [...this.state.routeCoordinates,newCoordinate ]})
+  //                   console.log("STATE AFTER SET STATE:",this.state)
+  //   }
+  //   catch(error){
+  //      console.warn(error);
+  //   };
+  // }
+  
   async componentDidMount(){
-    if(this.props.places){
+    console.log("Trip Log Map - component did mount")
+    if(this.props.places && this.props.places.length > 0){
       let places = this.props.places;
       for(let i = 0; i< places.length; i++){
+          // await this.addMarkerLatLong(places[i].locationLat, places[i].locationLong, places[i].name)
           await this.addMarker(places[i].locationAddress, places[i].name)
       }
-    }
-    else if (this.props.businesses){
-
+    // }
+    // else if (this.props.businesses && this.props.businesses.length > 0){
+    //   let business = this.props.businesses;
+    //   for(let i = 0; i< business.length; i++){
+    //       await this.addMarkerLatLong(business[i].coordinates.latitude, business[i].coordinates.longitude, business[i].name)
+    //   }
     }
   }
   
   render() {
+    console.log('TRIPLOGMAP PLACES', this.props.places)
     let startLatitude = this.props.startLat;
     let startLongitude = this.props.startLong;
-//
+    // if(this.props.currentTrip.places) {
+    //   let currentPlaces = this.props.currentTrip.places
+    //   console.log("Trip Log Map - currentPlaces", currentPlaces)
+    // }
+
     return (
         <View>
         {startLatitude ?
@@ -92,11 +123,26 @@ export class TripLogMap extends Component {
                                 coordinate={{latitude: marker.latitude,
                                 longitude: marker.longitude}}
                                 title={marker.title}
-                                description={marker.subtitle}
+                                // description={marker.subtitle}
                             />
                         )
                     })
                 }
+
+                {this.props.places ? this.props.places.map(place => { return (
+                  <Marker
+                                key={place.uniqueId}
+                                coordinate={{latitude: place.locationLat,
+                                longitude: place.locationLong}}
+                                title={place.name}
+                                // description={marker.subtitle}
+                            />
+
+                )
+                  
+                 
+
+                }) : null }
                 <Polyline
                     coordinates={this.state.routeCoordinates}
                     strokeWidth={3}
@@ -108,3 +154,19 @@ export class TripLogMap extends Component {
       );
     }
 }
+
+const mapStateToProps = state => ({
+  options: state.options.options,
+  user: state.user,
+  currentTrip: state.currentTrip,
+});
+
+// const mapDispatchToProps = dispatch => ({
+//   getCurrentTrip: userId => dispatch(getCurrentTrip(userId)),
+//   startTrip: (userId, location) => dispatch(startTrip(userId, location)),
+// });
+
+export default connect(
+  mapStateToProps
+  //   mapDispatchToProps
+)(Map);

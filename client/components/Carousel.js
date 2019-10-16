@@ -12,7 +12,7 @@ import defaultCategories from '../../utils/defaultCategories';
 import { getOptions } from '../store/optionsReducer';
 import { addToRoute } from '../store/currentTrip';
 import { connect } from 'react-redux';
-import {FeedbackForm} from './FeedbackForm'
+import FeedbackForm from './FeedbackForm'
 const { width: screenWidth } = Dimensions.get("window");
 
 class PlaceCarousel extends Component {
