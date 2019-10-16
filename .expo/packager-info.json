@@ -1,9 +1,10 @@
 {
-  "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+
+  "devToolsPort": 19004,
+  "expoServerPort": 19000,
+  "packagerPort": 19005,
+  "packagerPid": 46320,
+  "expoServerNgrokUrl": "https://4p-jpy.anonymous.roamie.exp.direct",
+  "packagerNgrokUrl": "https://packager.4p-jpy.anonymous.roamie.exp.direct",
+  "ngrokPid": 46334
 }
