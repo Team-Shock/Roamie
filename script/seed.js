@@ -120,7 +120,7 @@ async function seed() {
       email: 'shiba@email.com',
       password: '123',
     }),
-    // User.create({ name: 'Cody', email: 'cody@email.com', password: '123' }),
+    User.create({ name: 'Cody', email: 'cody@email.com', password: '123' }),
   ]);
 
   const userpreferences = await UserPreferences.findAll()

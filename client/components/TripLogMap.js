@@ -51,21 +51,25 @@ export class TripLogMap extends Component {
     };
   }
   async componentDidMount(){
+    if(this.props.places){
       let places = this.props.places;
       for(let i = 0; i< places.length; i++){
           await this.addMarker(places[i].locationAddress, places[i].name)
       }
+    }
+    else if (this.props.businesses){
+
+    }
   }
   
   render() {
     let startLatitude = this.props.startLat;
     let startLongitude = this.props.startLong;
-
+//
     return (
         <View>
         {startLatitude ?
-            <View>
-                <View style={styles.mapcontainerModal}>
+                <View style={styles.mapcontainer}>
                 <MapView
                     style={styles.map}
                     provider={PROVIDER_GOOGLE}
@@ -99,7 +103,7 @@ export class TripLogMap extends Component {
                 />
                 </MapView>
                 </View>
-            </View> : null}
+            : null}
          </View>      
       );
     }

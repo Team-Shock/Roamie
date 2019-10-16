@@ -117,7 +117,16 @@ router.post('/places/:tripId', async (req, res, next) => {
       placeId: nextPlace.id,
       tripId: req.params.tripId,
     });
-    res.json(nextPlace);
+
+    const trips = await Trip.findAll({
+      where: {
+        id: req.params.tripId,
+      },
+      include: [{ model: Place }],
+    });
+
+    res.json(trips[0]);
+
   } catch (error) {
     next(error);
   }
