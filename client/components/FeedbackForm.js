@@ -12,7 +12,7 @@ import { submitFeedback } from "../store/tripsReducer";
 class FeedbackForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { feedbackText: "", liked: false, modalVisible: false };
+    this.state = { feedbackText: "", liked: true, modalVisible: false };
 
     this.setModalVisible = this.setModalVisible.bind(this);
   }
