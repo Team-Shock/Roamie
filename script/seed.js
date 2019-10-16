@@ -1,18 +1,26 @@
 const { green, red } = require('chalk');
 const db = require('../server/db');
-const { Trip, User, Place, Preferences, UserPreferences, TripPlaces } = require('../server/db/models');
+const {
+  Trip,
+  User,
+  Place,
+  Preferences,
+  UserPreferences,
+  TripPlaces,
+} = require('../server/db/models');
 const defaultPreferences = require('../utils/defaultPreferences');
 
 //Trips dummy data for development
 const trips = [
   {
     name: 'Australia & New Zealand Honeymoon ❤️',
-    imageUrl: 'https://www.sabre.com/locations/anz/wp/wp-content/uploads/uploadsaus_nz.jpg-720x290.jpg',
+    imageUrl:
+      'https://www.sabre.com/locations/anz/wp/wp-content/uploads/uploadsaus_nz.jpg-720x290.jpg',
     startDate: '2015-12-16 04:05:02',
     endDate: '2016-01-04 14:15:00',
     startLat: '-33.865143',
     startLong: '151.209900',
-    status: 'complete'
+    status: 'complete',
   },
   {
     name: 'Costa Rica with Family',
@@ -21,7 +29,7 @@ const trips = [
     startDate: '2019-07-15 04:05:02',
     endDate: '2019-07-20 14:15:00',
     sharingUrl: '',
-    status: 'complete'
+    status: 'complete',
   },
   // {
   //   name: 'Naoshima Solo Trip',
@@ -54,50 +62,50 @@ const places = [
     locationLat: '9.938935',
     locationLong: '-84.076361',
     visibility: 'true',
-  }
+  },
 ];
 
 const aznzPlaces = [
   {
     name: 'Bondi Beach',
-    imageUrl: 'https://www.sydneycoastwalks.com.au/wp-content/uploads/2015/07/BondiCoogeewalk.jpg',
+    imageUrl:
+      'https://www.sydneycoastwalks.com.au/wp-content/uploads/2015/07/BondiCoogeewalk.jpg',
     description: 'Coastal Walk',
     date: '2015-12-16 12:00:00',
-    locationAddress:
-      'Bondi Beach, Sydney, Australia',
+    locationAddress: 'Bondi Beach, Sydney, Australia',
     // locationLat: '9.938935',
     // locationLong: '-84.076361',
     visibility: 'true',
   },
   {
     name: 'Park Hyatt Sydney',
-    imageUrl: 'https://www.sydneycoastwalks.com.au/wp-content/uploads/2015/07/BondiCoogeewalk.jpg',
+    imageUrl:
+      'https://www.sydneycoastwalks.com.au/wp-content/uploads/2015/07/BondiCoogeewalk.jpg',
     description: 'Park Hyatt Hotel centrally located',
     date: '2015-12-16 12:30:00',
-    locationAddress:
-      '7 Hickson Rd, The Rocks NSW 2000, Australia',
+    locationAddress: '7 Hickson Rd, The Rocks NSW 2000, Australia',
     // locationLat: '9.938935',
     // locationLong: '-84.076361',
     visibility: 'true',
   },
   {
     name: 'Milford Sound, New Zealand',
-    imageUrl: 'https://www.cunard.com/content/dam/cunard/inventory-assets/ports/MS2/MS2.jpg.image.750.563.low.jpg',
+    imageUrl:
+      'https://www.cunard.com/content/dam/cunard/inventory-assets/ports/MS2/MS2.jpg.image.750.563.low.jpg',
     description: '',
     date: '2015-12-17 12:30:00',
-    locationAddress:
-      'Milford Sound, New Zealand',
+    locationAddress: 'Milford Sound, New Zealand',
     // locationLat: '9.938935',
     // locationLong: '-84.076361',
     visibility: 'true',
   },
   {
     name: 'Queenstown, NZ',
-    imageUrl: 'https://www.newzealand.com/assets/Tourism-NZ/Other/8ecc0a0aa8/img-1542389353-2950-14984-F1F57DB9-9BC8-C838-42E8EFEC764A6979__FocalPointCropWzQyNyw2NDAsNTQsNjMsODUsImpwZyIsNjUsMi41XQ.jpg',
+    imageUrl:
+      'https://www.newzealand.com/assets/Tourism-NZ/Other/8ecc0a0aa8/img-1542389353-2950-14984-F1F57DB9-9BC8-C838-42E8EFEC764A6979__FocalPointCropWzQyNyw2NDAsNTQsNjMsODUsImpwZyIsNjUsMi41XQ.jpg',
     description: '',
     date: '2015-12-18 12:30:00',
-    locationAddress:
-      'Queenstown, NZ',
+    locationAddress: 'Queenstown, NZ',
     // locationLat: '9.938935',
     // locationLong: '-84.076361',
     visibility: 'true',
@@ -123,8 +131,8 @@ async function seed() {
     User.create({ name: 'Cody', email: 'cody@email.com', password: '123' }),
   ]);
 
-  const userpreferences = await UserPreferences.findAll()
-  console.log(`established ${userpreferences.length} user-preferences`)
+  const userpreferences = await UserPreferences.findAll();
+  console.log(`established ${userpreferences.length} user-preferences`);
 
   await Promise.all(
     trips.map(trip => {
@@ -137,49 +145,61 @@ async function seed() {
     })
   );
 
-  const allTrips = await Trip.findAll()
+  const allTrips = await Trip.findAll();
   await Promise.all(
     allTrips.map(trip => {
       return trip.update({
-        userId: 1
+        userId: 1,
       });
     })
   );
 
   //COSTA RICA
   const place1 = await Place.findAll({
-    where : {
-      name: places[0].name
-    }
-  })
+    where: {
+      name: places[0].name,
+    },
+  });
 
   const trip1 = await Trip.findAll({
-    where : {
-      name: trips[1].name
-    }
-  })
-  await TripPlaces.create({rating: "thumbs up", notes:"Delicious food!", tripId: trip1[0].id, placeId: place1[0].id})
+    where: {
+      name: trips[1].name,
+    },
+  });
+  await TripPlaces.create({
+    rating: 'thumbs up',
+    notes: 'Delicious food!',
+    tripId: trip1[0].id,
+    placeId: place1[0].id,
+  });
 
   // //SYDNEY AZ
-  const bondiBeach = await Place.create(aznzPlaces[0])
-  const hotelSydney = await Place.create(aznzPlaces[1])
-  const milfordSound = await Place.create(aznzPlaces[2])
-  const queenstown = await Place.create(aznzPlaces[3])
-
+  const bondiBeach = await Place.create(aznzPlaces[0]);
+  const hotelSydney = await Place.create(aznzPlaces[1]);
+  const milfordSound = await Place.create(aznzPlaces[2]);
+  const queenstown = await Place.create(aznzPlaces[3]);
 
   const azNzTrip = await Trip.findAll({
-    where : {
-      name: trips[0].name
-    }
-  })
+    where: {
+      name: trips[0].name,
+    },
+  });
 
-  await TripPlaces.create({rating: "thumbs up",
-                           notes:"Bondi beach was the perfect place after landing to get brekkie (breakfast). We loved the Bondi to Coogree Beach coastal walk and enjoyed all the beautiful beaches along the way",
-                          tripId: azNzTrip[0].id, placeId: bondiBeach.id})
+  await TripPlaces.create({
+    rating: 'thumbs up',
+    notes:
+      'Bondi beach was the perfect place after landing to get brekkie (breakfast). We loved the Bondi to Coogree Beach coastal walk and enjoyed all the beautiful beaches along the way',
+    tripId: azNzTrip[0].id,
+    placeId: bondiBeach.id,
+  });
 
-  await TripPlaces.create({rating: "thumbs up",
-                           notes:"Located on the Sydney Harbor in the The Rocks neighborhood. We had stunning views of the Opera House and Harbor Bridge from our balcony",
-                          tripId: azNzTrip[0].id, placeId: hotelSydney.id})
+  await TripPlaces.create({
+    rating: 'thumbs up',
+    notes:
+      'Located on the Sydney Harbor in the The Rocks neighborhood. We had stunning views of the Opera House and Harbor Bridge from our balcony',
+    tripId: azNzTrip[0].id,
+    placeId: hotelSydney.id,
+  });
 
   // await TripPlaces.create({rating: "thumbs up",
   //                       notes:"We camped near Milford Sound to get an early start kayaking the next day",
@@ -190,7 +210,6 @@ async function seed() {
   //                       tripId: azNzTrip[0].id, placeId: queenstown.id})
 
   const tripPlaces = await TripPlaces.findAll();
-  
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${trips.length} trips`);

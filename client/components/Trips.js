@@ -53,11 +53,9 @@ class Trips extends Component {
               {!trips || trips.length <= 0 ? (
                 <View>
                   <Text>
-                    No Trips in your account. Start your trip with Roamie today!
+                    No Trips in your account. Go to 'Current Trip' to start your
+                    trip with Roamie today!
                   </Text>
-                  <View style={styles.buttonContainer}>
-                    <Button style={styles.button} title="Start a Trip" />
-                  </View>
                 </View>
               ) : (
                 <View>

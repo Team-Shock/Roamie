@@ -211,7 +211,7 @@ export const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "flex-start",
     alignItems: "center",
-    marginTop: 60,
+    marginTop: 60
     // marginBottom: 10
   },
   modalButtonText: {
@@ -305,12 +305,12 @@ export const styles = StyleSheet.create({
     width: 300
   },
   tripLogText: {
-    fontSize: 18,
-    margin: 10
+    fontSize: 14,
+    marginHorizontal: 10
   },
   tripLogIcon: {
     color: "#F277C6",
-    fontSize: 40,
+    fontSize: 30,
     alignSelf: "center"
   },
   tripLogRow: {
