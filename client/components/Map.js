@@ -7,9 +7,6 @@ import { View } from 'react-native';
 import { styles } from '../../Styles/styles';
 import haversine from 'haversine';
 import { connect } from 'react-redux';
-// import { Location } from 'expo';
-// import * as Permissions from 'expo-permissions';
-// import * as Location from 'expo-location';
 
 class Map extends Component {
   constructor() {
@@ -27,28 +24,8 @@ class Map extends Component {
       currentTrip: {},
       errorMessage: '',
     };
-    // this.getLocation = this.getLocation.bind(this);
   }
 
-  //   getLocation = async () => {
-  //     const { status } = await Permissions.askAsync(Permissions.LOCATION);
-  //     if (status !== 'granted') {
-  //       console.log('PERMISSION NOT GRANTED!');
-  //       this.setState({
-  //         errorMessage: 'PERMISSION NOT GRANTED',
-  //       });
-  //     }
-
-  //     const location = Location.getCurrentPositionAsync;
-  //     this.setState({
-  //       location,
-  //     });
-  //   };
-
-  //   async componentWillMount() {
-  //     console.log('COMPONENT WILL MOUNT RUNNING');
-  //     await this.getLocation();
-  //   }
 
   async componentDidMount() {
     //watch the position of the user
@@ -60,7 +37,6 @@ class Map extends Component {
         latitude,
         longitude,
       };
-      // coordinate.timing(newCoordinate).start();
       this.setState({
         latitude: latitude,
         longitude: longitude,
