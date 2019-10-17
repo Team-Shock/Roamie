@@ -3,18 +3,14 @@ import {
   Text,
   View,
   Image,
-  StyleSheet,
-  Button,
-  ImageBackground,
   ScrollView,
   Modal,
-  TouchableOpacity,
-  TouchableHighlight
+  TouchableHighlight,
+  Share
 } from "react-native";
 import { styles } from "../../Styles/styles";
 import { connect } from "react-redux";
 import { getSelectedTrip } from "../store/tripsReducer";
-import { restElement } from "@babel/types";
 import { DateTime } from "luxon";
 import { TripLogMap } from "./TripLogMap";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -31,6 +27,7 @@ export class SingleTrip extends Component {
     };
     this.getNoteOnPlace = this.getNoteOnPlace.bind(this);
     this.getFormattedDate = this.getFormattedDate.bind(this);
+    this.onShare = this.onShare.bind(this);
   }
 
   setModalVisible(visible) {
@@ -47,7 +44,27 @@ export class SingleTrip extends Component {
       .setLocale("en-US")
       .toLocaleString(format);
   }
+  async onShare(){
+    let tripInfo = `${this.props.tripInfo.name}` + "\n";
+    tripInfo += `${this.getFormattedDate(this.props.tripInfo.startDate)}` 
+    + " to " + `${this.getFormattedDate(this.props.tripInfo.endDate)}` + "\n"
+    for(let i = 0; i < this.props.tripInfo.places.length; i++){
+      tripInfo += "➡" + "\n"
+      tripInfo += `${this.props.tripInfo.places[i].name}` + "\n"
 
+      this.getNoteOnPlace(this.props.tripInfo.places[i].id).map(placeNotes => {
+        tripInfo += placeNotes.rating + "\n";
+        tripInfo += placeNotes.notes + "\n";
+      })
+    }
+
+    Share.share({
+      subject: `${this.props.tripInfo.name}`,
+      title: `${this.props.tripInfo.name}`,
+      message: `${tripInfo}`,
+      url: `${this.props.tripInfo.imageUrl}`
+    })
+  }
   render() {
     let trip = this.props.tripInfo;
     let notes = this.props.notes;
@@ -151,9 +168,11 @@ export class SingleTrip extends Component {
                 name="envelope"
                 backgroundColor="#ffffff"
                 color="#F277C6"
+                onPress={this.onShare}
               >
                 Share this trip!
               </Icon.Button>
+
             </View>
           </ScrollView>
         </View>

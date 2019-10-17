@@ -10,7 +10,7 @@ export class PostgresWrapper {
     if (!this.initialized) {
       try {
         this._postgresInstance = await Axios.create({
-          baseURL: "http://localhost:8080"
+          baseURL: "http://172.16.26.145:8080"
         });
         this.initialized = true;
       } catch {
