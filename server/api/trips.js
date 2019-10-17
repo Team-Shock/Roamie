@@ -131,16 +131,19 @@ router.post('/places/:tripId', async (req, res, next) => {
   }
 });
 
+router.put('/end/:tripId', async (req, res, next) => {
+  try {
+    console.log('REQ PARAMS TRIPID', req.params.tripId);
+    const tripToEnd = await Trip.findByPk(req.params.tripId);
+    await tripToEnd.update({ status: 'complete' });
+    res.json(tripToEnd);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.put('/:tripId/:placeId', async (req, res, next) => {
   try {
-    console.log(
-      'REQ TRIPID:',
-      req.params.tripId,
-      'REQ PLACE ID: ',
-      req.params.placeId,
-      'REQ BODY',
-      req.body
-    );
     const tripPlace = await TripPlaces.findOne({
       where: {
         tripId: req.params.tripId,

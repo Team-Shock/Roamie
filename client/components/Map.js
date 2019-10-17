@@ -2,22 +2,14 @@ import React, { Component } from 'react';
 import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
 import { View } from 'react-native';
 import { styles } from '../../Styles/styles';
-import haversine from 'haversine';
 import { connect } from 'react-redux';
 
 class Map extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      distanceTravelled: 0,
-      prevLatLng: {},
-    };
+
   }
-  // //distance calculator for a trip
-  // calcDistance = newLatLng => {
-  //   const { prevLatLng } = this.state;
-  //   return haversine(prevLatLng, newLatLng) || 0;
-  // };
+
 
   render() {
     return (

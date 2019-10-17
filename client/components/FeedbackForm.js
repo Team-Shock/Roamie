@@ -3,7 +3,7 @@ import { Text, TextInput, View, TouchableHighlight, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { styles } from '../../Styles/styles';
 import { connect } from 'react-redux';
-import { submitFeedback } from '../store/currentTrip';
+import { submitFeedback, endTrip } from '../store/currentTrip';
 
 class FeedbackForm extends React.Component {
   constructor(props) {
@@ -14,19 +14,29 @@ class FeedbackForm extends React.Component {
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.setModalVisible = this.setModalVisible.bind(this);
+    this.endTrip = this.endTrip.bind(this);
   }
 
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
   onSubmit() {
-    console.log('LOCAL STATE FEEDBACK IN ONSUBMIT', this.state.feedback);
     this.setModalVisible({ modalVisible: false });
     this.props.submitFeedback(
       this.props.currentPlaceId,
       this.props.currentTripId,
       this.state.feedback
     );
+  }
+
+  endTrip() {
+    this.setModalVisible({ modalVisible: false });
+    this.props.submitFeedback(
+      this.props.currentPlaceId,
+      this.props.currentTripId,
+      this.state.feedback
+    );
+    this.props.endTrip(this.props.currentTripId);
   }
 
   render() {
@@ -97,8 +107,22 @@ class FeedbackForm extends React.Component {
                   this.onSubmit();
                 }}
               >
-                Submit Feedback
+                Continue
               </Icon.Button>
+            </View>
+            <View style={{ textAlign: 'center' }}>
+              <View style={styles.loginButtonContainer}>
+                <Icon.Button
+                  name="paw"
+                  backgroundColor="rgba(255, 255, 255, 1)"
+                  color="#F277C6"
+                  onPress={() => {
+                    this.endTrip();
+                  }}
+                >
+                  End Trip
+                </Icon.Button>
+              </View>
             </View>
           </View>
           <TouchableHighlight
@@ -135,6 +159,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   submitFeedback: (placeId, tripId, feedback) =>
     dispatch(submitFeedback(placeId, tripId, feedback)),
+  endTrip: tripId => {
+    dispatch(endTrip(tripId));
+  },
 });
 
 export default connect(

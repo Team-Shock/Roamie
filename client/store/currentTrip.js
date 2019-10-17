@@ -8,6 +8,7 @@ const STARTED_TRIP = 'STARTED_TRIP';
 const ADDED_TO_ROUTE = 'ADDED_TO_ROUTE';
 const GOT_OPTIONS = 'GOT_OPTIONS';
 const SUBMITTED_FEEDBACK = 'SUBMITTED_FEEDBACK';
+const ENDED_TRIP = 'ENDED_TRIP';
 
 //INITIAL STATE
 const initialState = {
@@ -34,6 +35,7 @@ const submittedFeedback = (placeId, feedback) => ({
   placeId,
   feedback,
 });
+const endedTrip = () => ({ type: ENDED_TRIP });
 
 //THUNK CREATORS
 
@@ -90,13 +92,23 @@ export const getOptions = (params, location) => async dispatch => {
 
 export const submitFeedback = (placeId, tripId, feedback) => async dispatch => {
   try {
-    console.log('FEEDBACK IN THUNK', feedback)
     const instance = await PostgresWrapper.getInstance();
     const { data } = await instance.put(`/api/trips/${tripId}/${placeId}`, {
       feedback,
     });
-    console.log('DATA in thunk BACK FROM ROUTE', data);
+
     dispatch(submittedFeedback());
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const endTrip = tripId => async dispatch => {
+  try {
+  
+    const instance = await PostgresWrapper.getInstance();
+    const { data } = await instance.put(`api/trips/end/${tripId}`);
+    dispatch(endedTrip());
   } catch (error) {
     console.error(error);
   }
@@ -130,6 +142,8 @@ const currentTrip = (state = initialState, action) => {
         currentPlace: action.place,
         lastPlaceId: action.trip.places[action.trip.places.length - 1].id,
       };
+    case ENDED_TRIP:
+      return initialState;
     default:
       return state;
   }

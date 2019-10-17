@@ -67,6 +67,10 @@ class StartTrip extends Component {
   }
 
   render() {
+    console.log(
+      'START TRIP COMPONENT CURRENT TRIP PROP',
+      this.props.currentTrip
+    );
     return (
       <View>
         <Map
