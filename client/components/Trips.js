@@ -1,5 +1,5 @@
-import * as WebBrowser from "expo-web-browser";
-import React, { Component } from "react";
+import * as WebBrowser from 'expo-web-browser';
+import React, { Component } from 'react';
 import {
   Image,
   Platform,
@@ -10,19 +10,19 @@ import {
   TouchableOpacity,
   View,
   Alert,
-  Button
-} from "react-native";
-import { styles } from "../../Styles/styles";
-import { SingleTrip } from "./SingleTrip";
-import { connect } from "react-redux";
-import { getSelectedTrip, getSelectedTripNotes } from "../store/tripsReducer";
+  Button,
+} from 'react-native';
+import { styles } from '../../Styles/styles';
+import { SingleTrip } from './SingleTrip';
+import { connect } from 'react-redux';
+import { getSelectedTrip, getSelectedTripNotes } from '../store/tripsReducer';
 
 class Trips extends Component {
   constructor(props) {
     super(props);
     this.state = {
       singleTripSelected: false,
-      selectedTripId: 0
+      selectedTripId: 0,
     };
     this.onBackButton = this.onBackButton.bind(this);
     this.onTripPress = this.onTripPress.bind(this);
@@ -34,7 +34,10 @@ class Trips extends Component {
   }
 
   onTripPress(tripId) {
-    this.setState({ singleTripSelected: true, selectedTripId: tripId });
+    this.setState({
+      singleTripSelected: !this.state.singleTripSelected,
+      selectedTripId: tripId,
+    });
     this.props.getTrip(this.props.user.id, tripId);
     this.props.getNotes(tripId);
   }
@@ -72,7 +75,9 @@ class Trips extends Component {
                         <View style={styles.buttonContainer}>
                           <Button
                             title="View"
-                            onPress={() => this.onTripPress(trip.id)}
+                            onPress={() => {
+                              this.onTripPress(trip.id);
+                            }}
                           />
                         </View>
                       </View>
@@ -92,11 +97,11 @@ class Trips extends Component {
               <View></View>
             )}
             <View style={{ marginBottom: 65 }}>
-              <View
-                style={styles.backgroundButtonDeselected}
-                onPress={() => this.onBackButton()}
-              >
-                <Text style={styles.backgroundButtonText}>See all trips</Text>
+              <View style={styles.backgroundButtonDeselected}>
+                <Button
+                  onPress={() => this.onBackButton()}
+                  title="See all trips"
+                />
               </View>
             </View>
           </View>
@@ -110,12 +115,12 @@ const mapStateToProps = state => ({
   user: state.user,
   trips: state.user.trips,
   selectedTrip: state.trips.selectedTrip,
-  notes: state.trips.selectedTripNotes
+  notes: state.trips.selectedTripNotes,
 });
 
 const mapDispatchToProps = dispatch => ({
   getTrip: (userId, tripId) => dispatch(getSelectedTrip(userId, tripId)),
-  getNotes: tripId => dispatch(getSelectedTripNotes(tripId))
+  getNotes: tripId => dispatch(getSelectedTripNotes(tripId)),
 });
 
 export default connect(
