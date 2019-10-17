@@ -91,12 +91,13 @@ class Trips extends Component {
             ) : (
               <View></View>
             )}
-            <View style={styles.buttonContainer}>
-              <Button
-                style={styles.button}
-                title="See All Trips"
+            <View style={{ marginBottom: 65 }}>
+              <View
+                style={styles.backgroundButtonDeselected}
                 onPress={() => this.onBackButton()}
-              />
+              >
+                <Text style={styles.backgroundButtonText}>See all trips</Text>
+              </View>
             </View>
           </View>
         )}

@@ -9,11 +9,10 @@ import {
 } from 'react-native';
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import defaultCategories from '../../utils/defaultCategories';
-import { getOptions } from '../store/optionsReducer';
-import { addToRoute } from '../store/currentTrip';
+import { addToRoute, getOptions } from '../store/currentTrip';
 import { connect } from 'react-redux';
-import FeedbackForm from './FeedbackForm'
-const { width: screenWidth } = Dimensions.get("window");
+import FeedbackForm from './FeedbackForm';
+const { width: screenWidth } = Dimensions.get('window');
 
 class PlaceCarousel extends Component {
   constructor(props) {
@@ -114,10 +113,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  options: state.options.options,
+  options: state.currentTrip.options,
   user: state.user,
-  currentTrip: state.currentTrip,
-  nextPlace: state.options.nextPlace,
+  currentTrip: state.currentTrip.trip,
 });
 
 const mapDispatchToProps = dispatch => ({
