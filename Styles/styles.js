@@ -31,11 +31,11 @@ export const styles = StyleSheet.create({
   },
   backgroundButtonDeselected: {
     flexDirection: "row",
-    borderRadius: 23,
+    borderRadius: 20,
     borderColor: "#dadada",
     borderWidth: 2,
     backgroundColor: "#dadada",
-    height: 46,
+    height: 40,
     alignItems: "center",
     justifyContent: "center",
     paddingLeft: 16,
@@ -43,11 +43,11 @@ export const styles = StyleSheet.create({
   },
   backgroundButtonSelected: {
     flexDirection: "row",
-    borderRadius: 23,
+    borderRadius: 20,
     borderColor: "pink",
     borderWidth: 2,
     backgroundColor: "pink",
-    height: 46,
+    height: 40,
     alignItems: "center",
     justifyContent: "center",
     paddingLeft: 16,
@@ -94,7 +94,7 @@ export const styles = StyleSheet.create({
   eventTitle: {
     color: "#000000",
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 18,
     margin: 10
   },
   getStartedContainer: {
@@ -139,7 +139,7 @@ export const styles = StyleSheet.create({
   },
   listImage: {
     height: 75,
-    width: 300,
+    width: 350,
     zIndex: -1
   },
   listContainer: {
@@ -302,11 +302,15 @@ export const styles = StyleSheet.create({
     flex: 1
   },
   tripImage: {
-    width: 300
+    width: "100%"
   },
   tripLogText: {
     fontSize: 14,
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    marginBottom: 10
+  },
+  tripLogTextContainer: {
+    backgroundColor: "rgba(255, 255, 255, 0.6)"
   },
   tripLogIcon: {
     color: "#F277C6",
@@ -315,14 +319,17 @@ export const styles = StyleSheet.create({
   },
   tripLogRow: {
     flex: 1,
-    width: 300,
+    width: 350,
     textAlign: "center",
     borderColor: "#F277C6",
     borderWidth: 1,
-    marginTop: 15,
+    marginTop: 10,
     color: "#000000",
     borderRadius: 20,
     overflow: "hidden"
+  },
+  tripNotesCOntainer: {
+    backgroundColor: "#FFFFFF"
   },
   welcomebuttonscontainer: {
     marginTop: 575
