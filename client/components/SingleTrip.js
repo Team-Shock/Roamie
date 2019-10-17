@@ -7,13 +7,15 @@ import {
   Modal,
   TouchableHighlight,
   Share,
-} from 'react-native';
-import { styles } from '../../Styles/styles';
-import { connect } from 'react-redux';
-import { getSelectedTrip } from '../store/tripsReducer';
-import { DateTime } from 'luxon';
-import { TripLogMap } from './TripLogMap';
-import Icon from 'react-native-vector-icons/FontAwesome';
+  ImageBackground
+} from "react-native";
+import { styles } from "../../Styles/styles";
+import { connect } from "react-redux";
+import { getSelectedTrip } from "../store/tripsReducer";
+import { DateTime } from "luxon";
+import { TripLogMap } from "./TripLogMap";
+import Icon from "react-native-vector-icons/FontAwesome";
+
 
 const format = { month: 'long', day: 'numeric', year: 'numeric' };
 
@@ -71,7 +73,6 @@ export class SingleTrip extends Component {
   render() {
     let trip = this.props.tripInfo;
     let notes = this.props.notes;
-    console.log(trip.places);
 
     return (
       <View style={{ marginTop: 60, marginBottom: 50 }}>
