@@ -126,7 +126,41 @@ router.post('/places/:tripId', async (req, res, next) => {
     });
 
     res.json(trips[0]);
+  } catch (error) {
+    next(error);
+  }
+});
 
+router.put('/end/:tripId', async (req, res, next) => {
+  try {
+    console.log('REQ PARAMS TRIPID', req.params.tripId);
+    const tripToEnd = await Trip.findByPk(req.params.tripId);
+    await tripToEnd.update({ status: 'complete' });
+    res.json(tripToEnd);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put('/:tripId/:placeId', async (req, res, next) => {
+  try {
+    const tripPlace = await TripPlaces.findOne({
+      where: {
+        tripId: req.params.tripId,
+        placeId: req.params.placeId,
+      },
+    });
+    let rating;
+    if (req.body.feedback.liked) {
+      rating = 'thumbs up';
+    } else {
+      rating = 'thumbs down';
+    }
+    await tripPlace.update({
+      rating: rating,
+      notes: req.body.feedback.feedbackText,
+    });
+    res.json(tripPlace);
   } catch (error) {
     next(error);
   }

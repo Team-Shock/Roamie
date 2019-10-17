@@ -10,7 +10,7 @@ export class PostgresWrapper {
     if (!this.initialized) {
       try {
         this._postgresInstance = await Axios.create({
-          baseURL: "http://localhost:8080"
+          baseURL: "https://roamie.herokuapp.com"
         });
         this.initialized = true;
       } catch {

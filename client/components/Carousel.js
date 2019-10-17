@@ -46,8 +46,6 @@ class PlaceCarousel extends Component {
             </Text>
           </View>
         </TouchableOpacity>
-        {/* Renders a feedback form for every business, but a conditional should be added so it only comes up if the user visits it */}
-        {this.props.options.businesses ? <FeedbackForm item={item} /> : null}
       </View>
     );
   }
@@ -68,7 +66,7 @@ class PlaceCarousel extends Component {
       </View>
     ) : (
       <View>
-        <Text style={styles.title}>Pick a category to begin:</Text>
+        <Text style={styles.title}>Pick a category:</Text>
         <Carousel
           layout={'default'}
           sliderWidth={screenWidth}
