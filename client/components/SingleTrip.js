@@ -53,14 +53,13 @@ export class SingleTrip extends Component {
     let notes = this.props.notes;
 
     return (
-      <View style={styles.screenContainer}>
+      <View style={{ marginTop: 80, marginBottom: 50 }}>
         <View>
           <Text style={styles.eventTitle}>{trip.name}</Text>
           <Text style={styles.eventP}>
-            Start Date: {this.getFormattedDate(trip.startDate)}
-          </Text>
-          <Text style={styles.eventP}>
-            End Date: {this.getFormattedDate(trip.endDate)}
+            {this.getFormattedDate(trip.startDate)}
+            {" to "}
+            {this.getFormattedDate(trip.endDate)}
           </Text>
           <View>
             <Modal
@@ -73,12 +72,14 @@ export class SingleTrip extends Component {
             >
               <View>
                 <TripLogMap
+                  style={{ marginTop: 80 }}
                   startLat={trip.startLat}
                   startLong={trip.startLong}
                   places={trip.places}
                 />
               </View>
               <TouchableHighlight
+                style={{ marginTop: 20 }}
                 onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
                 }}
@@ -145,15 +146,14 @@ export class SingleTrip extends Component {
                       ))}
                   </View>
                 ))}
-              <View style={styles.loginButtonContainer}>
-                <Icon.Button
-                  name="envelope"
-                  backgroundColor="#ffffff"
-                  color="#F277C6"
-                >
-                  Share this trip!
-                </Icon.Button>
-              </View>
+
+              <Icon.Button
+                name="envelope"
+                backgroundColor="#ffffff"
+                color="#F277C6"
+              >
+                Share this trip!
+              </Icon.Button>
             </View>
           </ScrollView>
         </View>
