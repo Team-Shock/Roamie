@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
-// import yelp from '../../server/api/yelp';
-// import { googleKey } from '../../secrets';
-// import MapView, {
-//   PROVIDER_GOOGLE,
-//   Marker,
-//   Callout,
-//   Polyline,
-// } from 'react-native-maps';
 import { StyleSheet, Text, View, Image, FlatList, Button } from 'react-native';
 import { styles } from '../../Styles/styles';
-// import haversine from 'haversine';
 import PlaceCarousel from './Carousel';
-// import { getOptions } from '../store/optionsReducer';
 import { connect } from 'react-redux';
 import { startTrip, getCurrentTrip } from '../store/currentTrip';
 import defaultCategories from '../../utils/defaultCategories';
 import Map from './Map';
 import { TripLogMap } from './TripLogMap';
+
+console.disableYellowBox = true;
 
 class StartTrip extends Component {
   constructor() {
@@ -27,24 +18,25 @@ class StartTrip extends Component {
     };
   }
 
-
   render() {
-
     return (
       <View>
         {this.props.currentTrip.id ? (
           <View>
-            <TripLogMap startLat={this.props.currentTrip.startLat} startLong={this.props.currentTrip.startLong} places={this.props.currentTrip.places}/>
+            <Map
+              currentTrip={this.props.currentTrip}
+              location={this.props.currentLatLong}
+            />
             <View>
               <PlaceCarousel
-                    data={defaultCategories}
-                    location={this.state.location}
+                data={defaultCategories}
+                location={this.props.currentLatLong}
               />
             </View>
           </View>
         ) : (
           <View>
-            <TripLogMap startLat={this.state.location.latitude} startLong={this.state.location.longitude}/>
+            <Map location={this.state.location} />
             <View style={styles.buttonContainer}>
               <Button
                 style={styles.button}
@@ -62,13 +54,15 @@ class StartTrip extends Component {
 }
 
 const mapStateToProps = state => ({
-  options: state.options.options,
+  // options: state.options.options,
   user: state.user,
-  currentTrip: state.currentTrip,
+  currentTrip: state.currentTrip.trip,
+  currentLatLong: state.currentTrip.currentLatLong,
 });
 
 const mapDispatchToProps = dispatch => ({
   getCurrentTrip: userId => dispatch(getCurrentTrip(userId)),
+  //creates a trip instance and adds it to redux state as current trip
   startTrip: (userId, location) => dispatch(startTrip(userId, location)),
 });
 

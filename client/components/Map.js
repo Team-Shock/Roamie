@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
-import yelp from '../../server/api/yelp';
-// import { googleKey } from '../../secrets';
 import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
 import { View } from 'react-native';
 import { styles } from '../../Styles/styles';
@@ -9,65 +6,28 @@ import haversine from 'haversine';
 import { connect } from 'react-redux';
 
 class Map extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      location: { latitude: 40.704385, longitude: -74.009806 },
-      routeCoordinates: [
-        {
-          latitude: 40.7506,
-          longitude: -73.9935,
-        },
-      ],
       distanceTravelled: 0,
       prevLatLng: {},
-      currentTrip: {},
-      errorMessage: '',
     };
   }
-
-  async componentDidMount() {
-      console.log("COmponent did componentDidMount")
-    //watch the position of the user
-    await navigator.geolocation.watchPosition(position => {
-      const { coordinate, routeCoordinates, distanceTravelled } = this.state;
-      const { latitude, longitude } = position.coords;
-
-      const newCoordinate = {
-        latitude,
-        longitude,
-      };
-      this.setState({
-        latitude: latitude,
-        longitude: longitude,
-        routeCoordinates: this.state.routeCoordinates.concat([newCoordinate]),
-        distanceTravelled: distanceTravelled + this.calcDistance(newCoordinate),
-        prevLatLng: newCoordinate,
-      });
-    });
-  }
-  //distance calculator for a trip
-  calcDistance = newLatLng => {
-    const { prevLatLng } = this.state;
-    return haversine(prevLatLng, newLatLng) || 0;
-  };
+  // //distance calculator for a trip
+  // calcDistance = newLatLng => {
+  //   const { prevLatLng } = this.state;
+  //   return haversine(prevLatLng, newLatLng) || 0;
+  // };
 
   render() {
-    console.log(
-      'OPTIONS PROPS IN MAP COMPONENT:',
-      this.props.options.businesses
-    );
-    console.log('LAT/LONG STATE IN MAP COMPONENT:', this.state.location);
-    console.log('Route Coordinates:', this.state.routeCoordinates);
-
     return (
       <View style={styles.mapcontainer}>
         <MapView
           style={styles.map}
           provider={PROVIDER_GOOGLE}
           region={{
-            latitude: this.state.location.latitude,
-            longitude: this.state.location.longitude,
+            latitude: this.props.location.latitude,
+            longitude: this.props.location.longitude,
             latitudeDelta: 0.02,
             longitudeDelta: 0.02,
           }}
@@ -85,7 +45,24 @@ class Map extends Component {
               ))
             : null}
 
-          <Polyline coordinates={this.state.routeCoordinates} strokeWidth={3} />
+          {this.props.currentTrip.places
+            ? this.props.currentTrip.places.map(place => {
+                return (
+                  <Marker
+                    key={place.uniqueId}
+                    coordinate={{
+                      latitude: place.locationLat,
+                      longitude: place.locationLong,
+                    }}
+                    title={place.name}
+                    // description={marker.subtitle}
+                    image={require('../../assets/images/marker2.png')}
+                  />
+                );
+              })
+            : null}
+
+          <Polyline coordinates={this.props.route} strokeWidth={2} />
         </MapView>
       </View>
     );
@@ -93,9 +70,10 @@ class Map extends Component {
 }
 
 const mapStateToProps = state => ({
-  options: state.options.options,
+  options: state.currentTrip.options,
   user: state.user,
-  currentTrip: state.currentTrip,
+  currentTrip: state.currentTrip.trip,
+  route: state.currentTrip.route,
 });
 
 // const mapDispatchToProps = dispatch => ({
