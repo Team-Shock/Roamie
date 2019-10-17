@@ -1,19 +1,18 @@
-import React from "react";
-import { Text, TextInput, View, TouchableHighlight, Modal } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { styles } from "../../Styles/styles";
-import { connect } from "react-redux";
-import { submitFeedback } from "../store/tripsReducer";
-
-// [x] edit component
-// [ ] write actions and thunks for feedback
-// [ ] connect to backend
+import React from 'react';
+import { Text, TextInput, View, TouchableHighlight, Modal } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { styles } from '../../Styles/styles';
+import { connect } from 'react-redux';
+import { submitFeedback } from '../store/currentTrip';
 
 class FeedbackForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { feedbackText: "", liked: true, modalVisible: false };
-
+    this.state = {
+      feedback: { feedbackText: '', liked: true },
+      modalVisible: false,
+    };
+    this.onSubmit = this.onSubmit.bind(this);
     this.setModalVisible = this.setModalVisible.bind(this);
   }
 
@@ -21,8 +20,13 @@ class FeedbackForm extends React.Component {
     this.setState({ modalVisible: visible });
   }
   onSubmit() {
+    console.log('LOCAL STATE FEEDBACK IN ONSUBMIT', this.state.feedback);
     this.setModalVisible({ modalVisible: false });
-    //this.props.submitFeedback(this.state.feedbackText);
+    this.props.submitFeedback(
+      this.props.currentPlaceId,
+      this.props.currentTripId,
+      this.state.feedback
+    );
   }
 
   render() {
@@ -42,11 +46,15 @@ class FeedbackForm extends React.Component {
               multiline={true}
               style={{ height: 250, width: 250, margin: 15 }}
               placeholder="Tell Roamie what you thought, or make a note about anything memorable about this spot"
-              onChangeText={text => this.setState({ feedbackText: text })}
-              value={this.state.feedbackText}
+              onChangeText={text =>
+                this.setState({
+                  feedback: { ...this.state.feedback, feedbackText: text },
+                })
+              }
+              value={this.state.feedback.feedbackText}
             />
 
-            {this.state.liked ? (
+            {this.state.feedback.liked ? (
               <Text style={styles.loginText}>I like this place</Text>
             ) : (
               <Text style={styles.loginText}>I dislike this place</Text>
@@ -56,7 +64,11 @@ class FeedbackForm extends React.Component {
                 name="thumbs-up"
                 backgroundColor="#ffffff"
                 color="#F277C6"
-                onPress={() => this.setState({ liked: true })}
+                onPress={() =>
+                  this.setState({
+                    feedback: { ...this.state.feedback, liked: true },
+                  })
+                }
               >
                 I liked this place
               </Icon.Button>
@@ -67,7 +79,9 @@ class FeedbackForm extends React.Component {
                 backgroundColor="#ffffff"
                 color="#F277C6"
                 onPress={() => {
-                  this.setState({ liked: false });
+                  this.setState({
+                    feedback: { ...this.state.feedback, liked: false },
+                  });
                 }}
               >
                 I disliked this place
@@ -96,7 +110,7 @@ class FeedbackForm extends React.Component {
             <Text>Return to Trip</Text>
           </TouchableHighlight>
         </Modal>
-        <View style={{ textAlign: "center" }}>
+        <View style={{ textAlign: 'center' }}>
           <Icon.Button
             name="pencil"
             backgroundColor="rgba(255, 255, 255, 1)"
@@ -105,7 +119,7 @@ class FeedbackForm extends React.Component {
               this.setModalVisible(true);
             }}
           >
-            Submit Feedback
+            Submit Feedback and Continue
           </Icon.Button>
         </View>
       </View>
@@ -113,13 +127,17 @@ class FeedbackForm extends React.Component {
   }
 }
 
-//This thunk doesn't exist yet
+const mapStateToProps = state => ({
+  currentTripId: state.currentTrip.trip.id,
+  currentPlaceId: state.currentTrip.lastPlaceId,
+});
+
 const mapDispatchToProps = dispatch => ({
-  submitFeedback: (feedbackText, liked) =>
-    dispatch(submitFeedback(feedbackText, liked))
+  submitFeedback: (placeId, tripId, feedback) =>
+    dispatch(submitFeedback(placeId, tripId, feedback)),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(FeedbackForm);

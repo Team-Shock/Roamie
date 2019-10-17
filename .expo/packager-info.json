@@ -1,1 +1,9 @@
-{}
+{
+  "devToolsPort": 19002,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": "https://ez-s8t.anonymous.roamie.exp.direct",
+  "packagerNgrokUrl": "https://packager.ez-s8t.anonymous.roamie.exp.direct",
+  "ngrokPid": 93385
+}

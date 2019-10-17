@@ -126,7 +126,38 @@ router.post('/places/:tripId', async (req, res, next) => {
     });
 
     res.json(trips[0]);
+  } catch (error) {
+    next(error);
+  }
+});
 
+router.put('/:tripId/:placeId', async (req, res, next) => {
+  try {
+    console.log(
+      'REQ TRIPID:',
+      req.params.tripId,
+      'REQ PLACE ID: ',
+      req.params.placeId,
+      'REQ BODY',
+      req.body
+    );
+    const tripPlace = await TripPlaces.findOne({
+      where: {
+        tripId: req.params.tripId,
+        placeId: req.params.placeId,
+      },
+    });
+    let rating;
+    if (req.body.feedback.liked) {
+      rating = 'thumbs up';
+    } else {
+      rating = 'thumbs down';
+    }
+    await tripPlace.update({
+      rating: rating,
+      notes: req.body.feedback.feedbackText,
+    });
+    res.json(tripPlace);
   } catch (error) {
     next(error);
   }
