@@ -2,12 +2,12 @@
   "name": "roamie",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
+    "start-client": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "start-server": "node server/index.js",
+    "start": "node server/index.js",
     "test": "NODE_ENV='test' mocha \"./script/*.spec.js\" \"./server/**/*.spec.js\" \"./client/**/*.spec.js\"",
     "seed": "node script/seed.js",
     "both": "npm run start-server && npm run start"
