@@ -35,7 +35,6 @@ export const getPreferences = id => async dispatch => {
 
 export const setPreferences = (id, preferences) => async dispatch => {
   try {
-    console.log("FROM THE THUNK", preferences);
     const instance = await PostgresWrapper.getInstance();
     const { data } = await instance.put(
       `/api/preferences/${id}/change`,

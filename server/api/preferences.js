@@ -4,7 +4,6 @@ const { Preferences, User, UserPreferences } = require("../db/models");
 
 router.put("/:userId/change", async (req, res, next) => {
   try {
-    console.log("REQ BODY FROM API !!!!!!", req.body);
     let preferencesArr = req.body;
     newPreferences = await Promise.all(
       preferencesArr.map(pref => {
