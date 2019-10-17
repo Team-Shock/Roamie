@@ -7,14 +7,18 @@ const GOT_CURRENT_TRIP = 'GOT_CURRENT_TRIP';
 const STARTED_TRIP = 'STARTED_TRIP';
 const ADDED_TO_ROUTE = 'ADDED_TO_ROUTE';
 const GOT_OPTIONS = 'GOT_OPTIONS';
+const SUBMITTED_FEEDBACK = 'SUBMITTED_FEEDBACK';
+const ENDED_TRIP = 'ENDED_TRIP';
 
 //INITIAL STATE
 const initialState = {
   trip: {},
   route: [],
-  currentLatLong: {},
+  currentLatLong: { latitude: 40.704385, longitude: -74.009806 },
   inTransit: false,
   options: [],
+  currentPlace: {},
+  lastPlaceId: null,
 };
 
 //ACTION CREATORS
@@ -26,6 +30,12 @@ const startedTrip = (trip, location) => ({
 });
 const addedToRoute = (trip, place) => ({ type: ADDED_TO_ROUTE, trip, place });
 const gotOptions = options => ({ type: GOT_OPTIONS, options });
+const submittedFeedback = (placeId, feedback) => ({
+  type: SUBMITTED_FEEDBACK,
+  placeId,
+  feedback,
+});
+const endedTrip = () => ({ type: ENDED_TRIP });
 
 //THUNK CREATORS
 
@@ -80,6 +90,30 @@ export const getOptions = (params, location) => async dispatch => {
   }
 };
 
+export const submitFeedback = (placeId, tripId, feedback) => async dispatch => {
+  try {
+    const instance = await PostgresWrapper.getInstance();
+    const { data } = await instance.put(`/api/trips/${tripId}/${placeId}`, {
+      feedback,
+    });
+
+    dispatch(submittedFeedback());
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const endTrip = tripId => async dispatch => {
+  try {
+  
+    const instance = await PostgresWrapper.getInstance();
+    const { data } = await instance.put(`api/trips/end/${tripId}`);
+    dispatch(endedTrip());
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 //REDUCER
 
 const currentTrip = (state = initialState, action) => {
@@ -95,6 +129,8 @@ const currentTrip = (state = initialState, action) => {
       };
     case GOT_OPTIONS:
       return { ...state, options: action.options };
+    case SUBMITTED_FEEDBACK:
+      return { ...state, inTransit: false };
     case ADDED_TO_ROUTE:
       return {
         ...state,
@@ -103,7 +139,11 @@ const currentTrip = (state = initialState, action) => {
         currentLatLong: action.place.coordinates,
         inTransit: true,
         route: [...state.route, action.place.coordinates],
+        currentPlace: action.place,
+        lastPlaceId: action.trip.places[action.trip.places.length - 1].id,
       };
+    case ENDED_TRIP:
+      return initialState;
     default:
       return state;
   }

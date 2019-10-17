@@ -3,8 +3,6 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
-
-  "urlRandomness": "vx-a8z",
-
+  "urlRandomness": "ez-s8t",
   "https": false
 }
