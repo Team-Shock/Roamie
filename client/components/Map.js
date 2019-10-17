@@ -27,7 +27,6 @@ class Map extends Component {
   }
 
   async componentDidMount() {
-      console.log("COmponent did componentDidMount")
     //watch the position of the user
     await navigator.geolocation.watchPosition(position => {
       const { coordinate, routeCoordinates, distanceTravelled } = this.state;
@@ -53,13 +52,6 @@ class Map extends Component {
   };
 
   render() {
-    console.log(
-      'OPTIONS PROPS IN MAP COMPONENT:',
-      this.props.options.businesses
-    );
-    console.log('LAT/LONG STATE IN MAP COMPONENT:', this.state.location);
-    console.log('Route Coordinates:', this.state.routeCoordinates);
-
     return (
       <View style={styles.mapcontainer}>
         <MapView
