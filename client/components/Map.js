@@ -52,11 +52,6 @@ class Map extends Component {
   };
 
   render() {
-    console.log(
-      'OPTIONS PROPS IN MAP COMPONENT:',
-      this.props.options.businesses
-    );
-    console.log('LAT/LONG STATE IN MAP COMPONENT:', this.state.location);
     return (
       <View style={styles.mapcontainer}>
         <MapView

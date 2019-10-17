@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import { startTrip, getCurrentTrip } from '../store/currentTrip';
 import defaultCategories from '../../utils/defaultCategories';
 import Map from './Map';
+import { TripLogMap } from './TripLogMap';
 
 class StartTrip extends Component {
   constructor() {
@@ -28,25 +29,31 @@ class StartTrip extends Component {
 
 
   render() {
+
     return (
       <View>
-        <Map />
         {this.props.currentTrip.id ? (
           <View>
-            <PlaceCarousel
-              data={defaultCategories}
-              location={this.state.location}
-            />
+            <TripLogMap startLat={this.props.currentTrip.startLat} startLong={this.props.currentTrip.startLong} places={this.props.currentTrip.places}/>
+            <View>
+              <PlaceCarousel
+                    data={defaultCategories}
+                    location={this.state.location}
+              />
+            </View>
           </View>
         ) : (
-          <View style={styles.buttonContainer}>
-            <Button
-              style={styles.button}
-              onPress={() =>
-                this.props.startTrip(this.props.user.id, this.state.location)
-              }
-              title="Start a Trip"
-            />
+          <View>
+            <TripLogMap startLat={this.state.location.latitude} startLong={this.state.location.longitude}/>
+            <View style={styles.buttonContainer}>
+              <Button
+                style={styles.button}
+                onPress={() =>
+                  this.props.startTrip(this.props.user.id, this.state.location)
+                }
+                title="Start a Trip"
+              />
+            </View>
           </View>
         )}
       </View>

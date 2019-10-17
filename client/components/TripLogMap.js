@@ -7,54 +7,39 @@ import MapView, {
 } from "react-native-maps";
 import { StyleSheet, Text, View, Image, FlatList, Button, Modal, TouchableOpacity, TouchableHighlight } from "react-native";
 import { styles } from "../../Styles/styles";
-import Geocoder from 'react-native-geocoding';
 import Icon from "react-native-vector-icons/FontAwesome";
+import {connect} from 'react-redux'
 
 
 export class TripLogMap extends Component {
   constructor(props) {
     super(props);
-    Geocoder.init("AIzaSyDFtJUTkoeUoQjChhPxkjNxAOnrDLxXBYo");
     this.state = {
         markers: [],
         routeCoordinates: [],
-        modalVisible: false,
-        mapView: false
+   
     }
-    this.addMarker = this.addMarker.bind(this);
-  }
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
+    this.addRoute = this.addRoute.bind(this);
   }
 
-  async addMarker(location, title){
-    try{
-      let json = await Geocoder.from(location)
-      var location = json.results[0].geometry.location;
+  addRoute(latitude, longitude){
+   
       const newCoordinate = {
-        latitude: location.lat,
-        longitude : location.lng
+        latitude: latitude,
+        longitude : longitude
       };
-      const pin =
-      {
-        latitude: newCoordinate.latitude,
-        longitude: newCoordinate.longitude,
-        title: title
-      }
-      let pins = this.state.markers;
-      pins.push(pin);
-      this.setState({ markers: pins, 
-                    routeCoordinates: this.state.routeCoordinates.concat([newCoordinate])})
-    }
-    catch(error){
-       console.warn(error);
-    };
+
+      this.setState({ routeCoordinates: [...this.state.routeCoordinates,newCoordinate ]})
+
   }
+  
   async componentDidMount(){
+    if(this.props.places && this.props.places.length > 0){
       let places = this.props.places;
       for(let i = 0; i< places.length; i++){
-          await this.addMarker(places[i].locationAddress, places[i].name)
+          await this.addRoute(places[i].locationLat, places[i].locationLong)
       }
+    }
   }
   
   render() {
@@ -64,43 +49,51 @@ export class TripLogMap extends Component {
     return (
         <View>
         {startLatitude ?
-            <View>
-                <View style={styles.mapcontainerModal}>
+                <View style={styles.mapcontainer}>
                 <MapView
                     style={styles.map}
                     provider={PROVIDER_GOOGLE}
                     region={{
                     latitude: startLatitude,
                     longitude: startLongitude,
-                    latitudeDelta: 0.02,
-                    longitudeDelta: 0.02
+                    latitudeDelta: 0.1,
+                    longitudeDelta: 0.1
                     }}
                     showsUserLocation={true}
                     followsUserLocation={true}
                     showsMyLocationButton={true}
                     zoomEnabled={true}
                 >
-                {
-                    this.state.markers.map((marker, idx) => {
-                        return (
-                            <Marker
-                                key={idx}
-                                coordinate={{latitude: marker.latitude,
-                                longitude: marker.longitude}}
-                                title={marker.title}
-                                description={marker.subtitle}
+
+                {this.props.places ? this.props.places.map(place => { return (
+                  <Marker
+                                key={place.uniqueId}
+                                coordinate={{latitude: place.locationLat,
+                                longitude: place.locationLong}}
+                                title={place.name}
                             />
-                        )
-                    })
-                }
+
+                )
+                  
+                }) : null }
                 <Polyline
                     coordinates={this.state.routeCoordinates}
                     strokeWidth={3}
                 />
                 </MapView>
                 </View>
-            </View> : null}
+            : null}
          </View>      
       );
     }
 }
+
+const mapStateToProps = state => ({
+  options: state.options.options,
+  user: state.user,
+  currentTrip: state.currentTrip,
+});
+
+export default connect(
+  mapStateToProps
+)(Map);

@@ -51,18 +51,18 @@ export class SingleTrip extends Component {
   render() {
     let trip = this.props.tripInfo;
     let notes = this.props.notes;
+    console.log(trip.places);
 
     return (
-      <View style={styles.screenContainer}>
+      <View style={{ marginTop: 60, marginBottom: 50 }}>
         <View>
           <Text style={styles.eventTitle}>{trip.name}</Text>
           <Text style={styles.eventP}>
-            Start Date: {this.getFormattedDate(trip.startDate)}
+            {this.getFormattedDate(trip.startDate)}
+            {" to "}
+            {this.getFormattedDate(trip.endDate)}
           </Text>
-          <Text style={styles.eventP}>
-            End Date: {this.getFormattedDate(trip.endDate)}
-          </Text>
-          <View>
+          <View style={{ alignItems: "center" }}>
             <Modal
               animationType="slide"
               transparent={false}
@@ -71,14 +71,16 @@ export class SingleTrip extends Component {
                 Alert.alert("Modal has been closed.");
               }}
             >
-              <View>
+              <View style={{ marginTop: 80 }}>
                 <TripLogMap
+                  style={{ marginTop: 80 }}
                   startLat={trip.startLat}
                   startLong={trip.startLong}
                   places={trip.places}
                 />
               </View>
               <TouchableHighlight
+                style={{ marginTop: 20 }}
                 onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
                 }}
@@ -88,72 +90,74 @@ export class SingleTrip extends Component {
               </TouchableHighlight>
             </Modal>
 
-            <TouchableHighlight
+            <Icon.Button
+              name="map"
+              backgroundColor="#ffffff"
+              color="#F277C6"
               onPress={() => {
                 this.setModalVisible(true);
               }}
+              style={{ textAlign: "center" }}
             >
-              <Icon.Button
-                name="map"
-                backgroundColor="#ffffff"
-                color="#F277C6"
-                onPress={() => {
-                  this.setModalVisible(true);
-                }}
-              >
-                Map
-              </Icon.Button>
-            </TouchableHighlight>
+              Map
+            </Icon.Button>
           </View>
           <ScrollView contentContainerStyle={{ flex: 1 }}>
             <View style={{ alignItems: "center" }}>
               {trip.places &&
                 trip.places.map(place => (
                   <View style={styles.tripLogRow} key={place.id}>
-                    <Image
+                    <ImageBackground
                       source={{ uri: place.imageUrl }}
-                      style={styles.tripImage}
-                    />
-                    <View>
-                      <Text style={styles.eventTitle}>{place.name}</Text>
+                      style={{ width: "100%", height: "100%" }}
+                    >
+                      <View style={styles.tripLogTextContainer}>
+                        <Text style={styles.eventTitle}>{place.name}</Text>
 
-                      <Text style={styles.eventP}>
-                        Description: {place.description}
-                      </Text>
-                      <Text style={styles.eventP}>
-                        Date: {this.getFormattedDate(place.date)}
-                      </Text>
-                      <Text style={styles.eventP}>
-                        Location: {place.locationAddress}
-                      </Text>
-                    </View>
-                    {notes &&
-                      this.getNoteOnPlace(place.id).map(placeNotes => (
-                        <View key={place.id + Number(placeNotes)}>
-                          {placeNotes.rating === "thumbs up" ? (
-                            <Icon style={styles.tripLogIcon} name="thumbs-up" />
-                          ) : (
-                            <Icon
-                              style={styles.tripLogIcon}
-                              name="thumbs-down"
-                            />
-                          )}
-                          <Text style={styles.tripLogText}>
-                            {placeNotes.notes}
-                          </Text>
-                        </View>
-                      ))}
+                        <Text style={styles.tripLogText}>
+                          Description: {place.description}
+                        </Text>
+                        <Text style={styles.tripLogText}>
+                          Date: {this.getFormattedDate(place.date)}
+                        </Text>
+                        <Text style={styles.tripLogText}>
+                          Location: {place.locationAddress}
+                        </Text>
+                      </View>
+
+                      {notes &&
+                        this.getNoteOnPlace(place.id).map(placeNotes => (
+                          <View
+                            style={{ backgroundColor: "#ffffff" }}
+                            key={place.id + Number(placeNotes)}
+                          >
+                            {placeNotes.rating === "thumbs up" ? (
+                              <Icon
+                                style={styles.tripLogIcon}
+                                name="thumbs-up"
+                              />
+                            ) : (
+                              <Icon
+                                style={styles.tripLogIcon}
+                                name="thumbs-down"
+                              />
+                            )}
+                            <Text style={styles.tripLogText}>
+                              {placeNotes.notes}
+                            </Text>
+                          </View>
+                        ))}
+                    </ImageBackground>
                   </View>
                 ))}
-              <View style={styles.loginButtonContainer}>
-                <Icon.Button
-                  name="envelope"
-                  backgroundColor="#ffffff"
-                  color="#F277C6"
-                >
-                  Share this trip!
-                </Icon.Button>
-              </View>
+
+              <Icon.Button
+                name="envelope"
+                backgroundColor="#ffffff"
+                color="#F277C6"
+              >
+                Share this trip!
+              </Icon.Button>
             </View>
           </ScrollView>
         </View>
