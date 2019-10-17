@@ -73,19 +73,21 @@ const aznzPlaces = [
     description: "Coastal Walk",
     date: "2015-12-16 12:00:00",
     locationAddress: "Bondi Beach, Sydney, Australia",
-    locationLat: -33.8915,
-    locationLong: 151.2767,
+    locationLat: -33.8914755,
+    locationLong: 151.2766845,
+    uniqueId: 'bondibeach',
     visibility: "true"
   },
   {
     name: 'Park Hyatt Sydney',
     imageUrl:
-      "https://www.sydneycoastwalks.com.au/wp-content/uploads/2015/07/BondiCoogeewalk.jpg",
+      "https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2017/08/02/1655/Park-Hyatt-Sydney-P115-Exterior-Vertical.jpg/Park-Hyatt-Sydney-P115-Exterior-Vertical.16x9.jpg",
     description: "Park Hyatt Hotel centrally located",
     date: "2015-12-16 12:30:00",
     locationAddress: "7 Hickson Rd, The Rocks NSW 2000, Australia",
-    locationLat: -34.5270929,
-    locationLong: 150.2434099,
+    locationLat: -33.8557235,
+    locationLong: 151.2097888,
+    uniqueId: 'parkhyattsydney',
     visibility: "true"
   },
   {
@@ -95,8 +97,8 @@ const aznzPlaces = [
     description: '',
     date: '2015-12-17 12:30:00',
     locationAddress: 'Milford Sound, New Zealand',
-    // locationLat: '9.938935',
-    // locationLong: '-84.076361',
+    locationLat: '-44.6231374',
+    locationLong: '167.7842511',
     visibility: 'true',
   },
   {
@@ -106,8 +108,8 @@ const aznzPlaces = [
     description: '',
     date: '2015-12-18 12:30:00',
     locationAddress: 'Queenstown, NZ',
-    // locationLat: '9.938935',
-    // locationLong: '-84.076361',
+    locationLat: '-45.0244634',
+    locationLong: '168.6218146',
     visibility: 'true',
   },
 ];
