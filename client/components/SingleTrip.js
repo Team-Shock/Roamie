@@ -6,7 +6,8 @@ import {
   ScrollView,
   Modal,
   TouchableHighlight,
-  Share
+  Share,
+  ImageBackground
 } from "react-native";
 import { styles } from "../../Styles/styles";
 import { connect } from "react-redux";
@@ -68,7 +69,6 @@ export class SingleTrip extends Component {
   render() {
     let trip = this.props.tripInfo;
     let notes = this.props.notes;
-    console.log(trip.places);
 
     return (
       <View style={{ marginTop: 60, marginBottom: 50 }}>
