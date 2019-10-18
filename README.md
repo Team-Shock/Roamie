@@ -8,6 +8,10 @@ Roamie accompanies users as they explore their home city or a city they're just 
 
 Roamie can remind a user of a beautiful day they spent in their hometown, or help tell the story of the spots they visited while adventuring away from home.
 
+# See Roamie in Action:
+
+[Beta Test Version](https://youtu.be/0EBBcBKeCWc)
+
 # Product Features
 
 - Login or Signup with e-mail or Facebook account
@@ -28,9 +32,6 @@ Roamie can remind a user of a beautiful day they spent in their hometown, or hel
   - Once a trip is ended, it's added to the user's trip log
   - Generate a shareable link to send your trip notes and stops via email
 
-# See Roamie in Action:
-
-[Beta Test Version](https://youtu.be/xWQxHKG9an4)
 
 # How to run
 
