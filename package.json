@@ -34,7 +34,7 @@
     "expo-location": "^7.0.0",
     "expo-permissions": "^7.0.0",
     "expo-web-browser": "^7.0.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.16.2",
     "haversine": "^1.1.1",
     "luxon": "^1.19.3",
